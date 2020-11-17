@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "d860972a-8315-4830-99f7-c90c6d237397",
+		"name": "dbc_connector",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "kong_configuration",
+			"item": [
+				{
+					"name": "create-service",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "dbc-api",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "http://api:8300",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/services",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-route",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "hosts",
+									"value": "dbc-api.local",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/services/dbc-api/routes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"services",
+								"dbc-api",
+								"routes"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "api_consumer",
+			"item": [
+				{
+					"name": "get-images",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Host",
+								"value": "dbc-api.local",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/images",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-image-200",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Host",
+								"type": "text",
+								"value": "dbc-api.local"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/images/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"images",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-image-404",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Host",
+								"type": "text",
+								"value": "dbc-api.local"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/images/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"images",
+								"100"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
