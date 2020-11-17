@@ -9,7 +9,7 @@
 			"name": "kong_configuration",
 			"item": [
 				{
-					"name": "create-service",
+					"name": "step 1 - create-service",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -43,7 +43,7 @@
 					"response": []
 				},
 				{
-					"name": "create-route",
+					"name": "step 2 - create-route",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -72,6 +72,99 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "step 3 - add-service-plugin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "key-auth",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/services/dbc-api/plugins/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"services",
+								"dbc-api",
+								"plugins",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "step 4 - add-consumer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "apiconsume",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/consumers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"consumers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "step 5 - add-key",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "key",
+									"value": "api-key",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/consumers/apiconsume/key-auth/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"consumers",
+								"apiconsume",
+								"key-auth",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -87,6 +180,11 @@
 							{
 								"key": "Host",
 								"value": "dbc-api.local",
+								"type": "text"
+							},
+							{
+								"key": "apikey",
+								"value": "api-key",
 								"type": "text"
 							}
 						],
@@ -113,6 +211,11 @@
 								"key": "Host",
 								"type": "text",
 								"value": "dbc-api.local"
+							},
+							{
+								"key": "apikey",
+								"value": "api-key",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -139,6 +242,11 @@
 								"key": "Host",
 								"type": "text",
 								"value": "dbc-api.local"
+							},
+							{
+								"key": "apikey",
+								"value": "api-key",
+								"type": "text"
 							}
 						],
 						"url": {

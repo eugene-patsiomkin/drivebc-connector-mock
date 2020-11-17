@@ -16,9 +16,7 @@ If running for the first time:
 
 Open postman collection ```postman\dbc_connector.postman_collection.json```
 
-Run ```kong_configuration\create-service``` request.
-
-Run ```kong_configuration\create-route``` request.
+Run **Step 1** through **Step 5** requests in ```kong_configuration```.
 
 ### Using API
 
