@@ -5,12 +5,12 @@ info:
 servers:
   - url: https://api.server.test/v1
 tags:
+  - name: Administration
+    description: Endpoints to be consumed through administration ui
   - name: Profile
     description: Profile storage API
   - name: Schema
     description: Schema storage API
-  - name: Administration
-    description: Endpoints to be consumed through administration ui
 paths:
   /profiles:
     get:
@@ -229,6 +229,35 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Profile"
+  /profiles/{owner_id}:
+    get:
+      tags: [Profile, Administration]
+      description: Return list of profiles by user
+      parameters:
+        - in: path
+          name: owner_id
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: application_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Profile"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Profile"
   /schemas:
     get:
       tags: [Schema, Administration]
@@ -369,10 +398,6 @@ components:
     ProfileReq:
       type: object
       properties:
-        validation_schema_name:
-          type: string
-          description: URI safe string 
-          example: color_choice_profile.v1
         owner_id:
           type: string
           description: Owner id as defined by application
@@ -380,15 +405,19 @@ components:
           type: string
           description: JSON string for a profile.
           example: '{"str_property":"value1","bool_property":true,"obj_property":{},"array_property":[]}'
+        validation_schema_name:
+          type: string
+          description: URI safe string 
+          example: color_choice_profile.v1
       required: [validation_schema_name, owner_id, profile]
     Profile:
       type: object
       allOf:
         - $ref: "#/components/schemas/ProfileReq"
-      properties:
-        id:
-          type: string
-          description: uuid
+        - properties:
+            id:
+              type: string
+              description: uuid
     SchemaReq:
       type: object
       properties:
