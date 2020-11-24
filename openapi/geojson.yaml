@@ -1,0 +1,147 @@
+components:
+  schemas:
+    FeatureCollectionEvents:
+      type: object
+      properties:
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/Feature'
+    FeatureEvent:
+      type: object
+      description: GeoJSON Feature
+      properties:
+        id:
+          type: object
+        type:
+          type: string
+          enum: [ Feature ]
+        geometry:
+          $ref: '#/components/schemas/Geometry'
+        properties:
+          type: object
+          additionalProperties:
+            type: object
+    Geometry:
+      type: object
+      description:  GeoJSON geometry
+      discriminator: type
+      externalDocs:
+        url: http://GeoJSON.org/GeoJSON-spec.html#geometry-objects
+      properties:
+        dimensions:
+          description: The number of dimensions
+          type: integer
+        type:
+          $ref: '#/components/schemas/GeometryType'
+    GeometryType:
+      type: string
+      enum:
+        - Point
+        - LineString
+        - Polygon
+        - MultiPoint
+        - MultiLineString
+        - MultiPolygon
+      description:  the geometry type
+    Point2D:
+      type: array
+      maxItems: 2
+      minItems: 2
+      items:
+        type: number
+    Point:
+      type: object
+      description:  GeoJSON geometry
+      externalDocs:
+        url: http://GeoJSON.org/GeoJSON-spec.html#id2
+      allOf:
+        - $ref: "#/components/schemas/Geometry"
+        - properties:
+            coordinates:
+              $ref: '#/components/schemas/Point2D'
+    LineString:
+      type: object
+      description:  GeoJSON geometry
+      externalDocs:
+        url: http://GeoJSON.org/GeoJSON-spec.html#id3
+      allOf:
+        - $ref: "#/components/schemas/Geometry"
+        - properties:
+            coordinates:
+              type: array
+              items:
+                $ref: '#/components/schemas/Point2D'
+    Polygon:
+      type: object
+      description:  GeoJSON geometry
+      externalDocs:
+        url: http://GeoJSON.org/GeoJSON-spec.html#id4
+      allOf:
+        - $ref: "#/components/schemas/Geometry"
+        - properties:
+            coordinates:
+              type: array
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Point2D'
+    MultiPoint:
+      type: object
+      description:  GeoJSON geometry
+      externalDocs:
+        url: http://GeoJSON.org/GeoJSON-spec.html#id5
+      allOf:
+        - $ref: "#/components/schemas/Geometry"
+        - properties:
+            coordinates:
+              type: array
+              items:
+                $ref: '#/components/schemas/Point2D'
+    MultiLineString:
+      type: object
+      description: GeoJSON geometry
+      externalDocs:
+        url: http://GeoJSON.org/GeoJSON-spec.html#id6
+      allOf:
+        - $ref: "#/components/schemas/Geometry"   
+        - properties:
+            coordinates:
+              type: array
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Point2D'
+    MultiPolygon:
+      type: object
+      description: GeoJSON geometry
+      externalDocs:
+        url: http://GeoJSON.org/GeoJSON-spec.html#id6
+      allOf:
+        - $ref: "#/components/schemas/Geometry"
+        - properties:
+            coordinates:
+              type: array
+              items:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Point2D'
+    GeometryCollection:
+      type: object
+      description: GeoJSON geometry collection
+      required:
+      - type
+      - geometries
+      externalDocs:
+        url: http://GeoJSON.org/GeoJSON-spec.html#geometrycollection
+      properties:
+        type:
+          type: string
+          enum:
+          - GeometryCollection
+        geometries:
+            type: array
+            items:
+              $ref: '#/components/schemas/Geometry'
