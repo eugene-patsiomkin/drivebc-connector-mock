@@ -1,7 +1,7 @@
 openapi: '3.0.2'
 info:
-  title: API Title
-  version: '1.0'
+  title: API Events
+  version: '0.1.0'
 servers:
   - url: https://api.server.test/v1
 tags:
@@ -12,7 +12,7 @@ tags:
   - name: Geofence
     description: Geofence api
 paths:
-  /geofence:
+  /geofence/{id}:
     get:
       description: Get list of available event tags
       tags: [Geofence]
@@ -26,7 +26,6 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Geofence'
-
   /event-tags:
     get:
       description: Get list of available event tags
@@ -146,6 +145,13 @@ components:
             type: string
             description: UUID for entity identification
             example: e69f50d6-2dab-11eb-adc1-0242ac120002
+          tags:
+            type: array
+            items: 
+              $ref: '#/components/schemas/GeofenceTag'
+              discriminator:
+                propertyName: type
+
           geometry:
             $ref: '#/components/schemas/Geometry'
           radius:
@@ -162,19 +168,31 @@ components:
             example: CONSTRUCTION
           type:
             type: string
-            enum: [event, geofence]
+            enum: [Event, Geofence]
           description:
             type: string
             description: Type description
+    GeofenceTag:
+      allOf:
+        - type: object
+        - $ref: "#/components/schemas/Tag"
+      properties:
+        id:
+          example: HWY 1      
+        type:
+          type: string
+          enum: [Geofence]
     EventTag:
       allOf:
         - type: object
         - $ref: "#/components/schemas/Tag"
       properties:
+        type:
+          type: string
+          enum: [Event]
         level:
           type: integer
           enum: [1, 2, 3]
-
     Event:
       allOf:
         - type: object
