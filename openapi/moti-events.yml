@@ -222,21 +222,17 @@ components:
               type: boolean
             active: 
               type: boolean
-        timestamps:
-          type: object
-          properties:
-            created_on:
-              type: string
-              example: "2017-08-10 10:30:20.15 US/Pacific PDT"
-            updated_on:
-              type: string
-              example: "2017-08-10 10:30:20.15 US/Pacific PDT"
-            starts_on: 
-              type: string
-              example: "2017-08-10 10:30:20.15 US/Pacific PDT"
-            ends_by: 
-              type: string
-              example: "2017-08-10 10:30:20.15 US/Pacific PDT"
+        schedule:
+          type: array
+          items:
+            type: object
+            properties:
+              starts_on: 
+                type: string
+                example: "2017-08-10 10:30:20.15 US/Pacific PDT"
+              ends_by: 
+                type: string
+                example: "2017-08-10 10:30:20.15 US/Pacific PDT"
         info:
           type: object
           properties:
@@ -258,6 +254,13 @@ components:
                 example: http://google.com/search?q=covid19
             additionalProperties:
               type: object
+        created_on:
+          type: string
+          example: "2017-08-10 10:30:20.15 US/Pacific PDT"
+        updated_on:
+          type: string
+          example: "2017-08-10 10:30:20.15 US/Pacific PDT"
+
     EventsCollection:
       allOf:
         - type: object
