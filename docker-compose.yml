@@ -2,6 +2,7 @@ version: '3.7'
 
 volumes:
   kong_data: {}
+  mongodbdata: {}
 
 networks:
   kong-net:
@@ -91,7 +92,24 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-    
+  mongodb:
+    image: mongo:4.4
+    container_name: event_db_mongo
+    environment:
+      - MONGO_INITDB_DATABASE=event-db
+      - MONGO_INITDB_ROOT_USERNAME=eventroot
+      - MONGO_INITDB_ROOT_PASSWORD=eventpassword
+    networks:
+      - kong-net
+    volumes:
+      - mongodbdata:/var/lib/mongodb/data
+      - ./mongodb-init.js:/docker-entrypoint-initdb.d/users.js:ro
+    ports:
+      - '27017-27019:27017-27019'
+    restart: on-failure
+    deploy:
+      restart_policy:
+        condition: on-failure
   db:
     image: postgres:9.5
     environment:
