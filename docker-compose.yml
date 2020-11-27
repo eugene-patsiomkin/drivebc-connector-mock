@@ -9,14 +9,24 @@ networks:
     external: false
 
 services:
-
   # API image
   api:
+    container_name: sample_api_app
     image: sample-api-dbc
     build: ./api
     networks: 
       - kong-net
-
+  moti-events:
+    container_name: event_api_app
+    image: events-api
+    build: ./events-endpoint-api
+    networks: 
+      - kong-net
+    depends_on:
+      - mongodb
+    environment:
+      - MOTI_API_MONGO_DB_HOST=mongodb
+      - MOTI_API_EVENTS_PORT=8080
   kong-migrations:
     image: "${KONG_DOCKER_TAG:-kong:latest}"
     command: kong migrations bootstrap
@@ -58,6 +68,7 @@ services:
         condition: on-failure
 
   kong:
+    container_name: api_middleware_kong
     image: "${KONG_DOCKER_TAG:-kong:latest}"
     user: "${KONG_USER:-kong}"
     depends_on:
@@ -111,6 +122,7 @@ services:
       restart_policy:
         condition: on-failure
   db:
+    container_name: api_middleware_db_postgres
     image: postgres:9.5
     environment:
       POSTGRES_DB: ${KONG_PG_DATABASE:-kong}

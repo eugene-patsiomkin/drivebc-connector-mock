@@ -9,6 +9,176 @@
 			"name": "kong_configuration",
 			"item": [
 				{
+					"name": "events_setup",
+					"item": [
+						{
+							"name": "step 1 - create-service",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "moti.events.api",
+											"type": "text"
+										},
+										{
+											"key": "url",
+											"value": "http://moti-events:8080",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 2 - create-route",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "paths[]",
+											"value": "/api/events/v1",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "events-v1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services/moti.events.api/routes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"moti.events.api",
+										"routes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 3 - add-service-plugin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "key-auth",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services/moti.events.api/plugins/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"moti.events.api",
+										"plugins",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 4 - add-consumer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "drivebc",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/consumers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"consumers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 5 - add-key",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "key",
+											"value": "drivebc-api-key",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/consumers/drivebc/key-auth/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"consumers",
+										"drivebc",
+										"key-auth",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "step 1 - create-service",
 					"request": {
 						"method": "POST",
@@ -284,17 +454,32 @@
 								"key": "Accept",
 								"value": "application/xml",
 								"type": "text"
+							},
+							{
+								"key": "apikey",
+								"value": "drivebc-api-key",
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3836/events",
+							"raw": "http://localhost:8000/api/events/v1/events",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3836",
+							"port": "8000",
 							"path": [
+								"api",
+								"events",
+								"v1",
 								"events"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -314,17 +499,33 @@
 								"key": "Accept",
 								"type": "text",
 								"value": "application/xml"
+							},
+							{
+								"key": "apikey",
+								"value": "drivebc-api-key",
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3836/events",
+							"raw": "http://localhost:8000/api/events/v1/events/open511-evt123",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3836",
+							"port": "8000",
 							"path": [
-								"events"
+								"api",
+								"events",
+								"v1",
+								"events",
+								"open511-evt123"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -344,17 +545,32 @@
 								"key": "Accept",
 								"type": "text",
 								"value": "application/geo+json"
+							},
+							{
+								"key": "apikey",
+								"value": "drivebc-api-key",
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3836/events",
+							"raw": "http://localhost:8000/api/events/v1/events",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3836",
+							"port": "8000",
 							"path": [
+								"api",
+								"events",
+								"v1",
 								"events"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -374,18 +590,33 @@
 								"key": "Accept",
 								"type": "text",
 								"value": "application/geo+json"
+							},
+							{
+								"key": "apikey",
+								"value": "drivebc-api-key",
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3836/events/open511-evt123",
+							"raw": "http://localhost:8000/api/events/v1/events/open511-evt123",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3836",
+							"port": "8000",
 							"path": [
+								"api",
+								"events",
+								"v1",
 								"events",
 								"open511-evt123"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -405,17 +636,32 @@
 								"key": "Accept",
 								"type": "text",
 								"value": "application/json"
+							},
+							{
+								"key": "apikey",
+								"value": "drivebc-api-key",
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3836/events",
+							"raw": "http://localhost:8000/api/events/v1/events",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3836",
+							"port": "8000",
 							"path": [
+								"api",
+								"events",
+								"v1",
 								"events"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -435,18 +681,33 @@
 								"key": "Accept",
 								"type": "text",
 								"value": "application/json"
+							},
+							{
+								"key": "apikey",
+								"value": "drivebc-api-key",
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3836/events/open511-evt123",
+							"raw": "http://localhost:8000/api/events/v1/events/open511-evt123",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3836",
+							"port": "8000",
 							"path": [
+								"api",
+								"events",
+								"v1",
 								"events",
 								"open511-evt123"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -466,18 +727,33 @@
 								"key": "Accept",
 								"type": "text",
 								"value": "application/json"
+							},
+							{
+								"key": "apikey",
+								"value": "drivebc-api-key",
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3836/events/oh-no",
+							"raw": "http://localhost:8000/api/events/v1/events/oh-no",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3836",
+							"port": "8000",
 							"path": [
+								"api",
+								"events",
+								"v1",
 								"events",
 								"oh-no"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -487,10 +763,16 @@
 					"name": "create event",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "apikey",
+								"value": "drivebc-api-key",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"bid\": \"open511-evt321\",\r\n    \"schedule\": [\r\n        {\"starts_on\": \"2020-11-11 01:01:01\", \"ends_by\":  \"2020-12-11 01:01:01\"}\r\n    ],\r\n    \"type\": {\r\n        \"tags\": [\"ROAD_CLOSURE\", \"SOMETHING_SOMETHING\"]\r\n        , \"severity\":\"MINOR\"\r\n        , \"planned\": true\r\n        , \"active\": true\r\n    }\r\n    , \"geometry\" : {\r\n        \"type\": \"Point\"\r\n        , \"coordinates\" : [0.01, 0.02]\r\n    }\r\n}",
+							"raw": "{\r\n    \"bid\": \"open511-evt123\",\r\n    \"schedule\": [\r\n        {\"starts_on\": \"2020-11-11 01:01:01\", \"ends_by\":  \"2020-12-11 01:01:01\"}\r\n    ],\r\n    \"type\": {\r\n        \"tags\": [\"ROAD_CLOSURE\", \"SOMETHING_SOMETHING\"]\r\n        , \"severity\":\"MINOR\"\r\n        , \"planned\": true\r\n        , \"active\": true\r\n    }\r\n    , \"geometry\" : {\r\n        \"type\": \"Point\"\r\n        , \"coordinates\" : [0.01, 0.02]\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -498,14 +780,69 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3836/events",
+							"raw": "http://localhost:8000/api/events/v1/events",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3836",
+							"port": "8000",
 							"path": [
+								"api",
+								"events",
+								"v1",
 								"events"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "drivebc-api-key",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "apikey",
+								"value": "drivebc-api-key",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"schedule\": [\r\n        {\"starts_on\": \"2020-11-11 01:01:01\", \"ends_by\":  \"2020-12-11 01:01:01\"},\r\n        {\"starts_on\": \"2020-11-11 01:01:01\", \"ends_by\":  \"2020-12-11 01:01:01\"},\r\n        {\"starts_on\": \"2020-11-11 01:01:01\", \"ends_by\":  \"2020-12-11 01:01:01\"}\r\n    ],\r\n    \"type\": {\r\n        \"tags\": [\"COOL\", \"Wha\"]\r\n        , \"severity\":\"MINOR\"\r\n        , \"planned\": true\r\n        , \"active\": true\r\n    }\r\n    , \"geometry\" : {\r\n        \"type\": \"Point\"\r\n        , \"coordinates\" : [0.01, 0.02]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/events/v1/events/open511-evt123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"events",
+								"v1",
+								"events",
+								"open511-evt123"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},

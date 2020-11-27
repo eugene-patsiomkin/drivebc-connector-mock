@@ -1,8 +1,6 @@
 import express from "express";
 import Models from '../db.js'
-// import {
-//     create
-// } from "xmlbuilder2";
+import {NotFoundError} from '../errors.js'
 import js2xmlparser  from "js2xmlparser";
 
 import _isArray from 'lodash/isArray.js'
@@ -13,12 +11,12 @@ const Event = Models.Event;
 const EventsToXML = (evt) => {
     let getXMLEvent = e => js2xmlparser.parse("event", e).replace(/<\?xml.*\?>/i, '');
     let xml = '<?xml version="1.0"?>'
-    let cleanEvt = JSON.parse(JSON.stringify(evt));
-    if (!_isArray(cleanEvt)) {
-        xml += getXMLEvent(cleanEvt);
+    evt = JSON.parse(JSON.stringify(evt));
+    if (!_isArray(evt)) {
+        xml += getXMLEvent(evt);
     } else {
         xml+='<events>'
-        cleanEvt.forEach(e => xml += getXMLEvent(e));
+        evt.forEach(e => xml += getXMLEvent(e));
         xml+="</events>"
     }
 
@@ -27,7 +25,6 @@ const EventsToXML = (evt) => {
 
 const EventsToJeoJSONString = (evts) => {
     let mapEventToGeoJSON = e => {
-        e = JSON.parse(JSON.stringify(e));
         e.geometry = e.geometry || {};
         let feature = {
             type: "Feature",
@@ -86,51 +83,71 @@ const mapEventSuccess = (req, res, next) => {
     next();
 }
 
+let handleError = (err, res) => {
+    console.info(err.name);
+    switch (true) {
+        case err instanceof NotFoundError:
+            res.status(404).send(err.message).end();
+            break;
+        case err.name == 'ValidationError':
+            res.status(400).send(err).end();
+            break;
+        case err.name == 'MongoError':
+            res.status(400).send(err).end();
+            break;
+        default:
+            console.error(err);
+            res.status(500).send(err).end();
+    }
+}
+
 eventRouter.get('/', (req, res, next) => {
-    Event.find().exec(async (err, result) => {
-        if (err) {
-            res.json("Error").status('500').end();
-            console.log(err);
-        } else {
-            if (result) {
-                req.moti = {events: result};
-                next();
-            } else {
-                res.status('404').end();
-            }
-        }
-    });
+    Event.find().lean(true).exec()
+        .then(docs => {
+            if (!docs || docs == [])  throw new NotFoundError("Events not found");
+            req.moti = {events: docs};
+            next();
+        })
+        .catch((err) => handleError(err, res));
 }, mapEventSuccess);
 
 eventRouter.get('/:id', (req, res, next) => {
-    Event.findOne({bid: req.params.id}).exec(async (err, result) => {
-        if (err) {
-            res.json("Error").status('500').end();
-            console.log(err);
-        } else {
-            if (result) {
-                req.moti = {events: result};
-                next();
-            } else {
-                res.status('404').end();
-            }
-        }
-    });
+    Event.findOne({bid: req.params.id}).lean(true).exec()
+    .then(docs => {
+        if (!docs || docs == [])  throw new NotFoundError("Event not found");
+        req.moti = {events: docs};
+        next();
+    })
+    .catch((err) => handleError(err, res));
 }, mapEventSuccess);
 
 eventRouter.post("/", (req, res) => {
     let evt = new Event(req.body)
-    evt.save( async (err, val) => {
-        if (err) {
-            res.json(err).status('400').end();
-        } else {
-            if (val) {
-                res.status('200').json(val).end();
-            } else {
-                res.status('404').end();
-            }
-        }
-    });
+    evt.save()
+        .then(val => {
+            res.status('200').json(val).end()
+        })
+        .catch((err) => handleError(err, res));
+});
+
+eventRouter.put("/:id", (req, res, next) => {
+    let updateDocument = (doc, newDoc) => {
+        if (!doc) throw new NotFoundError("Event not found");
+        if (newDoc.schedule) doc.set("schedule", newDoc.schedule);
+        if (newDoc.type) doc.set("type", newDoc.type);
+        if (newDoc.geometry) doc.set("geometry", newDoc.geometry);
+        if (newDoc.info) doc.set("info", newDoc.info);
+        return doc.save();
+    }
+    
+    if (req.body.bid) {delete req.body.bid};
+    Event.findOne({bid: req.params.id}).exec()
+        .then((doc) => updateDocument(doc, req.body))
+        .then(val => {
+            res.status('200').json(val).end();
+            next();
+        })
+        .catch((err) => handleError(err, res));
 });
 
 export default eventRouter;

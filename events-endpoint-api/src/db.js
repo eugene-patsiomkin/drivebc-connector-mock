@@ -6,8 +6,10 @@ const Models = {
 };
 
 const connectDB = () => {
+    let host = process.env.MOTI_API_MONGO_DB_HOST || "localhost";
+    console.log(`Connecting monogo @ ${host}`);
     return mongoose.connect(
-        'mongodb://event-api:event-api@localhost:27017/event-db'
+        `mongodb://event-api:event-api@${host}:27017/event-db`
         , { useNewUrlParser: true, useUnifiedTopology: true});
 }
 
