@@ -1,7 +1,8 @@
 import express from "express";
-import {Models, connectDB} from './src/db.js'
+import {connectDB} from './src/db.js'
 import Routes from "./src/routes/index.js";
 import {swaggerDocument, swaggerUi} from './openapi/index.js'
+import bodyParser from "body-parser";
 
 
 
@@ -14,6 +15,11 @@ const config = {
 
 // Swagger setup
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+//Json api
+app.use(bodyParser.json({type: 'application/*+json'}));
+app.use(bodyParser.json({type: 'application/json'}));
+
 app.get('/ping', (req, res) => {
     res.status(200).json("pong");
 });
@@ -30,10 +36,4 @@ connectDB().then( async () => {
 
         console.log(`${config.name} is running on port ${config.port}`);
     });
-    // const event = new Models.Event();
-
-    // await event.save(function (err, doc) {
-    //     if (err) console.log(err.errors);
-    //     console.log('nooooooooooo', doc);
-    // });
 })

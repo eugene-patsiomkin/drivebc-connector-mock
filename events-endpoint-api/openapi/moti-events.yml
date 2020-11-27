@@ -104,11 +104,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/EventsCollection'
             application/json:
-              schema:
-                $ref: '#/components/schemas/Event'
+                schema:
+                  $ref: '#/components/schemas/EventArray'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Event'
+                $ref: '#/components/schemas/EventArray'
   /event/{id}:
     get:
       description: Get event by id.
@@ -193,6 +193,10 @@ components:
         level:
           type: integer
           enum: [1, 2, 3]
+    EventArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Event'
     Event:
       allOf:
         - type: object

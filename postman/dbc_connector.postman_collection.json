@@ -266,6 +266,253 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "events",
+			"item": [
+				{
+					"name": "get events xml",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3836/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3836",
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get events xml by bid",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/xml"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3836/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3836",
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get events geojson",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/geo+json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3836/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3836",
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get events geojson bid",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/geo+json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3836/events/open511-evt123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3836",
+							"path": [
+								"events",
+								"open511-evt123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get events json",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3836/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3836",
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get events json by bid",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3836/events/open511-evt123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3836",
+							"path": [
+								"events",
+								"open511-evt123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get events json by bid 404",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3836/events/oh-no",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3836",
+							"path": [
+								"events",
+								"oh-no"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bid\": \"open511-evt321\",\r\n    \"schedule\": [\r\n        {\"starts_on\": \"2020-11-11 01:01:01\", \"ends_by\":  \"2020-12-11 01:01:01\"}\r\n    ],\r\n    \"type\": {\r\n        \"tags\": [\"ROAD_CLOSURE\", \"SOMETHING_SOMETHING\"]\r\n        , \"severity\":\"MINOR\"\r\n        , \"planned\": true\r\n        , \"active\": true\r\n    }\r\n    , \"geometry\" : {\r\n        \"type\": \"Point\"\r\n        , \"coordinates\" : [0.01, 0.02]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3836/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3836",
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}

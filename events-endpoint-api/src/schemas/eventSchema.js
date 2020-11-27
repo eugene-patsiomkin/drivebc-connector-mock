@@ -2,6 +2,12 @@ import mongoose from 'mongoose'
 
 const eventSchema = new mongoose.Schema(
     {
+        bid : {
+            type: mongoose.Schema.Types.String,
+            required: true,
+            unique: true,
+            index: true
+        },
         schedule: {
             type: mongoose.Schema.Types.Array,
             validate: {
@@ -11,12 +17,12 @@ const eventSchema = new mongoose.Schema(
             items: {
                 type: mongoose.Schema.Types.Object,
                 properties: {
-                    start: {
+                    starts_on: {
                         type: mongoose.Schema.Types.String,
                         required: true,
                         index: true
                     },
-                    end: {
+                    ends_by: {
                         type: mongoose.Schema.Types.String,
                         required: true,
                         index: true
@@ -58,7 +64,6 @@ const eventSchema = new mongoose.Schema(
                 }
             }
         }
-
     },
     {
         timestamps: {
