@@ -179,162 +179,169 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "step 1 - create-service",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "dbc-api",
-									"type": "text"
+					"name": "generic",
+					"item": [
+						{
+							"name": "step 1 - create-service",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "dbc-api",
+											"type": "text"
+										},
+										{
+											"key": "url",
+											"value": "http://api:8300",
+											"type": "text"
+										}
+									]
 								},
-								{
-									"key": "url",
-									"value": "http://api:8300",
-									"type": "text"
+								"url": {
+									"raw": "http://localhost:8001/services",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services"
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8001/services",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8001",
-							"path": [
-								"services"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "step 2 - create-route",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "hosts",
-									"value": "dbc-api.local",
-									"type": "text"
+						{
+							"name": "step 2 - create-route",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "hosts",
+											"value": "dbc-api.local",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services/dbc-api/routes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"dbc-api",
+										"routes"
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8001/services/dbc-api/routes",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8001",
-							"path": [
-								"services",
-								"dbc-api",
-								"routes"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "step 3 - add-service-plugin",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "key-auth",
-									"type": "text"
+						{
+							"name": "step 3 - add-service-plugin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "key-auth",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services/dbc-api/plugins/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"dbc-api",
+										"plugins",
+										""
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8001/services/dbc-api/plugins/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8001",
-							"path": [
-								"services",
-								"dbc-api",
-								"plugins",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "step 4 - add-consumer",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "username",
-									"value": "apiconsume",
-									"type": "text"
+						{
+							"name": "step 4 - add-consumer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "apiconsume",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/consumers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"consumers"
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8001/consumers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8001",
-							"path": [
-								"consumers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "step 5 - add-key",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "key",
-									"value": "api-key",
-									"type": "text"
+						{
+							"name": "step 5 - add-key",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "key",
+											"value": "api-key",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/consumers/apiconsume/key-auth/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"consumers",
+										"apiconsume",
+										"key-auth",
+										""
+									]
 								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:8001/consumers/apiconsume/key-auth/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8001",
-							"path": [
-								"consumers",
-								"apiconsume",
-								"key-auth",
-								""
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}

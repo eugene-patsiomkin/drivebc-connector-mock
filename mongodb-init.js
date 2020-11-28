@@ -10,3 +10,16 @@ db.createUser(
         ]
     }
 );
+
+db.createUser(
+    {
+        user: "profile-api",
+        pwd: "profile-api",
+        roles: [
+            {
+                role: "readWrite",
+                db: "profile-db"
+            }
+        ]
+    }
+);
