@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import {connectDB} from './src/db.js'
 import Routes from "./src/routes/index.js";
 import {swaggerDocument, swaggerUi} from './openapi/index.js'
-import {bodyParserErrorHandler} from "./src/app.js"
+import {bodyParserErrorHandler, getApplicationKey, standardErrorsHandler} from "./src/app.js"
 
 const app = express();
 const config = {
@@ -20,6 +20,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(bodyParser.json({type: 'application/*+json'}));
 app.use(bodyParser.json({type: 'application/json'}));
 app.use(bodyParserErrorHandler);
+app.use(getApplicationKey);
 
 //Setting up logger
 app.use(morgan(':method :url :status [:res[content-type]] :res[content-length] bytes - :response-time ms'));
@@ -32,6 +33,9 @@ app.get('/ping', (req, res) => {
 Routes.forEach((route) => {
     app.use(route.path, route.route);
 });
+
+//App errors handling
+app.use(standardErrorsHandler);
 
 connectDB().then( async () => {
     app.listen(config.port, config.host, (e)=> {

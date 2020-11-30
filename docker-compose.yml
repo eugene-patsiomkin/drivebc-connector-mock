@@ -27,6 +27,17 @@ services:
     environment:
       - MOTI_API_MONGO_DB_HOST=mongodb
       - MOTI_API_EVENTS_PORT=8080
+  moti-profiles:
+    container_name: profiles_api_app
+    image: profiles-api
+    build: ./profile-endpoint-api
+    networks: 
+      - kong-net
+    depends_on:
+      - mongodb
+    environment:
+      - MOTI_API_MONGO_DB_HOST=mongodb
+      - MOTI_API_PROFILES_PORT=8080
   kong-migrations:
     image: "${KONG_DOCKER_TAG:-kong:latest}"
     command: kong migrations bootstrap

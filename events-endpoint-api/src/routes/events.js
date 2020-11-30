@@ -103,9 +103,9 @@ let handleError = (err, res) => {
 
 eventRouter.get('/', (req, res, next) => {
     Event.find().lean(true).exec()
-        .then(docs => {
-            if (!docs || docs == [])  throw new NotFoundError("Events not found");
-            req.moti = {events: docs};
+        .then(events => {
+            if (!events || events == [])  throw new NotFoundError("Events not found");
+            req.moti = {events: events};
             next();
         })
         .catch((err) => handleError(err, res));
@@ -113,9 +113,9 @@ eventRouter.get('/', (req, res, next) => {
 
 eventRouter.get('/:id', (req, res, next) => {
     Event.findOne({bid: req.params.id}).lean(true).exec()
-    .then(docs => {
-        if (!docs || docs == [])  throw new NotFoundError("Event not found");
-        req.moti = {events: docs};
+    .then(events => {
+        if (!events || events == [])  throw new NotFoundError("Event not found");
+        req.moti = {events: events};
         next();
     })
     .catch((err) => handleError(err, res));
@@ -124,28 +124,45 @@ eventRouter.get('/:id', (req, res, next) => {
 eventRouter.post("/", (req, res) => {
     let evt = new Event(req.body)
     evt.save()
-        .then(val => {
-            res.status('200').json(val).end()
+        .then(event => {
+            res.status('200').json(event).end()
         })
         .catch((err) => handleError(err, res));
 });
 
 eventRouter.put("/:id", (req, res, next) => {
-    let updateDocument = (doc, newDoc) => {
-        if (!doc) throw new NotFoundError("Event not found");
-        if (newDoc.schedule) doc.set("schedule", newDoc.schedule);
-        if (newDoc.type) doc.set("type", newDoc.type);
-        if (newDoc.geometry) doc.set("geometry", newDoc.geometry);
-        if (newDoc.info) doc.set("info", newDoc.info);
-        return doc.save();
+    let updateEvent = (event, newEvent) => {
+        if (!event) throw new NotFoundError("Event not found");
+        if (newEvent.schedule) event.set("schedule", newEvent.schedule);
+        if (newEvent.type) event.set("type", newEvent.type);
+        if (newEvent.geometry) event.set("geometry", newEvent.geometry);
+        if (newEvent.info) event.set("info", newEvent.info);
+    
+        return event.save();
     }
     
-    if (req.body.bid) {delete req.body.bid};
     Event.findOne({bid: req.params.id}).exec()
-        .then((doc) => updateDocument(doc, req.body))
-        .then(val => {
-            res.status('200').json(val).end();
+        .then((event) => updateEvent(event, req.body))
+        .then(event => {
+            res.status('200').json(event).end();
             next();
+        })
+        .catch((err) => handleError(err, res));
+});
+
+
+eventRouter.delete("/:id", (req, res) => {
+    let deleteEvent = (event) => {
+        if (!event) throw new NotFoundError("Event not found");
+
+        return event.remove();
+    };
+
+    Event.findOne({ bid: req.params.id})
+        .exec()
+        .then((event) => deleteEvent(event))
+        .then(event => {
+            res.status('200').json(event).end();
         })
         .catch((err) => handleError(err, res));
 });

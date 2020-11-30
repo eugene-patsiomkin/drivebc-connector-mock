@@ -11,5 +11,13 @@ class ExtendableError extends Error {
 }
 
 class NotFoundError extends ExtendableError {}
+class JsonSchemaValidationError extends ExtendableError {}
+class UnknownJsonSchemaError extends ExtendableError {}
+class NoAppIdError extends ExtendableError {}
 
-export {NotFoundError}
+export {
+    NotFoundError
+    , JsonSchemaValidationError
+    , UnknownJsonSchemaError
+    , NoAppIdError
+}

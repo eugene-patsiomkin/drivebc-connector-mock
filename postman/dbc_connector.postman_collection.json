@@ -9,6 +9,171 @@
 			"name": "kong_configuration",
 			"item": [
 				{
+					"name": "generic",
+					"item": [
+						{
+							"name": "step 1 - create-service",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "dbc-api",
+											"type": "text"
+										},
+										{
+											"key": "url",
+											"value": "http://api:8300",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 2 - create-route",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "hosts",
+											"value": "dbc-api.local",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services/dbc-api/routes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"dbc-api",
+										"routes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 3 - add-service-plugin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "key-auth",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services/moti.events.api/plugins/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"moti.events.api",
+										"plugins",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 4 - add-consumer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "apiconsume",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/consumers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"consumers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 5 - add-key",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "key",
+											"value": "api-key",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/consumers/apiconsume/key-auth/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"consumers",
+										"apiconsume",
+										"key-auth",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "events_setup",
 					"item": [
 						{
@@ -179,7 +344,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "generic",
+					"name": "profiles_setup",
 					"item": [
 						{
 							"name": "step 1 - create-service",
@@ -191,12 +356,12 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "dbc-api",
+											"value": "moti.profiles.api",
 											"type": "text"
 										},
 										{
 											"key": "url",
-											"value": "http://api:8300",
+											"value": "http://moti-profiles:8080",
 											"type": "text"
 										}
 									]
@@ -224,14 +389,19 @@
 									"mode": "urlencoded",
 									"urlencoded": [
 										{
-											"key": "hosts",
-											"value": "dbc-api.local",
+											"key": "paths[]",
+											"value": "/api/profiles/v1",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "profiles-v1",
 											"type": "text"
 										}
 									]
 								},
 								"url": {
-									"raw": "http://localhost:8001/services/dbc-api/routes",
+									"raw": "http://localhost:8001/services/moti.profiles.api/routes",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -239,7 +409,7 @@
 									"port": "8001",
 									"path": [
 										"services",
-										"dbc-api",
+										"moti.profiles.api",
 										"routes"
 									]
 								}
@@ -262,7 +432,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost:8001/services/dbc-api/plugins/",
+									"raw": "http://localhost:8001/services/moti.profiles.api/plugins/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -270,7 +440,7 @@
 									"port": "8001",
 									"path": [
 										"services",
-										"dbc-api",
+										"moti.profiles.api",
 										"plugins",
 										""
 									]
@@ -288,7 +458,7 @@
 									"urlencoded": [
 										{
 											"key": "username",
-											"value": "apiconsume",
+											"value": "drivebc-profiles",
 											"type": "text"
 										}
 									]
@@ -317,13 +487,13 @@
 									"urlencoded": [
 										{
 											"key": "key",
-											"value": "api-key",
+											"value": "drivebc-profiles-api-key",
 											"type": "text"
 										}
 									]
 								},
 								"url": {
-									"raw": "http://localhost:8001/consumers/apiconsume/key-auth/",
+									"raw": "http://localhost:8001/consumers/drivebc-profiles/key-auth/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -331,7 +501,7 @@
 									"port": "8001",
 									"path": [
 										"consumers",
-										"apiconsume",
+										"drivebc-profiles",
 										"key-auth",
 										""
 									]
@@ -850,6 +1020,656 @@
 									"value": "",
 									"disabled": true
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "profiles",
+			"item": [
+				{
+					"name": "schemas",
+					"item": [
+						{
+							"name": "Get all the schemas (administration)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "application_id",
+										"value": "cool_app",
+										"type": "text"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/schemas/",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"schemas",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get schemas by name (administration)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "application_id",
+										"value": "cool_app",
+										"type": "text"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/schemas/app.address.profile.v1",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"schemas",
+										"app.address.profile.v1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get schemas by name 404 (administration)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "application_id",
+										"type": "text",
+										"value": "cool_app"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/schemas/app.address.profile.v1.404",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"schemas",
+										"app.address.profile.v1.404"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create schema address (administration)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "application_id",
+										"value": "cool_app",
+										"type": "text"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\" : \"app.address.profile.v1\",\r\n  \"jsonschema\" : \"{\\r\\n  \\\"$id\\\": \\\"app.address.profile.v1\\\",\\r\\n  \\\"description\\\": \\\"An address similar to http:\\/\\/microformats.org\\/wiki\\/h-card\\\",\\r\\n  \\\"type\\\": \\\"object\\\",\\r\\n  \\\"properties\\\": {\\r\\n    \\\"post-office-box\\\": {\\r\\n      \\\"type\\\": \\\"string\\\"\\r\\n    },\\r\\n    \\\"extended-address\\\": {\\r\\n      \\\"type\\\": \\\"string\\\"\\r\\n    },\\r\\n    \\\"street-address\\\": {\\r\\n      \\\"type\\\": \\\"string\\\"\\r\\n    },\\r\\n    \\\"locality\\\": {\\r\\n      \\\"type\\\": \\\"string\\\"\\r\\n    },\\r\\n    \\\"region\\\": {\\r\\n      \\\"type\\\": \\\"string\\\"\\r\\n    },\\r\\n    \\\"postal-code\\\": {\\r\\n      \\\"type\\\": \\\"string\\\"\\r\\n    },\\r\\n    \\\"country-name\\\": {\\r\\n      \\\"type\\\": \\\"string\\\"\\r\\n    }\\r\\n  },\\r\\n  \\\"required\\\": [ \\\"locality\\\", \\\"region\\\", \\\"country-name\\\" ],\\r\\n  \\\"dependencies\\\": {\\r\\n    \\\"post-office-box\\\": [ \\\"street-address\\\" ],\\r\\n    \\\"extended-address\\\": [ \\\"street-address\\\" ]\\r\\n  }\\r\\n}\",\r\n  \"description\" : \"cool address validator\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/schemas/",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"schemas",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create schema location (administration)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "application_id",
+										"value": "cool_app",
+										"type": "text"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\" : \"app.location.profile.v1\",\r\n  \"jsonschema\" : \"{\\n  \\\"$id\\\": \\\"https://example.com/geographical-location.schema.json\\\",\\n  \\\"$schema\\\": \\\"http://json-schema.org/draft-07/schema#\\\",\\n  \\\"title\\\": \\\"Longitude and Latitude Values\\\",\\n  \\\"description\\\": \\\"A geographical coordinate.\\\",\\n  \\\"required\\\": [ \\\"latitude\\\", \\\"longitude\\\" ],\\n  \\\"type\\\": \\\"object\\\",\\n  \\\"properties\\\": {\\n    \\\"latitude\\\": {\\n      \\\"type\\\": \\\"number\\\",\\n      \\\"minimum\\\": -90,\\n      \\\"maximum\\\": 90\\n    },\\n    \\\"longitude\\\": {\\n      \\\"type\\\": \\\"number\\\",\\n      \\\"minimum\\\": -180,\\n      \\\"maximum\\\": 180\\n    }\\n  }\\n}\\n\",\r\n  \"description\" : \"cool address validator\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/schemas/",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"schemas",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update schema location (administration)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "application_id",
+										"type": "text",
+										"value": "cool_app"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\" : \"app.location.profile.v1\",\r\n  \"jsonschema\" : \"{\\n  \\\"$id\\\": \\\"https://example.com/geographical-location.schema.json\\\",\\n  \\\"$schema\\\": \\\"http://json-schema.org/draft-07/schema#\\\",\\n  \\\"title\\\": \\\"Longitude and Latitude Values\\\",\\n  \\\"description\\\": \\\"A geographical coordinate.\\\",\\n  \\\"required\\\": [ \\\"latitude\\\", \\\"longitude\\\" ],\\n  \\\"type\\\": \\\"object\\\",\\n  \\\"properties\\\": {\\n    \\\"latitude\\\": {\\n      \\\"type\\\": \\\"number\\\",\\n      \\\"minimum\\\": -90,\\n      \\\"maximum\\\": 90\\n    },\\n    \\\"longitude\\\": {\\n      \\\"type\\\": \\\"number\\\",\\n      \\\"minimum\\\": -180,\\n      \\\"maximum\\\": 180\\n    }\\n  }\\n}\\n\",\r\n  \"description\" : \"cool address validator\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/schemas/app.location.profile.v1",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"schemas",
+										"app.location.profile.v1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete schema by name (administration)",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "application_id",
+										"type": "text",
+										"value": "cool_app"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/schemas/app.location.profile.v1.delete",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"schemas",
+										"app.location.profile.v1.delete"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "profiles",
+					"item": [
+						{
+							"name": "Get all profiles  (administration)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "application_id",
+										"value": "cool_app",
+										"type": "text"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/profiles/",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"profiles",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get profiles by schema  (administration)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "application_id",
+										"value": "cool_app",
+										"type": "text"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/profiles/by-schema/app.address.profile.v1",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"profiles",
+										"by-schema",
+										"app.address.profile.v1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get profiles by user  (administration)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "application_id",
+										"value": "cool_app",
+										"type": "text"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/profiles/by-owner/user-1",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"profiles",
+										"by-owner",
+										"user-1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get profile by shema and user",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "application_id",
+										"type": "text",
+										"value": "cool_app"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/profiles/app.address.profile.v1/user-1",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"profiles",
+										"app.address.profile.v1",
+										"user-1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create profile address (administration)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "application_id",
+										"value": "cool_app",
+										"type": "text"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"validation_schema_name\" : \"app.address.profile.v1\",\r\n  \"owner_id\" : \"user-2\",\r\n  \"profile\": \"{\\\"locality\\\": \\\"locality 11\\\", \\\"region\\\": \\\"region 11\\\", \\\"country-name\\\": \\\"country 11\\\"}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/profiles/",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"profiles",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create profile location(administration) Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "application_id",
+										"value": "cool_app",
+										"type": "text"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"validation_schema_name\" : \"app.location.profile.v1\",\r\n  \"owner_id\" : \"user-2\",\r\n  \"profile\": \"{\\\"latitude\\\": 11, \\\"longitude\\\": -11}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/profiles/",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"profiles",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update profile by shema and user",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "application_id",
+										"type": "text",
+										"value": "cool_app"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"validation_schema_name\" : \"app.address.profile.v1\",\r\n  \"owner_id\" : \"user-2\",\r\n  \"profile\": \"{\\\"locality\\\": \\\"locality 11\\\", \\\"region\\\": \\\"region 111\\\", \\\"country-name\\\": \\\"country 111\\\"}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/profiles/app.address.profile.v1/user-1",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"profiles",
+										"app.address.profile.v1",
+										"user-1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update profile partial by shema and user",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "application_id",
+										"type": "text",
+										"value": "cool_app"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"validation_schema_name\" : \"app.address.profile.v1\",\r\n  \"owner_id\" : \"user-2\",\r\n  \"profile\": \"{\\\"locality\\\": \\\"locality 99\\\", \\\"country-name\\\": \\\"country 99\\\"}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/profiles/app.address.profile.v1/user-1",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"profiles",
+										"app.address.profile.v1",
+										"user-1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete profile by shema and user",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "application_id",
+										"type": "text",
+										"value": "cool_app"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/profiles/app.address.profile.v1/user-1",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"profiles",
+										"app.address.profile.v1",
+										"user-1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "OpenAPI spec",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "application_id",
+								"value": "api-info",
+								"type": "text"
+							},
+							{
+								"key": "apikey",
+								"value": "drivebc-profiles-api-key",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/profiles/v1/api-docs/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profiles",
+								"v1",
+								"api-docs",
+								""
 							]
 						}
 					},

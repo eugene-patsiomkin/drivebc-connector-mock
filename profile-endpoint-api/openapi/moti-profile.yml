@@ -92,31 +92,6 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/Profile"
-  /profiles/{id}:
-    get:
-      tags: [Profile]
-      description: Get profile by id
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-        - in: header
-          name: application_id
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Profile"
-            application/xml:
-              schema:
-                $ref: "#/components/schemas/Profile"
     put:
       tags: [Profile]
       description: Full profile update
@@ -200,7 +175,7 @@ paths:
       responses:
         '200':
           description: OK
-  /profiles/{validation_schema_name}:
+  /profiles/by-schema/{validation_schema_name}:
     get:
       tags: [Profile, Administration]
       description: Return list of profiles by schema name
@@ -229,7 +204,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Profile"
-  /profiles/{owner_id}:
+  /profiles/by-owner/{owner_id}:
     get:
       tags: [Profile, Administration]
       description: Return list of profiles by user
@@ -424,7 +399,7 @@ components:
         name:
           type: string
           example: color_choice_profile.v1
-        schema:
+        jsonschema:
           type: string
           description: Valid json schema json-schema.org. Reference can be found https://json-schema.org/understanding-json-schema/reference/index.html
           example: 'Check https://json-schema.org/learn/miscellaneous-examples.html for examples'
