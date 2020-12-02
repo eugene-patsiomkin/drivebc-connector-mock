@@ -30,7 +30,8 @@ const setStartsAfter = (searchQuery, value) => {
     if (!value) return searchQuery;
 
     let query = {...searchQuery};
-    query['schedule.starts_on'] = {$gt: value};
+    value = (new Date(value)).toISOString();
+    query['schedule.start'] = {$gt: value};
 
     return query;
 }
@@ -39,7 +40,8 @@ const setEndsBy = (searchQuery, value) => {
     if (!value) return searchQuery;
 
     let query = {...searchQuery};
-    query['schedule.ends_by'] = {$lt: value};
+    value = (new Date(value)).toISOString();
+    query['schedule.end'] = {$lt: value};
 
     return query;
 }
@@ -69,7 +71,7 @@ const query_builder = (requestQuery) => {
             case "starts_after":
                 searchQuery = setStartsAfter(searchQuery, value);
                 break;
-            case "ends_by":
+            case "ends_before":
                 searchQuery = setEndsBy(searchQuery, value);
                 break;
             default:

@@ -102,15 +102,15 @@ paths:
             type: boolean
             default: false
         - in: query
-          name: starts_on
+          name: starts_after
           schema:
             type: string
-            example: "2017-08-10 10:30:20.15 US/Pacific PDT"
+            example: "1992-11-06T14:07:04.000Z"
         - in: query
-          name: ends_by
+          name: ends_before
           schema:
             type: string
-            example: "2017-08-10 10:30:20.15 US/Pacific PDT"
+            example: "1992-11-06T14:07:04.000Z"
       responses:
         '200':
           description: OK
@@ -173,12 +173,12 @@ paths:
           name: starts_on
           schema:
             type: string
-            example: "2017-08-10 10:30:20.15 US/Pacific PDT"
+            example: "2000-01-01T08:00:00.000Z"
         - in: query
           name: ends_by
           schema:
             type: string
-            example: "2017-08-10 10:30:20.15 US/Pacific PDT"
+            example: "2000-01-01T08:00:00.000Z"
       responses:
         '200':
           description: OK
@@ -369,12 +369,12 @@ components:
           items:
             type: object
             properties:
-              starts_on: 
+              start: 
                 type: string
-                example: "2017-08-10 10:30:20.15 US/Pacific PDT"
-              ends_by: 
+                example: "2000-01-01T08:00:00.000Z"
+              end: 
                 type: string
-                example: "2017-08-10 10:30:20.15 US/Pacific PDT"
+                example: "2000-01-01T08:00:00.000Z"
         info:
           type: object
           properties:
@@ -398,10 +398,10 @@ components:
               type: object
         created_on:
           type: string
-          example: "2017-08-10 10:30:20.15 US/Pacific PDT"
+          example: "2000-01-01T08:00:00.000Z"
         updated_on:
           type: string
-          example: "2017-08-10 10:30:20.15 US/Pacific PDT"
+          example: "2000-01-01T08:00:00.000Z"
 
     EventsCollection:
       allOf:

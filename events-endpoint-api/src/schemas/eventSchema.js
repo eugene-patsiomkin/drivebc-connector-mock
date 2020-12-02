@@ -12,21 +12,33 @@ const eventSchema = new mongoose.Schema(
             required: true,
             type: mongoose.Schema.Types.Array,
             validate: {
-                validator: v => v && v.length > 0,
-                message: "Can not be empty"
+                validator: (v) => {
+                    if (!v || v.length < 1)  throw new Error("Schedule can not be empty");
+
+                    v.forEach((startEnd, idx) => {
+                        startEnd.start = (new Date(startEnd.start)).toISOString();
+                        startEnd.end = (new Date(startEnd.end)).toISOString();
+
+                        if (startEnd.starts_on > startEnd.ends_by)
+                            throw new Error(`Item ${idx + 1} starts_on should be before ends_by`);
+                    });
+
+                    return true;
+                },
+                message: props => {console.log(props); return props.reason.message;}
             },
             items: {
                 type: mongoose.Schema.Types.Object,
                 properties: {
-                    starts_on: {
-                        type: mongoose.Schema.Types.String,
+                    start: {
+                        type: Date,
                         required: true,
-                        index: true
+                        index: true,
                     },
-                    ends_by: {
-                        type: mongoose.Schema.Types.String,
+                    end: {
+                        type: Date,
                         required: true,
-                        index: true
+                        index: true,
                     }
                 }
             }
