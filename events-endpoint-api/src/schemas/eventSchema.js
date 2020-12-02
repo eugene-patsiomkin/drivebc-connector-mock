@@ -9,6 +9,7 @@ const eventSchema = new mongoose.Schema(
             index: true
         },
         schedule: {
+            required: true,
             type: mongoose.Schema.Types.Array,
             validate: {
                 validator: v => v && v.length > 0,
@@ -32,7 +33,7 @@ const eventSchema = new mongoose.Schema(
         },
         type: {
             tags:{
-                type: [String],
+                type: [mongoose.Schema.Types.String],
                 validate: {
                     validator: v => v && v.length > 0,
                     message: "Can not be empty"
@@ -40,30 +41,40 @@ const eventSchema = new mongoose.Schema(
                 index: true
             },
             severity: {
-                type: String,
+                type: mongoose.Schema.Types.String,
                 enum: ["MINOR", "MODERATE", "MAJOR", "UNKNOWN"],
                 default: "UNKNOWN",
                 required: true
             },
-            planned: Boolean,
+            planned: mongoose.Schema.Types.Boolean,
             active: {
-                type: Boolean,
-                index: true,
+                type: mongoose.Schema.Types.Boolean,
+                default: true,
+                index: true
             }
         },
         geometry: {
             required: true,
-            type: Object,
+            type: mongoose.Schema.Types.Object,
             properties: {
                 type: {
-                    type: String,
+                    type: mongoose.Schema.Types.String,
                     enum: ["Point", "LineString", "Polygon", "MultiPoint", "MultiLineString", "MultiPolygon"]
                 },
                 coordinates: {
                     type: mongoose.Schema.Types.Mixed
                 }
             }
-        }
+        },
+        info: {
+            required: true,
+            type: mongoose.Schema.Types.Object,
+            properties: {
+                headline: mongoose.Schema.Types.String,
+                description: mongoose.Schema.Types.String,
+                related_urls: [mongoose.Schema.Types.String]
+            }
+        },
     },
     {
         timestamps: {
@@ -74,4 +85,6 @@ const eventSchema = new mongoose.Schema(
 );
 
 eventSchema.index({geometry: "2dsphere"});
-export default eventSchema;
+
+const Event = mongoose.model('Event', eventSchema);
+export default Event;

@@ -1,9 +1,9 @@
 import express from "express";
-import Models from '../db.js'
-import {NotFoundError} from '../errors.js'
-import js2xmlparser  from "js2xmlparser";
-
 import _isArray from 'lodash/isArray.js'
+import js2xmlparser  from "js2xmlparser";
+import Models from '../db.js'
+import { NotFoundError, ControllerErrorHandler as handleError } from '../errors.js'
+import { query_builder } from "../helpers/event_helper.js";
 
 const eventRouter = express.Router();
 const Event = Models.Event;
@@ -83,26 +83,9 @@ const mapEventSuccess = (req, res, next) => {
     next();
 }
 
-let handleError = (err, res) => {
-    console.info(err.name);
-    switch (true) {
-        case err instanceof NotFoundError:
-            res.status(404).send(err.message).end();
-            break;
-        case err.name == 'ValidationError':
-            res.status(400).send(err).end();
-            break;
-        case err.name == 'MongoError':
-            res.status(400).send(err).end();
-            break;
-        default:
-            console.error(err);
-            res.status(500).send(err).end();
-    }
-}
-
 eventRouter.get('/', (req, res, next) => {
-    Event.find().lean(true).exec()
+    let searchQuery = query_builder(req.query);
+    Event.find(searchQuery).lean(true).exec()
         .then(events => {
             if (!events || events == [])  throw new NotFoundError("Events not found");
             req.moti = {events: events};
@@ -111,8 +94,8 @@ eventRouter.get('/', (req, res, next) => {
         .catch((err) => handleError(err, res));
 }, mapEventSuccess);
 
-eventRouter.get('/:id', (req, res, next) => {
-    Event.findOne({bid: req.params.id}).lean(true).exec()
+eventRouter.get('/:bid', (req, res, next) => {
+    Event.findOne({bid: req.params.bid}).lean(true).exec()
     .then(events => {
         if (!events || events == [])  throw new NotFoundError("Event not found");
         req.moti = {events: events};
@@ -130,7 +113,7 @@ eventRouter.post("/", (req, res) => {
         .catch((err) => handleError(err, res));
 });
 
-eventRouter.put("/:id", (req, res, next) => {
+eventRouter.put("/:bid", (req, res, next) => {
     let updateEvent = (event, newEvent) => {
         if (!event) throw new NotFoundError("Event not found");
         if (newEvent.schedule) event.set("schedule", newEvent.schedule);
@@ -141,7 +124,7 @@ eventRouter.put("/:id", (req, res, next) => {
         return event.save();
     }
     
-    Event.findOne({bid: req.params.id}).exec()
+    Event.findOne({bid: req.params.bid}).exec()
         .then((event) => updateEvent(event, req.body))
         .then(event => {
             res.status('200').json(event).end();
@@ -151,14 +134,14 @@ eventRouter.put("/:id", (req, res, next) => {
 });
 
 
-eventRouter.delete("/:id", (req, res) => {
+eventRouter.delete("/:bid", (req, res) => {
     let deleteEvent = (event) => {
         if (!event) throw new NotFoundError("Event not found");
 
         return event.remove();
     };
 
-    Event.findOne({ bid: req.params.id})
+    Event.findOne({ bid: req.params.bid})
         .exec()
         .then((event) => deleteEvent(event))
         .then(event => {

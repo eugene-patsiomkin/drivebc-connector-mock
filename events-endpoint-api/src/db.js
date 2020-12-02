@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import eventSchema from './schemas/eventSchema.js';
+import Event from './schemas/eventSchema.js';
 
 const Models = {
-    Event: mongoose.model('Event', eventSchema)
+    Event: Event 
 };
 
 const connectDB = () => {

@@ -9,7 +9,7 @@ import {bodyParserErrorHandler} from "./src/app.js"
 const app = express();
 const config = {
     name: "event api",
-    port: process.env.MOTI_API_EVENTS_PORT || 3836,
+    port: process.env.MOTI_API_EVENTS_PORT || 38368,
     host: '0.0.0.0',
 };
 

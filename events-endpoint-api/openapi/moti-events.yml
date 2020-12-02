@@ -30,6 +30,12 @@ paths:
     get:
       description: Get list of available event tags
       tags: [Event tags]
+      parameters:
+        - in: query
+          name: search
+          required: false
+          schema:
+            type: string      
       responses:
         '200':
           description: OK
@@ -40,8 +46,85 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/EventTag'
-  /event:
+  /events:
     get:
+      description: Get all available event objects.
+      tags: [Events]
+      parameters:
+        - in: query
+          name: tag
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [CONSTRUCTION, INCIDENT , WEATHER_CONDITION, ROAD_CONDITION, SPECIAL_EVENT]
+        - in: query
+          name: geometry
+          style: deepObject
+          required: false
+          schema:
+            type: array
+            items:
+              type: object
+              anyOf:
+                - $ref: "#/components/schemas/Point"
+                - $ref: "#/components/schemas/MultiPoint"
+                - $ref: "#/components/schemas/LineString"
+                - $ref: "#/components/schemas/MultiLineString"
+                - $ref: "#/components/schemas/Polygon"
+                - $ref: "#/components/schemas/MultiPolygon"
+        - in: query
+          name: radius
+          required: false
+          schema:
+            type: number
+        - in: query
+          name: id_list
+          description:  Pipe separated business id list.
+          required: false
+          style: pipeDelimited
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: geofence
+          required: false
+          schema:
+            type: string
+            description: Predefined geofence uuid.
+            example: e69f50d6-2dab-11eb-adc1-0242ac120002 
+        - in: query
+          name: include_nonactive
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: starts_on
+          schema:
+            type: string
+            example: "2017-08-10 10:30:20.15 US/Pacific PDT"
+        - in: query
+          name: ends_by
+          schema:
+            type: string
+            example: "2017-08-10 10:30:20.15 US/Pacific PDT"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/geo+json:
+              schema:
+                $ref: '#/components/schemas/EventsCollection'
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/EventArray'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EventArray'
+    post:
       description: Get all available event objects.
       tags: [Events]
       parameters:
@@ -108,8 +191,8 @@ paths:
                   $ref: '#/components/schemas/EventArray'
             application/xml:
               schema:
-                $ref: '#/components/schemas/EventArray'
-  /event/{id}:
+                $ref: '#/components/schemas/EventArray'                
+  /events/{bid}:
     get:
       description: Get event by id.
       tags: [Events]
@@ -121,8 +204,8 @@ paths:
             type: string
             items:
               type: string
-              description: Event id.
-              example: e69f50d6-2dab-11eb-adc1-0242ac120002               
+              description: Event business id.
+              example: open511-some-event               
       responses:
         '200':
           description: OK
@@ -136,6 +219,58 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Event'
+    put:
+      description: Get event by id.
+      tags: [Events]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            items:
+              type: string
+              description: Event business id.
+              example: open511-some-event               
+      responses:
+        '200':
+          description: OK
+          content:
+            application/geo+json:
+              schema:
+                $ref: '#/components/schemas/EventsCollection'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Event'                
+    delete:
+      description: Get event by id.
+      tags: [Events]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            items:
+              type: string
+              description: Event business id.
+              example: open511-some-event               
+      responses:
+        '200':
+          description: OK
+          content:
+            application/geo+json:
+              schema:
+                $ref: '#/components/schemas/EventsCollection'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Event'    
 components:
   schemas:
     Geofence:
@@ -204,13 +339,16 @@ components:
       properties:
         geometry:
           $ref: '#/components/schemas/Geometry'
+          example:
+            type: Point
+            coordinates: [-1, 1]
     EventProperties:
       type: object
       properties:
-        id:
+        bid:
           type: string
-          description: UUID for entity identification
-          example: e69f50d6-2dab-11eb-adc1-0242ac120002
+          description: Business id a reference id of system produced event
+          example: open511-0242ac120002
         type:
           type: object
           properties:
@@ -309,11 +447,20 @@ components:
           type: string
           enum: [ Feature ]
         geometry:
-          $ref: '#/components/schemas/Geometry'
+          type: object
+          oneOf:
+            - $ref: "#/components/schemas/Point"
+            - $ref: "#/components/schemas/LineString"
+            - $ref: "#/components/schemas/Polygon"
+            - $ref: "#/components/schemas/MultiPoint"
+            - $ref: "#/components/schemas/MultiLineString"
+            - $ref: "#/components/schemas/MultiPolygon"
+          example:
+            geometry:
+              type: Point
+              coordinates: [-1, 1]
         properties:
           type: object
-#          additionalProperties:
-#            type: object
     Geometry:
       type: object
       description:  GeoJSON geometry
@@ -322,11 +469,9 @@ components:
       externalDocs:
         url: http://GeoJSON.org/GeoJSON-spec.html#geometry-objects
       properties:
-        dimensions:
-          description: The number of dimensions
-          type: integer
         type:
           $ref: '#/components/schemas/GeometryType'
+
     GeometryType:
       type: string
       enum:
@@ -337,15 +482,22 @@ components:
         - MultiLineString
         - MultiPolygon
       description:  the geometry type
+      example:
+        type: Point
+        coordinates: [-1, 1]
     Point2D:
       type: array
       maxItems: 2
       minItems: 2
       items:
         type: number
+      example: [-1, 1]
     Point:
       type: object
       description:  GeoJSON geometry
+      example:
+        type: Point
+        coordinates: [-1, 1]
       externalDocs:
         url: http://GeoJSON.org/GeoJSON-spec.html#id2
       allOf:
