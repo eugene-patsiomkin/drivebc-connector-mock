@@ -12,13 +12,21 @@ services:
   # API image
   api:
     container_name: sample_api_app
-    image: sample-api-dbc
+    image: moti/sample-api-nodejs:v1
     build: ./api
     networks: 
       - kong-net
+  # integration-moti-events:
+  #   container_name: integration-events-camel
+  #   image: moti/integration-events-camel:v1
+  #   build: ./events-integration
+  #   networks: 
+  #     - kong-net
+  #   depends_on:
+  #     - moti-events
   moti-events:
     container_name: event_api_app
-    image: events-api
+    image: moti/events-api-nodejs:v1
     build: ./events-endpoint-api
     networks: 
       - kong-net
@@ -29,7 +37,7 @@ services:
       - MOTI_API_EVENTS_PORT=8080
   moti-profiles:
     container_name: profiles_api_app
-    image: profiles-api
+    image: moti/profiles-api-nodejs:v1
     build: ./profile-endpoint-api
     networks: 
       - kong-net
@@ -79,7 +87,7 @@ services:
         condition: on-failure
 
   kong:
-    container_name: api_middleware_kong
+    container_name: moti-api-gateway-kong.v1
     image: "${KONG_DOCKER_TAG:-kong:latest}"
     user: "${KONG_USER:-kong}"
     depends_on:
@@ -116,7 +124,7 @@ services:
         condition: on-failure
   mongodb:
     image: mongo:4.4
-    container_name: event_db_mongo
+    container_name: moti-mongo-db
     environment:
       - MONGO_INITDB_DATABASE=event-db
       - MONGO_INITDB_ROOT_USERNAME=eventroot

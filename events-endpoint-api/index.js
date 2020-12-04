@@ -19,10 +19,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 //Accept json
 app.use(bodyParser.json({type: 'application/*+json'}));
 app.use(bodyParser.json({type: 'application/json'}));
-app.use(bodyParserErrorHandler);
 
 //Setting up logger
 app.use(morgan(':method :url :status [:res[content-type]] :res[content-length] bytes - :response-time ms'));
+
+app.use(bodyParserErrorHandler);
 
 // Health check endpoint
 app.get('/ping', (req, res) => {

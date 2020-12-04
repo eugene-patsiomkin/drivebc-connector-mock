@@ -15,7 +15,7 @@ class UserInputError extends ExtendableError {}
 
 
 const ControllerErrorHandler = (err, res) => {
-    console.info(err.name);
+    console.info(err);
     switch (true) {
         case err instanceof NotFoundError:
             res.status(404).send(err.message).end();
