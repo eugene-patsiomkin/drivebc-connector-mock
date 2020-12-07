@@ -101,6 +101,20 @@ profileRouter.get('/:validation_schema_name/:owner_id', (req, res) => {
         .catch((err) => handleControllerError(err, res));
 });
 
+profileRouter.get('/:validation_schema_name/:owner_id/raw', (req, res) => {
+    Profile.findOne({
+            owner_id: req.params.owner_id,
+            validation_schema_name: req.params.validation_schema_name,
+            application_key: req.moti.application_key
+        }).lean(true).exec()
+        .then(profile => {
+            if (!profile || profile == [])  throw new NotFoundError("Profile not found");
+
+            res.json(JSON.parse(profile.profile)).status(200);
+        })
+        .catch((err) => handleControllerError(err, res));
+});
+
 profileRouter.put("/:validation_schema_name/:owner_id", (req, res) => {
     let updateProfile = (profile, newProfile) => {
         if (!profile) throw new NotFoundError("Profile not found");

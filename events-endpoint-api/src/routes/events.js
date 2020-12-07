@@ -84,8 +84,11 @@ const mapEventSuccess = (req, res, next) => {
 }
 
 eventRouter.get('/', (req, res, next) => {
-    let searchQuery = query_builder(req.query);
-    Event.find(searchQuery).lean(true).exec()
+    query_builder(req.query)
+        .then((searchQuery) => {
+            console.log(searchQuery);
+            return Event.find(searchQuery).lean(true).exec();
+        })
         .then(events => {
             if (!events || events == [])  throw new NotFoundError("Events not found");
             req.moti = {events: events};

@@ -11,7 +11,7 @@ const geofenceSchema = new mongoose.Schema(
                 message: "Can not be empty"
             },
             items: {
-                type: tagSchema
+                type: mongoose.Schema.Types.String
             }
         },
         radius: {

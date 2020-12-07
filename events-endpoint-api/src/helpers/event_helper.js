@@ -1,12 +1,18 @@
-import { UserInputError } from "../errors.js";
+import {
+    UserInputError
+} from "../errors.js";
+import Geofence from "../schemas/geofenceSchema.js";
+
 
 const PIPE_SYMBOL = "|"
 
-const setIdList = (searchQuery, value) => {
-    if (!value) return searchQuery;
+const setIdList = (value) => {
+    let query = {};
+    if (!value) return query;
 
-    let query = {...searchQuery};
-    query.bid = {$in: []};
+    query.bid = {
+        $in: []
+    };
     value.split(PIPE_SYMBOL).forEach((bid) => {
         query.bid.$in.push(bid);
     });
@@ -14,11 +20,13 @@ const setIdList = (searchQuery, value) => {
     return query;
 }
 
-const setTags = (searchQuery, value) => {
-    if (!value) return searchQuery;
+const setTags = (value) => {
+    let query = {};
+    if (!value) return query;
 
-    let query = {...searchQuery};
-    query['type.tags'] = {$in: []};
+    query['type.tags'] = {
+        $in: []
+    };
     value.split(PIPE_SYMBOL).forEach((bid) => {
         query['type.tags'].$in.push(bid);
     });
@@ -26,62 +34,84 @@ const setTags = (searchQuery, value) => {
     return query;
 }
 
-const setStartsAfter = (searchQuery, value) => {
-    if (!value) return searchQuery;
+const setStartsAfter = (value) => {
+    let query = {};
+    if (!value) return query;
 
-    let query = {...searchQuery};
     value = (new Date(value)).toISOString();
-    query['schedule.start'] = {$gt: value};
+    query['schedule.start'] = {
+        $gt: value
+    };
 
     return query;
 }
 
-const setEndsBy = (searchQuery, value) => {
-    if (!value) return searchQuery;
+const setEndsBy = (value) => {
+    let query = {};
+    if (!value) return query;
 
-    let query = {...searchQuery};
     value = (new Date(value)).toISOString();
-    query['schedule.end'] = {$lt: value};
+    query['schedule.end'] = {
+        $lt: value
+    };
 
     return query;
 }
 
+const setGeofence = async (value) => {
 
-const query_builder = (requestQuery) => {
-    if(requestQuery.geometry && requestQuery.geofence)
+    let query = {};
+    if (!value) return query;
+
+    let geofence = await Geofence.findById(value).lean(true).exec()
+
+    if (!geofence || geofence == [])  throw new NotFoundError("Geofence not found");
+
+    query['geometry'] = {$geoWithin: {
+        $geometry: geofence.geometry
+    }};
+
+    return query;
+}
+
+const query_builder = async (requestQuery) => {
+    if (requestQuery.geometry && requestQuery.geofence)
         throw new UserInputError("Can use either geometry or geofence not both");
-    
+
     let searchQuery = {
         "type.active": true
     }
 
-    Object.entries(requestQuery).forEach(([key, value]) => {
-        switch (key) {
-            case 'include_nonactive':
-                if (value && value.toLowerCase() === "true")
-                    delete searchQuery["type.active"];
-                
-                break;
-            case 'id_list':
-                searchQuery = setIdList(searchQuery, value);
-                break;
-            case 'tags':
-                searchQuery = setTags(searchQuery, value);
-                break;
-            case "starts_after":
-                searchQuery = setStartsAfter(searchQuery, value);
-                break;
-            case "ends_before":
-                searchQuery = setEndsBy(searchQuery, value);
-                break;
-            default:
-                break;
-        }
+    let qList = await Promise.all(
+        Object.entries(requestQuery).map(async ([key, value]) => {
+            switch (key) {
+                case 'id_list':
+                    return setIdList(value);
+                case 'tags':
+                    return setTags(value);
+                case "starts_after":
+                    return setStartsAfter(value);
+                case "ends_before":
+                    return setEndsBy(value);
+                case "geofence":
+                    return await setGeofence(value);
+                default:
+                    break;
+            }
+        })
+    );
+
+    qList.forEach(obj => {
+       searchQuery = {...searchQuery, ...obj}; 
     });
 
-    console.log(searchQuery);
+    
+    if (requestQuery['include_nonactive'] && requestQuery['include_nonactive'].toLowerCase() === "true")
+        delete searchQuery["type.active"];
+    
+    return searchQuery;
+};
 
-    return searchQuery
-}
-
-export {query_builder};
+export {
+    query_builder
+};
