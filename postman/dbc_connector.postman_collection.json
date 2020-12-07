@@ -618,412 +618,505 @@
 			"name": "events",
 			"item": [
 				{
-					"name": "get events xml",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/xml",
-								"type": "text"
+					"name": "events",
+					"item": [
+						{
+							"name": "get events xml",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
 							},
-							{
-								"key": "apikey",
-								"value": "drivebc-api-key",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8000/api/events/v1/events",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"events",
-								"v1",
-								"events"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/xml",
+										"type": "text"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/events/v1/events?include_nonactive=true",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"events",
+										"v1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "include_nonactive",
+											"value": "true"
+										}
+									]
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get events xml by bid",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "application/xml"
 							},
-							{
-								"key": "apikey",
-								"value": "drivebc-api-key",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8000/api/events/v1/events/open511-evt123",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"events",
-								"v1",
-								"events",
-								"open511-evt123"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get events geojson",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "application/geo+json"
-							},
-							{
-								"key": "apikey",
-								"value": "drivebc-api-key",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8000/api/events/v1/events",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"events",
-								"v1",
-								"events"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get events geojson bid",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "application/geo+json"
-							},
-							{
-								"key": "apikey",
-								"value": "drivebc-api-key",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8000/api/events/v1/events/open511-evt123",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"events",
-								"v1",
-								"events",
-								"open511-evt123"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get events json",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "apikey",
-								"value": "drivebc-api-key",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8000/api/events/v1/events",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"events",
-								"v1",
-								"events"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get events json by bid",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "apikey",
-								"value": "drivebc-api-key",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8000/api/events/v1/events/open511-evt123",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"events",
-								"v1",
-								"events",
-								"open511-evt123"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get events json by bid 404",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "apikey",
-								"value": "drivebc-api-key",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8000/api/events/v1/events/oh-no",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"events",
-								"v1",
-								"events",
-								"oh-no"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create event",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "drivebc-api-key",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"bid\": \"open511-evt123\",\r\n    \"schedule\": [\r\n        {\"starts_on\": \"2020-11-11 01:01:01\", \"ends_by\":  \"2020-12-11 01:01:01\"}\r\n    ],\r\n    \"type\": {\r\n        \"tags\": [\"ROAD_CLOSURE\", \"SOMETHING_SOMETHING\"]\r\n        , \"severity\":\"MINOR\"\r\n        , \"planned\": true\r\n        , \"active\": true\r\n    }\r\n    , \"geometry\" : {\r\n        \"type\": \"Point\"\r\n        , \"coordinates\" : [0.01, 0.02]\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8000/api/events/v1/events",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"events",
-								"v1",
-								"events"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "drivebc-api-key",
-									"disabled": true
+						{
+							"name": "get events xml by bid",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
 								}
-							]
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/xml"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/events/v1/events/open511-evt123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"events",
+										"v1",
+										"events",
+										"open511-evt123"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events geojson",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/geo+json"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/events/v1/events?ends_before=2019-01-01",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"events",
+										"v1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "ends_before",
+											"value": "2019-01-01"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events geojson bid",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/geo+json"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/events/v1/events/open511-evt123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"events",
+										"v1",
+										"events",
+										"open511-evt123"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events json",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/events/v1/events",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"events",
+										"v1",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events json by bid",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/events/v1/events/open511-evt123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"events",
+										"v1",
+										"events",
+										"open511-evt123"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events json by bid 404",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/events/v1/events/oh-no",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"events",
+										"v1",
+										"events",
+										"oh-no"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create event",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "apikey",
+										"value": "drivebc-api-key",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"bid\": \"open511-evt111-geo\",\r\n    \"schedule\": [\r\n        {\"start\": \"2000-11-11 01:01:01\", \"end\":  \"2018-12-11 01:01:01\"}\r\n    ],\r\n    \"type\": {\r\n        \"tags\": [\"ROAD_CLOSURE\", \"SOMETHING_SOMETHING\"]\r\n        , \"severity\":\"MINOR\"\r\n        , \"planned\": true\r\n        , \"active\": true\r\n    }\r\n    , \"geometry\" : {\r\n        \"type\": \"Point\"\r\n        , \"coordinates\" : [5.5, 5.5]\r\n    }, \"info\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/events/v1/events",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"events",
+										"v1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "drivebc-api-key",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "apikey",
+										"value": "drivebc-api-key",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"schedule\": [\r\n        {\"start\": \"2020-11-11 01:01:01\", \"end\":  \"2020-12-11 01:01:01\"},\r\n        {\"start\": \"2020-11-11 01:01:01\", \"end\":  \"2020-12-11 01:01:01\"},\r\n        {\"start\": \"2020-11-11 01:01:01\", \"end\":  \"2020-12-11 01:01:01\"}\r\n    ],\r\n    \"type\": {\r\n        \"tags\": [\"COOL\", \"Wha\"]\r\n        , \"severity\":\"MINOR\"\r\n        , \"planned\": true\r\n        , \"active\": true\r\n    }\r\n    , \"geometry\" : {\r\n        \"type\": \"Point\"\r\n        , \"coordinates\" : [0.01, 0.02]\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/events/v1/events/open511-evt123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"events",
+										"v1",
+										"events",
+										"open511-evt123"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				},
 				{
-					"name": "update",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "drivebc-api-key",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"schedule\": [\r\n        {\"starts_on\": \"2020-11-11 01:01:01\", \"ends_by\":  \"2020-12-11 01:01:01\"},\r\n        {\"starts_on\": \"2020-11-11 01:01:01\", \"ends_by\":  \"2020-12-11 01:01:01\"},\r\n        {\"starts_on\": \"2020-11-11 01:01:01\", \"ends_by\":  \"2020-12-11 01:01:01\"}\r\n    ],\r\n    \"type\": {\r\n        \"tags\": [\"COOL\", \"Wha\"]\r\n        , \"severity\":\"MINOR\"\r\n        , \"planned\": true\r\n        , \"active\": true\r\n    }\r\n    , \"geometry\" : {\r\n        \"type\": \"Point\"\r\n        , \"coordinates\" : [0.01, 0.02]\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "geofence",
+					"item": [
+						{
+							"name": "create geofence",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "apikey",
+										"type": "text",
+										"value": "drivebc-api-key"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tags\": [\"HWY\", \"HWY 1\", \"Cool geofence\"],\r\n    \"radius\": 0\r\n    , \"geometry\" : {\r\n        \"type\": \"Polygon\"\r\n        , \"coordinates\" : [\r\n            [[5,5],[6,5],[6,6],[5,6],[5,5]]\r\n        ]\r\n    },\r\n    \"description\": \"Cool fence\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/events/v1/geofence",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"events",
+										"v1",
+										"geofence"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "drivebc-api-key",
+											"disabled": true
+										}
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8000/api/events/v1/events/open511-evt123",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"events",
-								"v1",
-								"events",
-								"open511-evt123"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
+						{
+							"name": "get geofence",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
 								}
-							]
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "apikey",
+										"type": "text",
+										"value": "drivebc-api-key"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/events/v1/geofence",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"events",
+										"v1",
+										"geofence"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "tags",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -1435,7 +1528,42 @@
 							"response": []
 						},
 						{
-							"name": "Create profile address (administration)",
+							"name": "Get profile by shema and user raw json",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "application_id",
+										"type": "text",
+										"value": "cool_app"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/profiles/app.address.profile.v1/user-1/raw",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"profiles",
+										"app.address.profile.v1",
+										"user-1",
+										"raw"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create profile address",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -1452,7 +1580,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"validation_schema_name\" : \"app.address.profile.v1\",\r\n  \"owner_id\" : \"user-2\",\r\n  \"profile\": \"{\\\"locality\\\": \\\"locality 11\\\", \\\"region\\\": \\\"region 11\\\", \\\"country-name\\\": \\\"country 11\\\"}\"\r\n}",
+									"raw": "{\r\n  \"validation_schema_name\" : \"app.address.profile.v1\",\r\n  \"owner_id\" : \"user-1\",\r\n  \"profile\": \"{\\\"locality\\\": \\\"locality 22\\\", \\\"region\\\": \\\"region 22\\\", \\\"country-name\\\": \\\"country 22\\\"}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1477,7 +1605,7 @@
 							"response": []
 						},
 						{
-							"name": "Create profile location(administration) Copy",
+							"name": "Create profile location",
 							"request": {
 								"method": "POST",
 								"header": [

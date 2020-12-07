@@ -2,6 +2,8 @@ import {
     UserInputError
 } from "../errors.js";
 import Geofence from "../schemas/geofenceSchema.js";
+import { NotFoundError } from '../errors.js'
+
 
 
 const PIPE_SYMBOL = "|"

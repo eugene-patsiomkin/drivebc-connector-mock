@@ -38,6 +38,5 @@ public class MySpringBootRouter extends RouteBuilder {
 //            .setHeader("apikey", constant("drivebc-api-key"))
 //            .to("http://localhost:8000/api/events/v1/events");
            .to("http://moti-events:8080/events");
-//        .to("http://postman-echo.com/post?proxyAuthHost=kamproxy.corp.advancedsolutions.eds.com&proxyAuthPort=8080")
     }
 }

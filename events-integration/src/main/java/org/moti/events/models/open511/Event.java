@@ -57,7 +57,7 @@ public class Event {
         mEvent.type.tags = tags.toArray(mEvent.type.tags);
 
         // Type
-        mEvent.type.active = status.toLowerCase().equals("ACTIVE");
+        mEvent.type.active = status.toLowerCase().equals("active");
         mEvent.type.planned = true;
         mEvent.type.severity = severity;
 
