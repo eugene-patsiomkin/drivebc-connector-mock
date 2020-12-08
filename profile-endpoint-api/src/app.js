@@ -28,7 +28,7 @@ const handleControllerError = (err, res) => {
             res.status(400).send(err).end();
             break;
         case err instanceof JsonSchemaValidationError:
-            res.status(400).send(err).end();
+            res.status(400).send({error: {name: err.name, message: err.message, errors: err.errors}}).end();
             break;
         default:
             console.error(err);
@@ -37,7 +37,7 @@ const handleControllerError = (err, res) => {
 }
 
 const getApplicationKey = (req, res, next) => {
-    let application_key = req.headers['application_id'] || req.headers['x-consumer-id'];
+    let application_key = req.headers['x-consumer-id'] || req.headers['application_id'];
 
     if (!application_key)
         throw new NoAppIdError("Can not id application neither 'application_id' or 'x-consumer-id' headers were provided.");

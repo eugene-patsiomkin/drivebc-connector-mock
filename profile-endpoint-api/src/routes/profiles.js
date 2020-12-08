@@ -21,10 +21,17 @@ const validateProfile = (profile) => {
         }).lean(true).exec()
         .then(schema => {
             if (!schema || schema == [])  throw new NotFoundError("Schema not found");
-            if (! _v.validate(
+            let vResult = _v.validate(
                 JSON.parse(profile.profile)
                 , JSON.parse(schema.jsonschema)
-            ).valid) throw new JsonSchemaValidationError("Profile field is not a draft 7 Json Profile");
+            ); 
+
+            if (!vResult.valid) {
+                let error =  new JsonSchemaValidationError(`Invalid profile "${profile.validation_schema_name}" provided.`);
+                error.errors = vResult.errors
+
+                throw error;
+            }
 
             resolve(profile);
         })
