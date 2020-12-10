@@ -1,6 +1,6 @@
 import express from "express";
 import Geofence from "../schemas/geofenceSchema.js";
-import { ControllerErrorHandler } from "../errors.js";
+import { ControllerErrorHandler, NotFoundError } from "../errors.js";
 
 const geoRouter = express.Router();
 

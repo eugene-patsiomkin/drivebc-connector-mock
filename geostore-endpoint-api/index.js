@@ -1,7 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
 import morgan from 'morgan';
-import proxy  from 'express-http-proxy';
 import {connectDB} from './src/db.js'
 import Routes from "./src/routes/index.js";
 import {swaggerDocument, swaggerUi} from './openapi/index.js'
@@ -9,34 +8,21 @@ import {bodyParserErrorHandler} from "./src/app.js"
 
 const app = express();
 const config = {
-    name: "event api",
-    port: process.env.MOTI_API_EVENTS_PORT || 38368,
+    name: "profile api",
+    port: process.env.MOTI_API_GEOSTORE_PORT || 7763,
     host: '0.0.0.0',
 };
-
-//Setting up logger
-app.use(morgan(':method :url :status [:res[content-type]] :res[content-length] bytes - :response-time ms'));
 
 // Swagger setup
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-//Geostore proxy
-let geostoreServer = process.env.MOTI_API_GEOSTORE_HOST || 'localhost';
-app.use("/geofence", proxy(geostoreServer, {
-    proxyReqPathResolver: function (req) {
-        let parts = req.url.split('?');
-        let queryString = parts[1];
-        let updatedPath = "/geofence" + parts[0];
-
-        return updatedPath + (queryString ? '?' + queryString : '');
-      }    
-}));
-
 //Accept json
 app.use(bodyParser.json({type: 'application/*+json'}));
 app.use(bodyParser.json({type: 'application/json'}));
-
 app.use(bodyParserErrorHandler);
+
+//Setting up logger
+app.use(morgan(':method :url :status [:res[content-type]] :res[content-length] bytes - :response-time ms'));
 
 // Health check endpoint
 app.get('/ping', (req, res) => {
@@ -50,6 +36,7 @@ Routes.forEach((route) => {
 connectDB().then( async () => {
     app.listen(config.port, config.host, (e)=> {
         if(e) {throw new Error(e);}
+
         console.log(`${config.name} is running on port ${config.port}`);
     });
 });

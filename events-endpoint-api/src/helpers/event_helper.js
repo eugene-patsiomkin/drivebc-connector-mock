@@ -1,9 +1,8 @@
 import {
-    UserInputError
-} from "../errors.js";
-import Geofence from "../schemas/geofenceSchema.js";
-import { NotFoundError } from '../errors.js'
-
+    UserInputError,
+    NotFoundError
+} from '../errors.js'
+import fetch from 'node-fetch';
 
 
 const PIPE_SYMBOL = "|"
@@ -65,10 +64,13 @@ const setGeofence = async (value) => {
     let query = {};
     if (!value) return query;
 
-    let geofence = await Geofence.findById(value).lean(true).exec()
+    let geoStore = process.env.MOTI_API_GEOSTORE_HOST;
+    if (!geoStore) throw new NotFoundError("Geofence service not available");
 
-    if (!geofence || geofence == [])  throw new NotFoundError("Geofence not found");
+    let geofenceResponse = await fetch(`http://${geoStore}/geofence/${value}`);//await Geofence.findById(value).lean(true).exec()
+    if (!geofenceResponse.ok)  throw new NotFoundError("Geofence not found");
 
+    let geofence = await geofenceResponse.json();
     query['geometry'] = {$geoWithin: {
         $geometry: geofence.geometry
     }};

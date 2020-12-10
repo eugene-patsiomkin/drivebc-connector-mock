@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import tagSchema from './tagSchema.js';
 
 const geofenceSchema = new mongoose.Schema(
     {

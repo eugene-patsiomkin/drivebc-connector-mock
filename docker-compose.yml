@@ -32,9 +32,22 @@ services:
       - kong-net
     depends_on:
       - mongodb
+      - moti-geostore
     environment:
       - MOTI_API_MONGO_DB_HOST=mongodb
+      - MOTI_API_GEOSTORE_HOST=moti-geostore:8080
       - MOTI_API_EVENTS_PORT=8080
+  moti-geostore:
+    container_name: geostore_api_app
+    image: moti/geostore-api-nodejs:v1
+    build: ./geostore-endpoint-api
+    networks: 
+      - kong-net
+    depends_on:
+      - mongodb
+    environment:
+      - MOTI_API_MONGO_DB_HOST=mongodb
+      - MOTI_API_GEOSTORE_PORT=8080      
   moti-profiles:
     container_name: profiles_api_app
     image: moti/profiles-api-nodejs:v1

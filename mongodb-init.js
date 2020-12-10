@@ -1,4 +1,8 @@
 event_db = db.getSiblingDB('event-db');
+profile_db = db.getSiblingDB('profile-db');
+images_db = db.getSiblingDB('images-db');
+geostore_db = db.getSiblingDB('geostore-db');
+
 event_db.createUser(
     {
         user: "event-api",
@@ -12,7 +16,6 @@ event_db.createUser(
     }
 );
 
-profile_db = db.getSiblingDB('profile-db');
 profile_db.createUser(
     {
         user: "profile-api",
@@ -24,4 +27,30 @@ profile_db.createUser(
             }
         ]
     }
-);;
+);
+
+images_db.createUser(
+    {
+        user: "images-api",
+        pwd: "images-api",
+        roles: [
+            {
+                role: "readWrite",
+                db: "images-db"
+            }
+        ]
+    }
+);
+
+geostore_db.createUser(
+    {
+        user: "geostore-api",
+        pwd: "geostore-api",
+        roles: [
+            {
+                role: "readWrite",
+                db: "geostore-db"
+            }
+        ]
+    }
+);
