@@ -10,7 +10,11 @@ const connectDB = () => {
     console.log(`Connecting monogo @ ${host}`);
     return mongoose.connect(
         `mongodb://event-api:event-api@${host}:27017/event-db`
-        , { useNewUrlParser: true, useUnifiedTopology: true});
+        , { 
+            useNewUrlParser: true
+            , useUnifiedTopology: true
+            , useCreateIndex: true
+        });
 }
 
 export {Models, connectDB};

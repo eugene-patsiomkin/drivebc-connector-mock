@@ -35,8 +35,21 @@ services:
       - moti-geostore
     environment:
       - MOTI_API_MONGO_DB_HOST=mongodb
-      - MOTI_API_GEOSTORE_HOST=moti-geostore:8080
       - MOTI_API_EVENTS_PORT=8080
+      - MOTI_API_GEOSTORE_HOST=moti-geostore:8080
+  # moti-images:
+  #   container_name: images_api_app
+  #   image: moti/images-api-nodejs:v1
+  #   build: ./images-endpoint-api
+  #   networks: 
+  #     - kong-net
+  #   depends_on:
+  #     - mongodb
+  #     - moti-geostore
+  #   environment:
+  #     - MOTI_API_MONGO_DB_HOST=mongodb
+  #     - MOTI_API_EVENTS_PORT=8080      
+  #     - MOTI_API_GEOSTORE_HOST=moti-geostore:8080
   moti-geostore:
     container_name: geostore_api_app
     image: moti/geostore-api-nodejs:v1

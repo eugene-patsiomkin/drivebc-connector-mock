@@ -1,54 +1,54 @@
 import express from "express";
-import Geofence from "../schemas/geofenceSchema.js";
+import Camera from "../schemas/camerasSchema.js";
 import { ControllerErrorHandler, NotFoundError } from "../errors.js";
 
 const geoRouter = express.Router();
 
 geoRouter.get("/", (req, res) => {
-    Geofence.find()
+    Camera.find()
         .lean(true).exec()
-        .then(geofence => {
-            if (!geofence || geofence == [])  throw new NotFoundError("Geofences not found");
+        .then(cameras => {
+            if (!cameras || cameras == [])  throw new NotFoundError("Cameras not found");
 
-            res.json(geofence).status(200);
+            res.json(cameras).status(200);
         })
         .catch((err) => ControllerErrorHandler(err, res));
 });
 
 
 geoRouter.get('/:id', (req, res) => {
-    Geofence.findById(req.params.id).lean(true).exec()
-        .then(geofence => {
-            if (!geofence || geofence == [])  throw new NotFoundError("Geofence not found");
+    Camera.findOne({"camera_id": req.params.id}).lean(true).exec()
+        .then(camera => {
+            if (!camera || camera == [])  throw new NotFoundError("Camera not found");
 
-            res.json(geofence).status(200);
+            res.json(camera).status(200);
         })
         .catch((err) => ControllerErrorHandler(err, res));
 });
 
 geoRouter.post('/', (req, res) => {
-    let geofenceDb = new Geofence(req.body);
+    let cameraDb = new Camera(req.body);
 
-    geofenceDb.save()
-        .then(geofence => {
-            res.json(geofence).status(200);
+    cameraDb.save()
+        .then(camera => {
+            res.json(camera).status(200);
         })
         .catch((err) => handleControllerError(err, res));
 });
 
 
 geoRouter.delete("/:id", (req, res) => {
-    let deleteGeofence = (geofence) => {
-        if (!geofence) throw new NotFoundError("Geofence not found");
+    let deleteCamera = (camera) => {
+        if (!camera) throw new NotFoundError("Camera not found");
 
-        return geofence.remove();
+        return camera.remove();
     };
 
-    Geofence.findById(req.params.id)
+    Camera.findById(req.params.id)
         .exec()
-        .then((geofence) => deleteGeofence(geofence))
+        .then((camera) => deleteCamera(camera))
         .then(() => {
-            res.status('200').json("Geofence deleted").end();
+            res.status('200').json("Camera deleted").end();
         })
         .catch((err) => handleControllerError(err, res));
 });

@@ -1,7 +1,6 @@
 import {
     NotFoundError
     , JsonSchemaValidationError
-    , NoAppIdError
 } from './errors.js'
 
 const bodyParserErrorHandler = (error, req, res, next) => {

@@ -17,7 +17,6 @@ const schemasSchema = new mongoose.Schema(
             type: String,
             required: true
         }
-
     },
     {
         timestamps: {

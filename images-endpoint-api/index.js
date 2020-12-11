@@ -6,6 +6,7 @@ import {connectDB} from './src/db.js';
 import Routes from "./src/routes/index.js";
 import {swaggerDocument, swaggerUi} from './openapi/index.js'
 import {bodyParserErrorHandler} from "./src/app.js"
+import {IMAGE_SERVER, pathResolve} from "./src/imagesProxy.js"
 
 
 const app = express();
@@ -20,20 +21,19 @@ app.use(morgan(':method :url :status [:res[content-type]] :res[content-length] b
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //images proxy
-let imageServer = "https://images.drivebc.ca";
-app.get(/\/images.*/i, proxy(imageServer, {
-    proxyReqPathResolver: function (req) {
-        let prefix = "/webcam/api/v1/webcams/";
-        let postfix = "/imageSource";
-        console.log(req.url);
-        let parts = req.url.split('?');
-        let queryString = parts[1];
-        console.log(parts[0]);
 
-        let updatedPath = parts[0].replace(/.*\/camera\/(\d*)\/.*/i, `${prefix}$1${postfix}`);
-        console.log(updatedPath);
-        
-        return updatedPath + (queryString ? '?' + queryString : '');
+app.get(/\/images.*/i, proxy(IMAGE_SERVER, {
+    proxyReqPathResolver: pathResolve
+}));
+
+//Geostore proxy
+let geostoreServer = process.env.MOTI_API_GEOSTORE_HOST || 'localhost';
+app.use("/\/geofence.*/i", proxy(geostoreServer, {
+    proxyReqPathResolver: function (req) {
+        let parts = req.url.split('?');
+        parts[0] = "/geofence" + parts[0];
+
+        return parts.join("?");
       }    
 }));
 
