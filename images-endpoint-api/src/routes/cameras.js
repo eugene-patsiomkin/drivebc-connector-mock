@@ -1,6 +1,8 @@
 import express from "express";
-import Camera from "../schemas/camerasSchema.js";
+import Models from "../db.js";
 import { ControllerErrorHandler, NotFoundError } from "../errors.js";
+
+const Camera = Models.Camera;
 
 const geoRouter = express.Router();
 
@@ -33,7 +35,7 @@ geoRouter.post('/', (req, res) => {
         .then(camera => {
             res.json(camera).status(200);
         })
-        .catch((err) => handleControllerError(err, res));
+        .catch((err) => ControllerErrorHandler(err, res));
 });
 
 
@@ -50,7 +52,7 @@ geoRouter.delete("/:id", (req, res) => {
         .then(() => {
             res.status('200').json("Camera deleted").end();
         })
-        .catch((err) => handleControllerError(err, res));
+        .catch((err) => ControllerErrorHandler(err, res));
 });
 
 export default geoRouter;

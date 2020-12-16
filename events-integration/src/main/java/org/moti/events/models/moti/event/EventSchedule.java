@@ -1,4 +1,4 @@
-package org.moti.events.models.moti;
+package org.moti.events.models.moti.event;
 
 public class EventSchedule {
     public EventSchedule() {

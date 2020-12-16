@@ -16,14 +16,15 @@ services:
     build: ./api
     networks: 
       - kong-net
-  # integration-moti-events:
-  #   container_name: integration-events-camel
-  #   image: moti/integration-events-camel:v1
+  # integrations-moti:
+  #   container_name: integration-moti-camel
+  #   image: moti/integration-camel:v1
   #   build: ./events-integration
   #   networks: 
   #     - kong-net
   #   depends_on:
   #     - moti-events
+  #     - moti-images
   moti-events:
     container_name: event_api_app
     image: moti/events-api-nodejs:v1
@@ -37,19 +38,19 @@ services:
       - MOTI_API_MONGO_DB_HOST=mongodb
       - MOTI_API_EVENTS_PORT=8080
       - MOTI_API_GEOSTORE_HOST=moti-geostore:8080
-  # moti-images:
-  #   container_name: images_api_app
-  #   image: moti/images-api-nodejs:v1
-  #   build: ./images-endpoint-api
-  #   networks: 
-  #     - kong-net
-  #   depends_on:
-  #     - mongodb
-  #     - moti-geostore
-  #   environment:
-  #     - MOTI_API_MONGO_DB_HOST=mongodb
-  #     - MOTI_API_EVENTS_PORT=8080      
-  #     - MOTI_API_GEOSTORE_HOST=moti-geostore:8080
+  moti-images:
+    container_name: images_api_app
+    image: moti/images-api-nodejs:v1
+    build: ./images-endpoint-api
+    networks: 
+      - kong-net
+    depends_on:
+      - mongodb
+      - moti-geostore
+    environment:
+      - MOTI_API_MONGO_DB_HOST=mongodb
+      - MOTI_API_IMAGES_PORT=8080      
+      - MOTI_API_GEOSTORE_HOST=moti-geostore:8080
   moti-geostore:
     container_name: geostore_api_app
     image: moti/geostore-api-nodejs:v1

@@ -11,8 +11,8 @@ import java.util.List;
 
 @JsonIgnoreProperties
 public class Event {
-    static class MotiEvent extends org.moti.events.models.moti.Event {}
-    static class MotiEventSchedule extends org.moti.events.models.moti.EventSchedule {}
+    static class MotiEvent extends org.moti.events.models.moti.event.Event {}
+    static class MotiEventSchedule extends org.moti.events.models.moti.event.EventSchedule {}
     public String url;
 
     @JsonProperty(value="jurisdiction_url")

@@ -1,7 +1,7 @@
-//import geofences from "./geofences.js";
+import cameras from "./cameras.js";
 
 const Routes = [
-   // { path: "/geofence", route: geofences }
+    { path: "/cameras", route: cameras }
 ];
 
 export default Routes;

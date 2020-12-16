@@ -9,6 +9,7 @@ const camerasSchema = new mongoose.Schema(
         caption:  String,
         orientation: String,
         altitude: Number,
+        isOn: Boolean,
         geometry: {
             required: true,
             type: mongoose.Schema.Types.Object,
@@ -36,4 +37,5 @@ camerasSchema.index({camera_id: 1}, {unique:true});
 camerasSchema.index({geometry: "2dsphere"});
 
 
-export default camerasSchema;
+const Camera = mongoose.model("Camera", camerasSchema);
+export default Camera;

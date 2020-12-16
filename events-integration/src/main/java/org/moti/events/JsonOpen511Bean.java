@@ -1,7 +1,7 @@
 package org.moti.events;
 
 
-import org.moti.events.models.moti.Event;
+import org.moti.events.models.moti.event.Event;
 import org.moti.events.models.open511.EventList;
 import org.springframework.stereotype.Component;
 

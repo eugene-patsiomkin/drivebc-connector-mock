@@ -1,6 +1,5 @@
 package org.moti.events;
 
-import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.http.base.HttpOperationFailedException;
@@ -13,14 +12,14 @@ import org.springframework.stereotype.Component;
  * Use <tt>@Component</tt> to make Camel auto detect this route when starting.
  */
 @Component
-public class MySpringBootRouter extends RouteBuilder {
+public class MotiEventRouter extends RouteBuilder {
     @Override
     public void configure() {
         JacksonDataFormat open511 = new JacksonDataFormat(EventList.class);
         onException(HttpOperationFailedException.class)
                 .to("stream:out");
 
-        from("timer:getEvents?period={{timer.period}}").routeId("open511")
+        from("timer:getEvents?period={{timer.period}}").routeId("Get open511")
             .to("http://api.open511.gov.bc.ca/events?limit=500&format=json")
             .convertBodyTo(String.class).unmarshal(open511)
             .bean("Open511ToEvents", "toMotiEventJson")
@@ -35,7 +34,6 @@ public class MySpringBootRouter extends RouteBuilder {
             .setHeader("Content-Type", constant("application/json"))
             .setHeader("Accept", constant("application/json"))
             .marshal().json()
-//            .setHeader("apikey", constant("drivebc-api-key"))
 //            .to("http://localhost:8000/api/events/v1/events");
            .to("http://moti-events:8080/events");
     }

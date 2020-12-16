@@ -1,4 +1,4 @@
-package org.moti.events.models.moti;
+package org.moti.events.models.moti.event;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

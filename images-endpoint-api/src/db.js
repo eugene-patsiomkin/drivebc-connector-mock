@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import camerasSchema from './schemas/camerasSchema.js';
+import Camera from './schemas/camerasSchema.js';
 
 const Models = {
-    Cameras: mongoose.model('cameras', camerasSchema)
+    Camera: Camera
 };
 
 const connectDB = () => {

@@ -12,9 +12,11 @@ import {IMAGE_SERVER, pathResolve} from "./src/imagesProxy.js"
 const app = express();
 const config = {
     name: "images api",
-    port: process.env.MOTI_API_PROFILES_PORT || 7763,
+    port: process.env.MOTI_API_IMAGES_PORT || 7763,
     host: '0.0.0.0',
 };
+
+
 
 app.use(morgan(':method :url :status [:res[content-type]] :res[content-length] bytes - :response-time ms'));
 // Swagger setup
@@ -41,6 +43,12 @@ app.use("/\/geofence.*/i", proxy(geostoreServer, {
 app.use(bodyParser.json({type: 'application/*+json'}));
 app.use(bodyParser.json({type: 'application/json'}));
 app.use(bodyParserErrorHandler);
+
+app.use((req, res, next) =>{
+    console.log(req.body);
+    
+    next();
+})
 
 // Health check endpoint
 app.get('/ping', (req, res) => {
