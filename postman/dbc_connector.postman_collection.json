@@ -512,6 +512,176 @@
 					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "cameras_images_setup",
+					"item": [
+						{
+							"name": "step 1 - create-service",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "moti.images.api",
+											"type": "text"
+										},
+										{
+											"key": "url",
+											"value": "http://moti-images:8080",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 2 - create-route",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "paths[]",
+											"value": "/api/images/v1",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "images-v1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services/moti.images.api/routes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"moti.images.api",
+										"routes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 3 - add-service-plugin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "key-auth",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services/moti.images.api/plugins/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"moti.images.api",
+										"plugins",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 4 - add-consumer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "drivebc-images",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/consumers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"consumers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 5 - add-key",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "key",
+											"value": "drivebc-images-api-key",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/consumers/drivebc-images/key-auth/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"consumers",
+										"drivebc-images",
+										"key-auth",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -732,7 +902,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8000/api/events/v1/events?ends_before=2019-01-01",
+									"raw": "http://localhost:8000/api/events/v1/events?geofence=5fd1558478e2004f8c3dd4d7",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -746,8 +916,8 @@
 									],
 									"query": [
 										{
-											"key": "ends_before",
-											"value": "2019-01-01"
+											"key": "geofence",
+											"value": "5fd1558478e2004f8c3dd4d7"
 										}
 									]
 								}
@@ -1039,7 +1209,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"tags\": [\"HWY\", \"HWY 1\", \"Cool geofence\"],\r\n    \"radius\": 0\r\n    , \"geometry\" : {\r\n        \"type\": \"Polygon\"\r\n        , \"coordinates\" : [\r\n            [[5,5],[6,5],[6,6],[5,6],[5,5]]\r\n        ]\r\n    },\r\n    \"description\": \"Cool fence\"\r\n}",
+									"raw": "{\r\n    \"tags\": [\"HWY\", \"HWY 2\", \"Cool geofence\"],\r\n    \"radius\": 0\r\n    , \"geometry\" : {\r\n        \"type\": \"Polygon\"\r\n        , \"coordinates\" : [\r\n            [[4,5],[6,5],[6,6],[5,6],[4,5]]\r\n        ]\r\n    },\r\n    \"description\": \"Cool fence\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1707,7 +1877,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"validation_schema_name\" : \"app.address.profile.v1\",\r\n  \"owner_id\" : \"user-2\",\r\n  \"profile\": \"{\\\"locality\\\": \\\"locality 99\\\", \\\"country-name\\\": \\\"country 99\\\"}\"\r\n}",
+									"raw": "{\r\n  \"validation_schema_name\" : \"app.address.profile.v1\",\r\n  \"owner_id\" : \"user-1\",\r\n  \"profile\": \"{\\\"locality\\\": \\\"locality 99\\\", \\\"country-name\\\": \\\"country 99\\\"}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1798,6 +1968,114 @@
 								"v1",
 								"api-docs",
 								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "images",
+			"item": [
+				{
+					"name": "cameras",
+					"item": [
+						{
+							"name": "Create camera",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "apikey",
+										"value": "drivebc-images-api-key",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Hagensborg\",\r\n    \"caption\": \"Hwy 20, between Bella Coola and Hagensborg, looking west.\",\r\n    \"orientation\": \"W\",\r\n    \"altitude\": 42,\r\n    \"isOn\": true,\r\n    \"camera_id\": 455,\r\n    \"geometry\": {\r\n        \"type\": \"Point\",\r\n        \"coordinates\": [\r\n            -126.60558,\r\n            52.37708,\r\n            42\r\n        ]\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/api/images/v1/cameras/",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"images",
+										"v1",
+										"cameras",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get cameras",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "apikey",
+										"value": "drivebc-images-api-key",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8000/api/images/v1/cameras/168",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"images",
+										"v1",
+										"cameras",
+										"168"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "get Image",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "apikey",
+								"value": "drivebc-images-api-key",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/images/v1/images/camera/168/current",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"images",
+								"v1",
+								"images",
+								"camera",
+								"168",
+								"current"
 							]
 						}
 					},

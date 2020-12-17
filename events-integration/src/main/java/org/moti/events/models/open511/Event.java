@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.moti.events.models.Areas;
 import org.moti.events.models.Roads;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,11 @@ import java.util.List;
 @JsonIgnoreProperties
 public class Event {
     static class MotiEvent extends org.moti.events.models.moti.event.Event {}
-    static class MotiEventSchedule extends org.moti.events.models.moti.event.EventSchedule {}
+    static class MotiEventSchedule extends org.moti.events.models.moti.event.EventSchedule {
+        public MotiEventSchedule(String from, String to) {
+            super(from, to);
+        }
+    }
     public String url;
 
     @JsonProperty(value="jurisdiction_url")
@@ -39,21 +46,21 @@ public class Event {
     public Roads[] roads;
     public Areas[] areas;
 
-    public MotiEvent toMotiEvent()
-    {
+    public MotiEvent toMotiEvent() {
         // Init
         MotiEvent mEvent = new MotiEvent();
 
         //Geometry
         mEvent.geometry = geography;
 
-        //Event id
-        mEvent.bid = id;
 
         // Mapping tags
         List<String> tags = new ArrayList<String>(Arrays.asList(eventSubtypes));
         tags.add(eventType);
         tags.add(status);
+
+        mEvent.bid = id.replace("\\", "-").replace("/", "_").replace("?", "-").replace("#", "-").replace("%", "-");
+
         mEvent.type.tags = tags.toArray(mEvent.type.tags);
 
         // Type
@@ -68,7 +75,7 @@ public class Event {
 
         // Schedule
         mEvent.schedule = new MotiEventSchedule[]{
-            new MotiEventSchedule()
+            new MotiEventSchedule(created, updated)
         };
 
         return mEvent;
