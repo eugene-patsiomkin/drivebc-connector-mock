@@ -37,7 +37,7 @@ const handleControllerError = (err, res) => {
 }
 
 const getApplicationKey = (req, res, next) => {
-    let application_key = req.headers['x-consumer-id'] || req.headers['application_id'];
+    let application_key = req.headers['application_id'] || req.headers['x-consumer-id'];
 
     if (!application_key)
         throw new NoAppIdError("Can not id application neither 'application_id' or 'x-consumer-id' headers were provided.");

@@ -160,7 +160,8 @@ services:
       - kong-net
     volumes:
       - mongodbdata:/var/lib/mongodb/data
-      - ./mongodb-init.js:/docker-entrypoint-initdb.d/users.js:ro
+      - ./mongodb-users.js:/docker-entrypoint-initdb.d/01-users.js:ro
+      - ./mongodb-seed-data.js:/docker-entrypoint-initdb.d/02-seed-data.js:ro
     ports:
       - '27017-27019:27017-27019'
     restart: on-failure
