@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 
 const geofenceSchema = new mongoose.Schema(
     {
+        _id: mongoose.Schema.Types.String,
         tags : {
             type: mongoose.Schema.Types.Array,
             required: true,

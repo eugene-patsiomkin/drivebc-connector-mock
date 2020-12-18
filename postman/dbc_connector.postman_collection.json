@@ -902,7 +902,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8000/api/events/v1/events?geofence=5fd1558478e2004f8c3dd4d7",
+									"raw": "http://localhost:8000/api/events/v1/events?geofence=demo-geofence-2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -917,7 +917,7 @@
 									"query": [
 										{
 											"key": "geofence",
-											"value": "5fd1558478e2004f8c3dd4d7"
+											"value": "demo-geofence-2"
 										}
 									]
 								}
@@ -1209,7 +1209,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"tags\": [\"HWY 4\"],\r\n    \"radius\": 0\r\n    , \"geometry\" : {\r\n        \"type\": \"Polygon\"\r\n        , \"coordinates\" : [\r\n            [[4,5],[6,5],[6,6],[5,6],[4,5]]\r\n        ]\r\n    },\r\n    \"description\": \"Cool fence\"\r\n}",
+									"raw": "{\r\n    \"_id\": \"some-id\",\r\n    \"tags\": [\"HWY 4\"],\r\n    \"radius\": 0\r\n    , \"geometry\" : {\r\n        \"type\": \"Polygon\"\r\n        , \"coordinates\" : [\r\n            [[4,5],[6,5],[6,6],[5,6],[4,5]]\r\n        ]\r\n    },\r\n    \"description\": \"Cool fence\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1304,7 +1304,7 @@
 								"header": [
 									{
 										"key": "application_id",
-										"value": "cool_app",
+										"value": "demo-application-key",
 										"type": "text"
 									},
 									{
@@ -1611,7 +1611,7 @@
 								"header": [
 									{
 										"key": "application_id",
-										"value": "cool_app",
+										"value": "demo-application-key",
 										"type": "text"
 									},
 									{
@@ -1621,7 +1621,7 @@
 									}
 								],
 								"url": {
-									"raw": "localhost:8000/api/profiles/v1/profiles/",
+									"raw": "localhost:8000/api/profiles/v1/profiles/moti.dbc.profile.v1/demo-user/raw",
 									"host": [
 										"localhost"
 									],
@@ -1631,7 +1631,9 @@
 										"profiles",
 										"v1",
 										"profiles",
-										""
+										"moti.dbc.profile.v1",
+										"demo-user",
+										"raw"
 									]
 								}
 							},
@@ -1835,6 +1837,48 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n  \"validation_schema_name\" : \"app.location.profile.v1\",\r\n  \"owner_id\" : \"user-2\",\r\n  \"profile\": \"{\\\"latitude\\\": 11, \\\"longitude\\\": -11}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/profiles/",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"profiles",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create profile profile",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "application_id",
+										"value": "cool_app",
+										"type": "text"
+									},
+									{
+										"key": "apikey",
+										"value": "drivebc-profiles-api-key",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"validation_schema_name\": \"moti.dbc.profile.v1\",\r\n    \"owner_id\": \"user-1\",\r\n    \"profile\": \"{\\r\\n    \\\"type\\\": \\\"user_type\\\",\\r\\n    \\\"favorites\\\": {\\r\\n        \\\"cameras\\\" : [\\\"5\\\", \\\"455\\\"],\\r\\n        \\\"routes\\\": [\\r\\n            {\\r\\n                \\\"start\\\": \\\"Start point text 1\\\",\\r\\n                \\\"end\\\": \\\"End point text 1\\\",\\r\\n                \\\"geofence_id\\\": \\\"demo-geofence-1\\\"\\r\\n            },\\r\\n            {\\r\\n                \\\"start\\\": \\\"Start point text 2\\\",\\r\\n                \\\"end\\\": \\\"End point text 2\\\",\\r\\n                \\\"geofence_id\\\": \\\"demo-geofence-2\\\"\\r\\n            }\\r\\n        ]\\r\\n    }\\r\\n}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2073,7 +2117,7 @@
 									}
 								],
 								"url": {
-									"raw": "localhost:8000/api/images/v1/cameras/168",
+									"raw": "localhost:8000/api/images/v1/cameras/455",
 									"host": [
 										"localhost"
 									],
@@ -2083,7 +2127,7 @@
 										"images",
 										"v1",
 										"cameras",
-										"168"
+										"455"
 									]
 								}
 							},
@@ -2105,7 +2149,7 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8000/api/images/v1/images/camera/168/current",
+							"raw": "localhost:8000/api/images/v1/images/camera/455/current",
 							"host": [
 								"localhost"
 							],
@@ -2116,7 +2160,7 @@
 								"v1",
 								"images",
 								"camera",
-								"168",
+								"455",
 								"current"
 							]
 						}

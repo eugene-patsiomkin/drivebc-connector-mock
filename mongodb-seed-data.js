@@ -42,7 +42,7 @@ images_db.cameras.insertMany([{
 }]);
 delete images_db;
 
-
+// Geofences
 geostore_db = db.getSiblingDB('geostore-db');
 
 geostore_db.geofences.insertMany([{
@@ -98,8 +98,6 @@ geostore_db.geofences.insertMany([{
     },
     "description": "Route 2"
 }]);
-
-
 delete geostore_db;
 
 profile_db = db.getSiblingDB('profile-db');
@@ -119,17 +117,12 @@ profile_db.profiles.insert({
     "validation_schema_name": "moti.dbc.profile.v1",
     "owner_id": "demo-user",
     "profile": "{\r\n    \"type\": \"user_type\",\r\n    \"favorites\": {\r\n        \"cameras\" : [\"5\", \"455\"],\r\n        \"routes\": [\r\n            {\r\n                \"start\": \"Start point text 1\",\r\n                \"end\": \"End point text 1\",\r\n                \"geofence_id\": \"demo-geofence-1\"\r\n            },\r\n            {\r\n                \"start\": \"Start point text 2\",\r\n                \"end\": \"End point text 2\",\r\n                \"geofence_id\": \"demo-geofence-2\"\r\n            }\r\n        ]\r\n    }\r\n}",
-    "application_key": "74671621-8c23-4924-88e8-6377d1d01871",
+    "application_key": "demo-application-key",
     "created_on": "2020-12-18T21:25:35.361Z",
     "updated_on": "2020-12-18T21:25:35.361Z",
     "__v": 0
 });
-
-
-
 delete profile_db;
-
-
 
 event_db = db.getSiblingDB('event-db');
 event_db.events.insertMany([{
