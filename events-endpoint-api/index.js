@@ -22,7 +22,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //Geostore proxy
 let geostoreServer = process.env.MOTI_API_GEOSTORE_HOST || 'localhost';
-app.use("/\/geofence.*/i", proxy(geostoreServer, {
+app.use("/geofence", proxy(geostoreServer, {
     proxyReqPathResolver: function (req) {
         let parts = req.url.split('?');
         parts[0] = "/geofence" + parts[0];

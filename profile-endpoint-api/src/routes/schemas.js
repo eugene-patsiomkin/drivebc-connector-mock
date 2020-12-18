@@ -42,8 +42,10 @@ schemasRouter.post('/', (req, res) => {
     let schObj = req.body;
     schObj.application_key = req.moti.application_key;
     let schemaContentObj = JSON.parse(schObj.jsonschema);
+    let validationResult = _v.validate(schemaContentObj, jsDraft7) 
+    validationResult.errors.forEach((e) => console.log(e));
 
-    if (! _v.validate(schemaContentObj, jsDraft7).valid) throw new JsonSchemaValidationError("Schema field is not a draft 7 Json Schema");
+    if (! validationResult.valid) throw new JsonSchemaValidationError("Schema field is not a draft 7 Json Schema");
 
     let schema = new Schema(schObj);
     schema.save()

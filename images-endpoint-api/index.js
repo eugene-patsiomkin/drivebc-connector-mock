@@ -30,9 +30,9 @@ app.get(/\/images.*/i, proxy(IMAGE_SERVER, {
 
 //Geostore proxy
 let geostoreServer = process.env.MOTI_API_GEOSTORE_HOST || 'localhost';
-app.use("/\/geofence.*/i", proxy(geostoreServer, {
+app.use("/geofence", proxy(geostoreServer, {
     proxyReqPathResolver: function (req) {
-        let parts = req.url.split('?');
+        let parts = req.split('?');
         parts[0] = "/geofence" + parts[0];
 
         return parts.join("?");

@@ -13,6 +13,9 @@ const config = {
     host: '0.0.0.0',
 };
 
+//Setting up logger
+app.use(morgan(':method :url :status [:res[content-type]] :res[content-length] bytes - :response-time ms'));
+
 // Swagger setup
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
@@ -21,9 +24,6 @@ app.use(bodyParser.json({type: 'application/*+json'}));
 app.use(bodyParser.json({type: 'application/json'}));
 app.use(bodyParserErrorHandler);
 app.use(getApplicationKey);
-
-//Setting up logger
-app.use(morgan(':method :url :status [:res[content-type]] :res[content-length] bytes - :response-time ms'));
 
 // Health check endpoint
 app.get('/ping', (req, res) => {

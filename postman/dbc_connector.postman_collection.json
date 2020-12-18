@@ -1209,7 +1209,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"tags\": [\"HWY\", \"HWY 2\", \"Cool geofence\"],\r\n    \"radius\": 0\r\n    , \"geometry\" : {\r\n        \"type\": \"Polygon\"\r\n        , \"coordinates\" : [\r\n            [[4,5],[6,5],[6,6],[5,6],[4,5]]\r\n        ]\r\n    },\r\n    \"description\": \"Cool fence\"\r\n}",
+									"raw": "{\r\n    \"tags\": [\"HWY 4\"],\r\n    \"radius\": 0\r\n    , \"geometry\" : {\r\n        \"type\": \"Polygon\"\r\n        , \"coordinates\" : [\r\n            [[4,5],[6,5],[6,6],[5,6],[4,5]]\r\n        ]\r\n    },\r\n    \"description\": \"Cool fence\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1415,6 +1415,48 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n  \"name\" : \"app.address.profile.v1\",\r\n  \"jsonschema\" : \"{\\r\\n  \\\"$id\\\": \\\"app.address.profile.v1\\\",\\r\\n  \\\"description\\\": \\\"An address similar to http:\\/\\/microformats.org\\/wiki\\/h-card\\\",\\r\\n  \\\"type\\\": \\\"object\\\",\\r\\n  \\\"properties\\\": {\\r\\n    \\\"post-office-box\\\": {\\r\\n      \\\"type\\\": \\\"string\\\"\\r\\n    },\\r\\n    \\\"extended-address\\\": {\\r\\n      \\\"type\\\": \\\"string\\\"\\r\\n    },\\r\\n    \\\"street-address\\\": {\\r\\n      \\\"type\\\": \\\"string\\\"\\r\\n    },\\r\\n    \\\"locality\\\": {\\r\\n      \\\"type\\\": \\\"string\\\"\\r\\n    },\\r\\n    \\\"region\\\": {\\r\\n      \\\"type\\\": \\\"string\\\"\\r\\n    },\\r\\n    \\\"postal-code\\\": {\\r\\n      \\\"type\\\": \\\"string\\\"\\r\\n    },\\r\\n    \\\"country-name\\\": {\\r\\n      \\\"type\\\": \\\"string\\\"\\r\\n    }\\r\\n  },\\r\\n  \\\"required\\\": [ \\\"locality\\\", \\\"region\\\", \\\"country-name\\\" ],\\r\\n  \\\"dependencies\\\": {\\r\\n    \\\"post-office-box\\\": [ \\\"street-address\\\" ],\\r\\n    \\\"extended-address\\\": [ \\\"street-address\\\" ]\\r\\n  }\\r\\n}\",\r\n  \"description\" : \"cool address validator\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/api/profiles/v1/schemas/",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profiles",
+										"v1",
+										"schemas",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create schema user profile (administration)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "application_id",
+										"type": "text",
+										"value": "cool_app"
+									},
+									{
+										"key": "apikey",
+										"type": "text",
+										"value": "drivebc-profiles-api-key"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\" : \"moti.dbc.profile.v1\",\r\n  \"jsonschema\" : \"{\\r\\n    \\\"$id\\\": \\\"moti.dbc.profile.v1\\\",\\r\\n     \\\"description\\\": \\\"profile sample\\\",\\r\\n     \\\"type\\\": \\\"object\\\",\\r\\n     \\\"properties\\\": {\\r\\n         \\\"type\\\": {\\r\\n             \\\"type\\\": \\\"string\\\",\\r\\n             \\\"description\\\": \\\"Profile type\\\"\\r\\n         },\\r\\n         \\\"favorites\\\": {\\r\\n             \\\"type\\\": \\\"object\\\",\\r\\n             \\\"properties\\\" : {\\r\\n                \\\"cameras\\\" : {\\r\\n                    \\\"type\\\": \\\"array\\\",\\r\\n                    \\\"items\\\" : {\\r\\n                        \\\"type\\\": \\\"string\\\"\\r\\n                    },\\r\\n                    \\\"minItems\\\": 0,\\r\\n                    \\\"uniqueItems\\\": true\\r\\n                },\\r\\n                \\\"routes\\\" : {\\r\\n                    \\\"type\\\": \\\"array\\\",\\r\\n                    \\\"items\\\": {\\r\\n                        \\\"type\\\": \\\"object\\\",\\r\\n                        \\\"properties\\\": {\\r\\n                            \\\"start\\\": {\\r\\n                                \\\"type\\\": \\\"string\\\"\\r\\n                            },\\r\\n                            \\\"end\\\": {\\r\\n                                \\\"type\\\": \\\"string\\\"\\r\\n                            },\\r\\n                            \\\"geofence_id\\\": {\\r\\n                                \\\"type\\\":  \\\"string\\\"\\r\\n                            }\\r\\n                        },\\r\\n                        \\\"required\\\": [\\\"start\\\", \\\"end\\\", \\\"geofence_id\\\"]\\r\\n                    },\\r\\n                    \\\"minItems\\\": 0,\\r\\n                    \\\"uniqueItems\\\": true\\r\\n                }\\r\\n             }\\r\\n         }\\r\\n    },\\r\\n     \\\"required\\\": [\\\"type\\\", \\\"favorites\\\"]\\r\\n}\",\r\n  \"description\" : \"cool address validator\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"

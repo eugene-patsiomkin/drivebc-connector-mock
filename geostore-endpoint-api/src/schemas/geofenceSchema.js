@@ -11,7 +11,8 @@ const geofenceSchema = new mongoose.Schema(
             },
             items: {
                 type: mongoose.Schema.Types.String
-            }
+            },
+            index: true
         },
         radius: {
             type: mongoose.Schema.Types.Number,
