@@ -2,7 +2,7 @@ import {
     UserInputError,
     NotFoundError
 } from '../errors.js'
-import fetch from 'node-fetch';
+import {ZipkinFetch as fetch} from '../zipkin.js';
 
 
 const PIPE_SYMBOL = "|"

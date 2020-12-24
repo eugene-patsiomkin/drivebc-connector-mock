@@ -12,8 +12,13 @@
     "lodash": "^4.17.20",
     "mongoose": "^5.10.16",
     "morgan": "^1.10.0",
+    "node-fetch": "^2.6.1",
     "swagger-ui-express": "^4.1.5",
-    "yamljs": "^0.3.0"
+    "yamljs": "^0.3.0",
+    "zipkin": "^0.22.0",
+    "zipkin-instrumentation-express": "^0.22.0",
+    "zipkin-instrumentation-fetch": "^0.22.0",
+    "zipkin-transport-http": "^0.22.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"

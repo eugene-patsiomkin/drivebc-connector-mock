@@ -7,13 +7,13 @@
 ```shell
 git checkout https://github.com/eugene-patsiomkin/drivebc-connector-mock.git
 cd drivebc-connector-mock
-docker-compose up --build
+.\run-containers.ps1 -CMD up
 ```
  
 Database for events can be cleaned througn mongo console or by running
 
 ```shell
-docker-compose down
+.\run-containers.ps1 -CMD down
 ```
 
 ### Kong configuration

@@ -6,8 +6,11 @@ import {connectDB} from './src/db.js'
 import Routes from "./src/routes/index.js";
 import {swaggerDocument, swaggerUi} from './openapi/index.js'
 import {bodyParserErrorHandler} from "./src/app.js"
+import {ZipkinTracerMiddleware} from "./src/zipkin.js"
 
 const app = express();
+app.use(ZipkinTracerMiddleware);
+
 const config = {
     name: "event api",
     port: process.env.MOTI_API_EVENTS_PORT || 38368,

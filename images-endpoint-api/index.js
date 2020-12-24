@@ -7,16 +7,16 @@ import Routes from "./src/routes/index.js";
 import {swaggerDocument, swaggerUi} from './openapi/index.js'
 import {bodyParserErrorHandler} from "./src/app.js"
 import {IMAGE_SERVER, pathResolve} from "./src/imagesProxy.js"
-
+import {ZipkinTracerMiddleware} from "./src/zipkin.js"
 
 const app = express();
+app.use(ZipkinTracerMiddleware);
+
 const config = {
     name: "images api",
     port: process.env.MOTI_API_IMAGES_PORT || 7763,
     host: '0.0.0.0',
 };
-
-
 
 app.use(morgan(':method :url :status [:res[content-type]] :res[content-length] bytes - :response-time ms'));
 // Swagger setup
