@@ -9,8 +9,8 @@ git checkout https://github.com/eugene-patsiomkin/drivebc-connector-mock.git
 cd drivebc-connector-mock
 .\run-containers.ps1 -CMD up
 ```
- 
-Database for events can be cleaned througn mongo console or by running
+
+Database for events can be cleaned through mongo console or by running
 
 ```shell
 .\run-containers.ps1 -CMD down

@@ -1,0 +1,101 @@
+{
+	"request": "PUT _template/zipkin-span_template?include_type_name",
+  "order": 0,
+  "index_patterns": [
+    "zipkin-span-*"
+  ],
+  "settings": {
+    "index": {
+      "number_of_shards": "5",
+      "number_of_replicas": "1",
+      "requests": {
+        "cache": {
+          "enable": "true"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "_doc": {
+      "dynamic": true,
+      "numeric_detection": false,
+      "date_detection": true,
+      "dynamic_date_formats": [
+        "strict_date_optional_time",
+        "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z"
+      ],
+      "_source": {
+        "enabled": true,
+        "includes": [],
+        "excludes": [
+          "_q"
+        ]
+      },
+      "_routing": {
+        "required": false
+      },
+      "dynamic_templates": [
+        {
+          "strings": {
+            "mapping": {
+              "norms": false,
+              "ignore_above": 256,
+              "type": "keyword"
+            },
+            "match_mapping_type": "string",
+            "match": "*"
+          }
+        }
+      ],
+      "properties": {
+        "_q": {
+          "norms": false,
+          "type": "keyword"
+        },
+        "annotations": {
+          "enabled": false
+        },
+        "duration": {
+          "type": "long"
+        },
+        "localEndpoint": {
+          "dynamic": false,
+          "type": "object",
+          "properties": {
+            "serviceName": {
+              "norms": false,
+              "type": "keyword"
+            }
+          }
+        },
+        "name": {
+          "norms": false,
+          "type": "keyword"
+        },
+        "remoteEndpoint": {
+          "dynamic": false,
+          "type": "object",
+          "properties": {
+            "serviceName": {
+              "norms": false,
+              "type": "keyword"
+            }
+          }
+        },
+        "tags": {
+          "dynamic": true,
+          "type": "object",
+          "enabled": true
+        },
+        "timestamp_millis": {
+          "format": "epoch_millis",
+          "type": "date"
+        },
+        "traceId": {
+          "norms": false,
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
