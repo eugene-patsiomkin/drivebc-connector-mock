@@ -21,6 +21,8 @@
 version: '3.7'
 volumes:
   elastic_data: {}
+  metricbeat: {}
+  heartbeat: {}
 
 services:
   storage:
@@ -80,3 +82,44 @@ services:
     networks:
       - kong-net
 
+  metricbeat:
+    image: docker.elastic.co/beats/metricbeat:7.10.1
+    container_name: metricbeat
+    user: root
+    volumes:
+      - ./docker-compose/metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
+      - ./docker-compose/metricbeat/modules/:/usr/share/metricbeat/modules.d/
+      - /proc:/hostfs/proc:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      - /:/hostfs:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - metricbeat:/usr/share/metricbeat/data
+    depends_on:
+      - storage      
+    environment:
+      ELASTICSEARCH_URL: http://storage:9200
+      ELASTICSEARCH_HOSTS: http://storage:9200
+      KIBANA_HOST: http://kibana:5601
+    # disable strict permission checks
+    command: ["--strict.perms=false", "-system.hostfs=/hostfs"]
+    networks:
+      - kong-net
+  
+  heartbeat:
+    image: docker.elastic.co/beats/heartbeat:7.10.1
+    container_name: heartbeat
+    user: root
+    command: ["--strict.perms=false"]
+    volumes:
+      - heartbeat:/usr/share/heartbeat/data
+      - ./docker-compose/heartbeat/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml
+    depends_on:
+      - storage      
+    environment:
+      ELASTICSEARCH_URL: http://storage:9200
+      ELASTICSEARCH_HOSTS: http://storage:9200
+      KIBANA_HOST: http://kibana:5601
+    # disable strict permission checks
+    networks:
+      - kong-net
+    

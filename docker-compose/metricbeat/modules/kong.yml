@@ -1,0 +1,9 @@
+# - module: nginx
+#   period: 10s
+
+#   # Nginx hosts
+#   hosts: ["http://kong:8001"]
+
+#   # Path to server status. Default server-status
+#   server_status_path: "status"
+#   enabled: true

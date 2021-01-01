@@ -44,12 +44,6 @@ app.use(bodyParser.json({type: 'application/*+json'}));
 app.use(bodyParser.json({type: 'application/json'}));
 app.use(bodyParserErrorHandler);
 
-app.use((req, res, next) =>{
-    console.log(req.body);
-    
-    next();
-})
-
 // Health check endpoint
 app.get('/ping', (req, res) => {
     res.status(200).json("pong");

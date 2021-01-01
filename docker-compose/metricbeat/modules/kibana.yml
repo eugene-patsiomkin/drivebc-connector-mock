@@ -1,0 +1,4 @@
+- module: kibana
+  period: 10s
+  hosts: ["kibana:5601"]
+  enabled: true

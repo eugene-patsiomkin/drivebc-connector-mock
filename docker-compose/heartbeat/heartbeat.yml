@@ -1,0 +1,44 @@
+heartbeat.monitors:
+- type: http
+  schedule: '@every 5s'
+  urls: ["http://kong:8001"]
+  service_name: kong-app 
+  id: kong-app-http-service
+  name: Client facing kong app
+  proxy_disable: true
+
+- type: http
+  schedule: '@every 5s'
+  urls: ["http://moti-events:8080/ping"]
+  service_name: moti-events-app
+  id: moti-events-app
+  name: Client facing events app
+  proxy_disable: true
+  
+- type: http
+  schedule: '@every 5s'
+  urls: ["http://moti-images:8080/ping"]
+  service_name: moti-images-app
+  id: moti-images-app
+  name: Client facing images app
+  proxy_disable: true
+
+- type: http
+  schedule: '@every 5s'
+  urls: ["http://moti-geostore:8080/ping"]
+  service_name: moti-geostore-app
+  id: moti-geostore-app
+  name: Client facing geostore app
+  proxy_disable: true
+  
+- type: http
+  schedule: '@every 5s'
+  urls: ["http://moti-profiles:8080/ping"]
+  service_name: moti-profiles-app
+  id: moti-profiles-app
+  name: Client facing profiles app
+  proxy_disable: true
+
+output.elasticsearch:
+  hosts: ["http://storage:9200"]
+  proxy_disable: true

@@ -38,3 +38,14 @@ geostore_db.createUser({
         db: "geostore-db"
     }]
 });
+
+
+
+admin_db = db.getSiblingDB('admin');
+admin_db.createUser(
+    {
+        user: "beats",
+        pwd: "pass",
+        roles: ["userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase"]
+    }
+);
