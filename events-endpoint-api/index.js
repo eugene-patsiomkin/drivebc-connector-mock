@@ -18,7 +18,7 @@ const config = {
 };
 
 //Setting up logger
-app.use(morgan(':method :url :status [:res[content-type]] :res[content-length] bytes - :response-time ms'));
+app.use(morgan('common'));
 
 // Swagger setup
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

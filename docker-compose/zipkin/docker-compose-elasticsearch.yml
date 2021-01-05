@@ -23,6 +23,7 @@ volumes:
   elastic_data: {}
   metricbeat: {}
   heartbeat: {}
+  filebeat: {}
 
 services:
   storage:
@@ -122,4 +123,23 @@ services:
     # disable strict permission checks
     networks:
       - kong-net
-    
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.10.1
+    container_name: filebeat
+    user: root
+    command: ["--strict.perms=false"]
+    volumes:
+      - filebeat:/usr/share/filebeat/data
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./docker-compose/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+    depends_on:
+      - storage      
+    environment:
+      ELASTICSEARCH_URL: http://storage:9200
+      ELASTICSEARCH_HOSTS: http://storage:9200
+      KIBANA_HOST: http://kibana:5601
+    # disable strict permission checks
+    networks:
+      - kong-net

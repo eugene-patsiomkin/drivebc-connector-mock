@@ -1,4 +1,4 @@
 - module: elasticsearch
 
-  period: 10s
+  period: 60s
   hosts: ["http://storage:9200"]

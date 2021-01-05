@@ -46,6 +46,6 @@ admin_db.createUser(
     {
         user: "beats",
         pwd: "pass",
-        roles: ["userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase"]
+        roles: ["userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase", "clusterAdmin"]
     }
 );

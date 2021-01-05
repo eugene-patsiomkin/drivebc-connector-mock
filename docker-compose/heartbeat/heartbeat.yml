@@ -1,6 +1,6 @@
 heartbeat.monitors:
 - type: http
-  schedule: '@every 5s'
+  schedule: '@every 100s'
   urls: ["http://kong:8001"]
   service_name: kong-app 
   id: kong-app-http-service
@@ -8,7 +8,7 @@ heartbeat.monitors:
   proxy_disable: true
 
 - type: http
-  schedule: '@every 5s'
+  schedule: '@every 100s'
   urls: ["http://moti-events:8080/ping"]
   service_name: moti-events-app
   id: moti-events-app
@@ -16,7 +16,7 @@ heartbeat.monitors:
   proxy_disable: true
   
 - type: http
-  schedule: '@every 5s'
+  schedule: '@every 100s'
   urls: ["http://moti-images:8080/ping"]
   service_name: moti-images-app
   id: moti-images-app
@@ -24,7 +24,7 @@ heartbeat.monitors:
   proxy_disable: true
 
 - type: http
-  schedule: '@every 5s'
+  schedule: '@every 100s'
   urls: ["http://moti-geostore:8080/ping"]
   service_name: moti-geostore-app
   id: moti-geostore-app
@@ -32,7 +32,7 @@ heartbeat.monitors:
   proxy_disable: true
   
 - type: http
-  schedule: '@every 5s'
+  schedule: '@every 100s'
   urls: ["http://moti-profiles:8080/ping"]
   service_name: moti-profiles-app
   id: moti-profiles-app
@@ -41,4 +41,8 @@ heartbeat.monitors:
 
 output.elasticsearch:
   hosts: ["http://storage:9200"]
+  proxy_disable: true
+
+setup.kibana:
+  host: "${KIBANA_HOST:}"
   proxy_disable: true

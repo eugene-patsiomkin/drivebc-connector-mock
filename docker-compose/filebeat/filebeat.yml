@@ -1,0 +1,26 @@
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+      json.message_key: log  
+      templates:
+        - condition:
+            contains:
+              docker.container.image: moti
+          config:
+            - type: docker
+              containers.ids:
+                - "${data.docker.container.id}"
+              json.keys_under_root: true
+              json.add_error_key: false
+
+processors:
+- add_docker_metadata: ~
+
+output.elasticsearch:
+  hosts: ["http://storage:9200"]
+  proxy_disable: true
+
+setup.kibana:
+  host: "${KIBANA_HOST:}"
+  proxy_disable: true

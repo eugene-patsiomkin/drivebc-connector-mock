@@ -9,5 +9,5 @@
     - "memory"
     - "network"
   hosts: ["unix:///var/run/docker.sock"]
-  period: 10s
+  period: 60s
   enabled: true
