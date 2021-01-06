@@ -38,4 +38,5 @@ export {
     NotFoundError
     , JsonSchemaValidationError
     , ControllerErrorHandler
+    , UserInputError
 }

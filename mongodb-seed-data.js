@@ -12,8 +12,8 @@ images_db.cameras.insertMany([{
     "geometry": {
         "type": "Point",
         "coordinates": [
-            -126.60558,
-            52.37708,
+            -119.7553608490141,
+            49.16535927978211,
             42
         ]
     },
@@ -31,8 +31,8 @@ images_db.cameras.insertMany([{
     "geometry": {
         "type": "Point",
         "coordinates": [
-            -117.040771,
-            49.058727,
+            -119.23794240210722,
+            49.03861190392945,
             1781
         ]
     },
@@ -104,7 +104,7 @@ profile_db = db.getSiblingDB('profile-db');
 profile_db.sches.insert({
     "_id": "demo-profile-schema",
     "name": "moti.dbc.profile.v1",
-    "jsonschema": "{\r\n    \"$id\": \"moti.dbc.profile.v1\",\r\n     \"description\": \"profile sample\",\r\n     \"type\": \"object\",\r\n     \"properties\": {\r\n         \"type\": {\r\n             \"type\": \"string\",\r\n             \"description\": \"Profile type\"\r\n         },\r\n         \"favorites\": {\r\n             \"type\": \"object\",\r\n             \"properties\" : {\r\n                \"cameras\" : {\r\n                    \"type\": \"array\",\r\n                    \"items\" : {\r\n                        \"type\": \"string\"\r\n                    },\r\n                    \"minItems\": 0,\r\n                    \"uniqueItems\": true\r\n                },\r\n                \"routes\" : {\r\n                    \"type\": \"array\",\r\n                    \"items\": {\r\n                        \"type\": \"object\",\r\n                        \"properties\": {\r\n                            \"start\": {\r\n                                \"type\": \"string\"\r\n                            },\r\n                            \"end\": {\r\n                                \"type\": \"string\"\r\n                            },\r\n                            \"geofence_id\": {\r\n                                \"type\":  \"string\"\r\n                            }\r\n                        },\r\n                        \"required\": [\"start\", \"end\", \"geofence_id\"]\r\n                    },\r\n                    \"minItems\": 0,\r\n                    \"uniqueItems\": true\r\n                }\r\n             }\r\n         }\r\n    },\r\n     \"required\": [\"type\", \"favorites\"]\r\n}",
+    "jsonschema": "{\r\n \"$id\": \"moti.dbc.profile.v1\",\r\n \"description\": \"profile sample\",\r\n \"type\": \"object\",\r\n \"properties\": {\r\n \"type\": {\r\n \"type\": \"string\",\r\n \"description\": \"Profile type\"\r\n },\r\n \"favorites\": {\r\n \"type\": \"object\",\r\n \"properties\" : {\r\n \"cameras\" : {\r\n \"type\": \"array\",\r\n \"items\" : {\r\n     \"type\": \"string\"\r\n },\r\n \"minItems\": 0,\r\n \"uniqueItems\": true\r\n },\r\n \"routes\" : {\r\n \"type\": \"array\",\r\n \"items\": {\r\n     \"type\": \"object\",\r\n     \"properties\": {\r\n         \"start\": {\r\n             \"type\": \"string\"\r\n         },\r\n         \"end\": {\r\n             \"type\": \"string\"\r\n         },\r\n         \"geofence_id\": {\r\n             \"type\":  \"string\"\r\n         }\r\n     },\r\n     \"required\": [\"start\", \"end\", \"geofence_id\"]\r\n },\r\n \"minItems\": 0,\r\n \"uniqueItems\": true\r\n }\r\n }\r\n }\r\n },\r\n \"required\": [\"type\", \"favorites\"]\r\n}",
     "description": "cool address validator",
     "application_key": "demo-application-key",
     "created_on": "2020-12-18T19:51:58.505Z",
@@ -116,7 +116,7 @@ profile_db.profiles.insert({
     "_id": "demo-user-profile",
     "validation_schema_name": "moti.dbc.profile.v1",
     "owner_id": "demo-user",
-    "profile": "{\r\n    \"type\": \"user_type\",\r\n    \"favorites\": {\r\n        \"cameras\" : [\"5\", \"455\"],\r\n        \"routes\": [\r\n            {\r\n                \"start\": \"Start point text 1\",\r\n                \"end\": \"End point text 1\",\r\n                \"geofence_id\": \"demo-geofence-1\"\r\n            },\r\n            {\r\n                \"start\": \"Start point text 2\",\r\n                \"end\": \"End point text 2\",\r\n                \"geofence_id\": \"demo-geofence-2\"\r\n            }\r\n        ]\r\n    }\r\n}",
+    "profile": "{\r\n \"type\": \"user_type\",\r\n \"favorites\": {\r\n \"cameras\" : [\"5\", \"455\"],\r\n \"routes\": [\r\n {\r\n \"start\": \"Start point text 1\",\r\n \"end\": \"End point text 1\",\r\n \"geofence_id\": \"demo-geofence-1\"\r\n },\r\n {\r\n \"start\": \"Start point text 2\",\r\n \"end\": \"End point text 2\",\r\n \"geofence_id\": \"demo-geofence-2\"\r\n }\r\n ]\r\n }\r\n}",
     "application_key": "demo-application-key",
     "created_on": "2020-12-18T21:25:35.361Z",
     "updated_on": "2020-12-18T21:25:35.361Z",

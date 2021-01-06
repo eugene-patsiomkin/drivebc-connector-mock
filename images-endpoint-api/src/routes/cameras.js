@@ -1,20 +1,23 @@
 import express from "express";
 import Models from "../db.js";
 import { ControllerErrorHandler, NotFoundError } from "../errors.js";
+import {query_builder} from "../helpers/helper.js"
 
 const Camera = Models.Camera;
 
 const geoRouter = express.Router();
 
 geoRouter.get("/", (req, res) => {
-    Camera.find()
-        .lean(true).exec()
-        .then(cameras => {
-            if (!cameras || cameras == [])  throw new NotFoundError("Cameras not found");
+    query_builder(req.query).then((searchQuery) => {
+        console.log(searchQuery);
+        return Camera.find(searchQuery).lean(true).exec();
+    })
+    .then(cameras => {
+        if (!cameras || cameras == [])  throw new NotFoundError("Cameras not found");
 
-            res.json(cameras).status(200);
-        })
-        .catch((err) => ControllerErrorHandler(err, res));
+        res.json(cameras).status(200);
+    })
+    .catch((err) => ControllerErrorHandler(err, res));
 });
 
 
