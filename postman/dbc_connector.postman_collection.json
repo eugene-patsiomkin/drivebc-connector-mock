@@ -1508,6 +1508,45 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "get geofence by id",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "apikey",
+										"type": "text",
+										"value": "drivebc-api-key"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/events/v1/geofence/demo-geofence-2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"events",
+										"v1",
+										"geofence",
+										"demo-geofence-2"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -2346,6 +2385,39 @@
 										"images",
 										"v1",
 										"cameras"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get cameras geofence",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "apikey",
+										"type": "text",
+										"value": "drivebc-images-api-key"
+									}
+								],
+								"url": {
+									"raw": "localhost:8000/api/images/v1/cameras?geofence=demo-geofence-2",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"images",
+										"v1",
+										"cameras"
+									],
+									"query": [
+										{
+											"key": "geofence",
+											"value": "demo-geofence-2"
+										}
 									]
 								}
 							},
