@@ -16,6 +16,18 @@ Database for events can be cleaned through mongo console or by running
 .\run-containers.ps1 -CMD down
 ```
 
+To run all containers add an -all flag to command.
+
+```shell
+.\run-containers.ps1 -CMD up -all 1
+```
+
+Other flags available
+
+ -content - to start cms
+ -integration - to start camel integrations
+ -metrics - to start beats (metrics beat, file beat, heart beat)
+
 ### Kong configuration
 
 If running for the first time:

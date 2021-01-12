@@ -20,57 +20,12 @@
 
 version: '3.7'
 volumes:
-  elastic_data: {}
+
   metricbeat: {}
   heartbeat: {}
   filebeat: {}
 
 services:
-  storage:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
-    container_name: elasticsearch
-    environment:
-      - discovery.type=single-node
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1    
-    networks: 
-      - kong-net    
-
-    # Uncomment to expose the storage port for testing
-    ports:
-      - 9200:9200
-
-  # Use Elasticsearch instead of in-memory storage
-  zipkin:
-    image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
-    container_name: zipkin
-    environment:
-      - STORAGE_TYPE=elasticsearch
-      # Point the zipkin at the storage backend
-      - ES_HOSTS=storage:9200
-      # Uncomment to see requests to and from elasticsearch
-      # - ES_HTTP_LOGGING=BODY
-    depends_on:
-      - storage
-    ports:
-      # Port used for the Zipkin UI and HTTP Api
-      - 9411:9411
-    networks: 
-      - kong-net
-
-  dependencies:
-    image: ghcr.io/openzipkin/zipkin-dependencies
-    container_name: dependencies
-    entrypoint: crond -f
-    environment:
-      - STORAGE_TYPE=elasticsearch
-      - ES_HOSTS=storage:9200
-    depends_on:
-      - storage
-    networks: 
-      - kong-net
 
   kibana:
     image: docker.elastic.co/kibana/kibana:7.10.1

@@ -16,15 +16,7 @@ services:
     build: ./api
     networks: 
       - kong-net
-  # integrations-moti:
-  #   container_name: integration-moti-camel
-  #   image: moti/integration-camel:v1
-  #   build: ./events-integration
-  #   networks: 
-  #     - kong-net
-  #   depends_on:
-  #     - moti-events
-  #     - moti-images
+
   moti-events:
     container_name: event_api_app
     image: moti/events-api-nodejs:v1
@@ -153,6 +145,7 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
+
   mongodb:
     image: mongo:4.4
     container_name: moti-mongo-db
@@ -196,6 +189,54 @@ services:
       - kong-net
     volumes:
       - kong_data:/var/lib/postgresql/data
+
+  storage:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1    
+    networks: 
+      - kong-net    
+
+    # Uncomment to expose the storage port for testing
+    ports:
+      - 9200:9200
+
+  # Use Elasticsearch instead of in-memory storage
+  zipkin:
+    image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
+    container_name: zipkin
+    environment:
+      - STORAGE_TYPE=elasticsearch
+      # Point the zipkin at the storage backend
+      - ES_HOSTS=storage:9200
+      # Uncomment to see requests to and from elasticsearch
+      # - ES_HTTP_LOGGING=BODY
+    depends_on:
+      - storage
+    ports:
+      # Port used for the Zipkin UI and HTTP Api
+      - 9411:9411
+    networks: 
+      - kong-net
+
+  dependencies:
+    image: ghcr.io/openzipkin/zipkin-dependencies
+    container_name: dependencies
+    entrypoint: crond -f
+    environment:
+      - STORAGE_TYPE=elasticsearch
+      - ES_HOSTS=storage:9200
+    depends_on:
+      - storage
+    networks: 
+      - kong-net
+
+
 
 secrets:
   kong_postgres_password:

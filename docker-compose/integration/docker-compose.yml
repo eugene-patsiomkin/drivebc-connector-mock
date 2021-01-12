@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  integrations-moti:
+    container_name: integration-moti-camel
+    image: moti/integration-camel:v1
+    build: ./events-integration
+    networks: 
+      - kong-net
+    depends_on:
+      - moti-events
+      - moti-images
