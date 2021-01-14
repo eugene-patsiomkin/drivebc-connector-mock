@@ -58,5 +58,8 @@ Run any of  ```events\*``` requests.
 
 #### CMS API call example
 
-
 http://localhost:8000/api/cms/v1/ghost/api/v3/content/posts/?apikey=cms-api-key&key=7c06d112f7453ec8871b62179a
+
+### Triggering integrations
+
+http://localhost:8888/integration/dit/startJob
