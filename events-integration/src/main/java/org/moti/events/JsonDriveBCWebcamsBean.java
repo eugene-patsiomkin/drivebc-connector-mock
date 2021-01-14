@@ -11,7 +11,7 @@ import java.util.List;
 @Component("DriveBCWebcamsToCameras")
 public class JsonDriveBCWebcamsBean {
     public Camera[] toMotiCamerasJson(WebcamsList webcamsList){
-        List<Camera> mCamera = new ArrayList<Camera>();
+        List<Camera> mCamera = new ArrayList<>();
 
         for (int i = 0; i < webcamsList.webcams.length; i++) {
             mCamera.add(webcamsList.webcams[i].toMotiCamera());

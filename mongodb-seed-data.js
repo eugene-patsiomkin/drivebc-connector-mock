@@ -44,7 +44,6 @@ delete images_db;
 
 // Geofences
 geostore_db = db.getSiblingDB('geostore-db');
-
 geostore_db.geofences.insertMany([{
     "_id": "demo-geofence-1",
     "tags": ["HWY 3"],
@@ -279,6 +278,5 @@ event_db.events.insertMany([{
     "__v": 0
 
 }]);
-
 
 delete event_db;

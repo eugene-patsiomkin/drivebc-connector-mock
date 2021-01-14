@@ -99,6 +99,18 @@
       <artifactId>camel-zipkin</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-rest</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-seda</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jetty</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.apache.camel.springboot</groupId>
       <artifactId>camel-zipkin-starter</artifactId>
     </dependency>

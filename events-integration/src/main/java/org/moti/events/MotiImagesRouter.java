@@ -38,7 +38,6 @@ public class MotiImagesRouter extends RouteBuilder {
             .setHeader("Connection", constant("keep-alive"))
             .setHeader("Accept-Encoding", constant("gzip, deflate, br"))
             .marshal().json()
-            .to("stream:out")
 //            .to("http://localhost:7763/cameras/");
            . to("http://moti-images:8080/cameras")
             .log(LoggingLevel.INFO, "Camera info submitted");

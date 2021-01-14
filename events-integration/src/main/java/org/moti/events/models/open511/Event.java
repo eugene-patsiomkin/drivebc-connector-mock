@@ -6,8 +6,6 @@ import org.moti.events.models.Areas;
 import org.moti.events.models.Roads;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +53,7 @@ public class Event {
 
 
         // Mapping tags
-        List<String> tags = new ArrayList<String>(Arrays.asList(eventSubtypes));
+        List<String> tags = new ArrayList<>(Arrays.asList(eventSubtypes));
         tags.add(eventType);
         tags.add(status);
 
@@ -64,10 +62,9 @@ public class Event {
         mEvent.type.tags = tags.toArray(mEvent.type.tags);
 
         // Type
-        mEvent.type.active = status.toLowerCase().equals("active");
+        mEvent.type.active = status.equalsIgnoreCase("active");
         mEvent.type.planned = true;
         mEvent.type.severity = severity;
-
 
         // Info
         mEvent.info.headline = headline;

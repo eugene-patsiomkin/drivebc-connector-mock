@@ -54,7 +54,7 @@ const eventSchema = new mongoose.Schema(
             },
             severity: {
                 type: mongoose.Schema.Types.String,
-                enum: ["MINOR", "MODERATE", "MAJOR", "UNKNOWN"],
+                enum: ["MINOR", "MODERATE", "MAJOR", "UNKNOWN", "NORMAL"],
                 default: "UNKNOWN",
                 required: true
             },
