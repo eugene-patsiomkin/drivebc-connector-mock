@@ -31,7 +31,7 @@ public class MotiEventRouter extends RouteBuilder {
             .contextPath("/integration").port("8888").host("localhost");
 
         from("timer:getEvents?period={{timer.period}}").routeId("Get open511")
-            .to("http://api.open511.gov.bc.ca/events?limit=500&format=json")
+            .to("http://api.open511.gov.bc.ca/events?bridgeEndpoint=true&limit=500&format=json")
             .log(LoggingLevel.INFO, "Getting events from api.open511.gov.bc.ca")
             .convertBodyTo(String.class).unmarshal(open511)
             .bean("Open511ToEvents", "toMotiEventJson")
@@ -64,7 +64,7 @@ public class MotiEventRouter extends RouteBuilder {
             .setHeader("Accept", constant("application/json"))
             .marshal().json()
 //            .to("http://localhost:8000/api/events/v1/events?bridgeEndpoint=true&apikey=drivebc-api-key")
-            .to("http://moti-events:8080/events")
+            .to("http://moti-events:8080/events?bridgeEndpoint=true")
             .log(LoggingLevel.INFO, "Event is posted to event API");
     }
 }
