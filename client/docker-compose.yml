@@ -1,0 +1,13 @@
+dbc_client:
+  image: nginx:latest
+  ports: 
+    - "8080:80"
+  volumes: 
+    - ./code:/code
+    - ./config/site.conf:/etc/nginx/conf.d/default.conf
+  links: 
+    - php
+php:
+  image: php:fpm-alpine
+  volumes: 
+    - ./code:/code

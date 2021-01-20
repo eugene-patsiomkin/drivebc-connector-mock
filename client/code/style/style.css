@@ -1,0 +1,88 @@
+﻿html, body {
+    height: 100%;
+}
+
+.flex-fill {
+    flex: 1;
+}
+
+#map1 {
+    height: 600px;
+    /* The height is 400 pixels */
+    width: 100%;
+    /* The width is the width of the web page */
+}
+
+.navbar-hor li:not(:last-child) {
+    border-right: 1px solid white;
+}
+
+div.row > ul.navbar-hor > li > a:link {
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+ul.navbar-hor > li > a:link {
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+ul.navbar-hor > li > a:visited {
+    color: white;
+}
+
+#panel1 {
+/*    height: 770px;*/
+    width: 320px;
+    left: 25px;
+    top: 145px;
+    position: absolute;
+    z-index: 99;
+    background-color: white;
+}
+#panel2 {
+    height: 195px;
+    width: 160px;
+    right: 25px;
+    top: 260px;
+    position: absolute;
+    z-index: 98;
+    background-color: white;
+    padding-left: 5px;
+}
+#panel3 {
+    height: 30px;
+    width: 160px;
+    right: 25px;
+    top: 210px;
+    position: absolute;
+    z-index: 97;
+    background-color: white;
+}
+#panel4 {
+    height: 25px;
+    width: 160px;
+    right: 25px;
+    top: 465px;
+    position: absolute;
+    z-index: 97;
+    background-color: white;
+}
+.inp {
+    border: none;
+    border-bottom: 1px solid #1890ff;
+    padding: 5px 10px;
+    outline: none;
+}
+#progress_bar{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+
+    z-index: 99;
+}

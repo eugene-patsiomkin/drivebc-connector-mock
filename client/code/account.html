@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>DBC Connector</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link href="style/style.css" rel="stylesheet" />
+    <!--<script src="js/api.js"></script>-->
+
+</head>
+<body>
+    <div class="container-fluid d-flex h-100 flex-column">
+        <div class="row border-dark" style="background-color:#004B8D;padding:0;">
+            <div class="row w-100">
+                <div class="col">
+                    <a href="#" class="justify-content-start">
+                        <img src="images/DriveBC_Banner_lft_2010_01_04.jpg" />
+                    </a>
+                </div>
+                <div class="d-flex flex-column align-items-end">
+                    <div class="mt-auto">
+                        <ul class="nav navbar-hor justify-content-end">
+                            <li><a href="#">Jennifer</a></li>
+                            <li><a href="#">Log Off</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="nav navbar-hor justify-content-end">
+                            <li><a href="#">Conditions and Events</a></li>
+                            <li><a href="#">BC Highway Webcams</a></li>
+                            <li><a href="#">CV Height Clearance Tool</a></li>
+                            <li><a href="#">Border Delays</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row alert-warning">
+            <a href="#" class="navbar-left">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M13 17.5a1 1 0 11-2 0 1 1 0 012 0zm-.25-8.25a.75.75 0 00-1.5 0v4.5a.75.75 0 001.5 0v-4.5z"></path><path fill-rule="evenodd" d="M9.836 3.244c.963-1.665 3.365-1.665 4.328 0l8.967 15.504c.963 1.667-.24 3.752-2.165 3.752H3.034c-1.926 0-3.128-2.085-2.165-3.752L9.836 3.244zm3.03.751a1 1 0 00-1.732 0L2.168 19.499A1 1 0 003.034 21h17.932a1 1 0 00.866-1.5L12.866 3.994z"></path></svg>
+                Warning message
+            </a>
+        </div>
+        <div class="row form-row mt-2">
+            <div class="col-3"></div>
+            <div class="col-5">
+                <div class="form pt-2">MANAGE ACCOUNT</div>
+            </div>
+            <div class="col w-25">
+            </div>
+        </div>
+        <div class="row form-row mt-2">
+            <div class="col-3"></div>
+            <div class="col-5">
+                <div class="form pt-2 border"><span class="text-danger">*</span> Denotes a required field</div>
+            </div>
+            <div class="col w-25">
+            </div>
+        </div>
+        <div class="row form-row mt-2">
+            <div class="col-4">
+                <div class="form float-right pt-2"><span>Name:</span></div>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Enter name" name="name" id="name">
+            </div>
+            <div class="col w-25">
+                <div class="form text-danger pt-2">*</div>
+            </div>
+        </div>
+        <div class="row form-row mt-2">
+            <div class="col-4">
+                <div class="form float-right pt-2"><span>Email:</span></div>
+            </div>
+            <div class="col">
+                <input type="email" class="form-control" placeholder="Enter email" name="email" id="email">
+            </div>
+            <div class="col w-25">
+                <div class="form text-danger pt-2">*</div>
+            </div>
+        </div>
+        <div class="row form-row mt-2">
+            <div class="col-4">
+                <div class="form float-right pt-2"><span>Existing Password:</span></div>
+            </div>
+            <div class="col">
+                <input type="password" class="form-control" placeholder="Enter password" name="password" id="password">
+            </div>
+            <div class="col w-25">
+            </div>
+        </div>
+        <div class="row form-row mt-2">
+            <div class="col-4">
+                <div class="form float-right pt-2"><span>New Password:</span></div>
+            </div>
+            <div class="col">
+                <input type="password" class="form-control" placeholder="New password" name="new_password" id="new_password">
+            </div>
+            <div class="col w-25">
+                <div class="form pt-2">Password must be at least 8 characters long</div>
+            </div>
+        </div>
+        <div class="row form-row mt-2">
+            <div class="col-4">
+                <div class="form float-right pt-2"><span>Confirm Password:</span></div>
+            </div>
+            <div class="col">
+                <input type="password" class="form-control" placeholder="Confirm password" name="new_password1" id="new_password1">
+            </div>
+            <div class="col w-25">
+            </div>
+        </div>
+        <div class="row form-row mt-2">
+            <div class="col-4">
+                <div class="form float-right pt-2"><span>Mobile Phone:</span></div>
+            </div>
+            <div class="col">
+                <input type="tel" class="form-control" placeholder="Enter mobile phone number" name="mphone" id="mphone">
+            </div>
+            <div class="col w-25">
+                <div class="form pt-2">This is required to receive SMS notifications.</div>
+            </div>
+        </div>
+        <div class="row form-row mt-2">
+            <div class="col-4">
+                <div class="form float-right pt-2"><span>SMS:</span></div>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Pending confirmation" name="sms" id="sms">
+                <input type="text" class="form-control mt-2" placeholder="Resend SMS Confirmation Code" name="sms_conf_code" id="sms_conf_code">
+                <input type="text" class="form-control mt-2" placeholder="Verify Phone Number" name="vmphone" id="vmphone">
+            </div>
+            <div class="col w-25">
+            </div>
+        </div>
+        <div class="row form-row mt-2">
+            <div class="col-4">
+                <div class="form float-right pt-2"><span>Manage Favourites:</span></div>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="My Routes" name="routes" id="routes">
+                <input type="text" class="form-control mt-2" placeholder="My Webcams" name="wcams" id="wcams">
+            </div>
+            <div class="col w-25">
+            </div>
+        </div>
+        <div class="row form-row mt-2">
+            <div class="col-4">
+                <div class="form float-right pt-2"><span>Trafic Event:</span></div>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Report" name="tevents" id="tevents">
+            </div>
+            <div class="col w-25">
+            </div>
+        </div>
+        <div class="row form-row mt-2">
+            <div class="col-4">
+                <div class="form float-right pt-2"><span>BCEID Account:</span></div>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Connect" name="bceid_account" id="bceid_account">
+            </div>
+            <div class="col w-25">
+            </div>
+        </div>
+        <div class="row form-row mt-5">
+            <div class="col-4">
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-light">Save</button>
+                <br><br>
+                <button type="button" class="btn btn-danger">Delete My Account</button>
+            </div>
+            <div class="col w-25">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>DBC Connector</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link href="style/style.css" rel="stylesheet" />
+    <script src="js/api.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ88VW7i11SEUU1oR8OILrdNDMdgJngck&callback=initMap&libraries=&v=weekly"
+            defer></script>
+
+</head>
+<body>
+    <div class="container-fluid d-flex h-100 flex-column">
+        <!-- I want this container to stretch to the height of the parent -->
+        <!--<header>-->
+        <div class="row border-dark" style="background-color:#004B8D;padding:0;">
+            <div class="row w-100">
+                <div class="col">
+                    <a href="#" class="justify-content-start">
+                        <img src="images/DriveBC_Banner_lft_2010_01_04.jpg" />
+                    </a>
+                </div>
+                <div class="d-flex flex-column align-items-end">
+                    <div class="mt-auto">
+                        <ul class="nav navbar-hor justify-content-end">
+                            <li><a href="#">Jennifer</a></li>
+                            <li><a href="#">Log Off</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="nav navbar-hor justify-content-end">
+                            <li><a href="#">Conditions and Events</a></li>
+                            <li><a href="#">BC Highway Webcams</a></li>
+                            <li><a href="#">CV Height Clearance Tool</a></li>
+                            <li><a href="#">Border Delays</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--</header>-->
+<!--         <div class="row alert-warning">
+            <a href="#" class="navbar-left">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M13 17.5a1 1 0 11-2 0 1 1 0 012 0zm-.25-8.25a.75.75 0 00-1.5 0v4.5a.75.75 0 001.5 0v-4.5z"></path><path fill-rule="evenodd" d="M9.836 3.244c.963-1.665 3.365-1.665 4.328 0l8.967 15.504c.963 1.667-.24 3.752-2.165 3.752H3.034c-1.926 0-3.128-2.085-2.165-3.752L9.836 3.244zm3.03.751a1 1 0 00-1.732 0L2.168 19.499A1 1 0 003.034 21h17.932a1 1 0 00.866-1.5L12.866 3.994z"></path></svg>
+                Warning message
+            </a>
+        </div>
+ -->        
+        <div class="row bg-light flex-fill d-flex justify-content-start border">
+            <!-- I want this row height to filled the remaining height -->
+            <div id="map" class="col portlet-container portlet-dropzone">
+                <!-- if row is not the right to stretch the remaining height, this column also fine -->
+                Content
+            </div>
+        </div>
+    </div>
+    <div id="panel1" class="border border-info d-none">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="routes-tab" data-toggle="tab" href="#routes" role="tab" aria-controls="routes" aria-selected="true">My Routes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="advisories-tab" data-toggle="tab" href="#advisories" role="tab" aria-controls="advisories" aria-selected="false">Advisories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="news-tab" data-toggle="tab" href="#news" role="tab" aria-controls="news" aria-selected="false">News</a>
+            </li>
+        </ul>
+        <div class="tab-content border p-2" id="myTabContent">
+            <div class="tab-pane fade show active overflow-auto pb-1" id="routes" role="tabpanel" aria-labelledby="routes-tab">
+                <form>
+                    <div class="border border-primary">
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">A</span>
+                            </div>
+                            <input type="text" class="form-control inp" id="inputAddress1" value="" placeholder="Address1">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">B</span>
+                            </div>
+                            <input type="text" class="form-control inp" id="inputAddress2" placeholder="Address2">
+                        </div>
+                        <div class="ml-1 pb-1">
+                            <p class="font-weight-bold">Route Events:</p>
+                            <div id="profile_event_links" style="max-height: 90px;overflow-y: scroll;"></div>
+                            <p class="font-weight-bold">Route Cameras:</p>
+                            <div style="height: 200px;overflow-y: scroll;" id="profile_pictures_id"></div>
+                        </div>
+                    </div>
+                    <div class="ml-1"><p class="font-weight-bold pt-2">My Faworite Webcams:</p></div>
+                    <div style="height: 200px;overflow-y: scroll;" id="profile_fav_cam_id"></div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="advisories" role="tabpanel" aria-labelledby="advisories-tab">Data for Advisories ...</div>
+            <div class="tab-pane fade" id="news" role="tabpanel" aria-labelledby="news-tab">Data for News ...</div>
+        </div>
+    </div>
+    <div id="panel2" class="border border-info">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="roadCondition">
+            <label class="form-check-label" for="roadCondition">
+                Road Condition
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="incident">
+            <label class="form-check-label" for="incident">
+                Incident
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="construction">
+            <label class="form-check-label" for="construction">
+                Construction
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="currentEvent">
+            <label class="form-check-label" for="currentEvent">
+                Current Event
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="futureEvent" disabled>
+            <label class="form-check-label" for="futureEvent">
+                Future Event
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="webCamera" disabled>
+            <label class="form-check-label" for="webCamera">
+                Web Camera
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="weatherForecast" disabled>
+            <label class="form-check-label" for="weatherForecast">
+                Weather Forecast
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="ipoints" disabled>
+            <label class="form-check-label" for="ipoints">
+                Points of Interest
+            </label>
+        </div>
+    </div>
+    <div id="panel3" class="border">
+        <select class="custom-select">
+            <option selected>Map Legend</option>
+        </select>
+    </div>
+<!--     <div id="panel4" class="input-group">
+        <input class="form-control py-2" type="search" value="search" id="map-search-input">
+        <span class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button">
+                <img src="images/search_black_18dp.png" />
+            </button>
+        </span>
+    </div>
+ -->
+    <div id="progress_bar"class="spinner-border text-primary"></div>
+<!--     <div id="progress_bar"class="progress border">
+        <div class="progress-bar" style="min-width: 20px;"></div>
+    </div>
+ -->    
+</body>
+</html>
