@@ -7,8 +7,6 @@ servers:
 tags:
   - name: Events
     description: Event api.
-  - name: Event tags
-    description: Event tags api
   - name: Geofence
     description: Geofence api
 paths:
@@ -26,26 +24,6 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Geofence'
-  /event-tags:
-    get:
-      description: Get list of available event tags
-      tags: [Event tags]
-      parameters:
-        - in: query
-          name: search
-          required: false
-          schema:
-            type: string      
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EventTag'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/EventTag'
   /events:
     get:
       description: Get all available event objects.
@@ -59,26 +37,6 @@ paths:
             items:
               type: string
               enum: [CONSTRUCTION, INCIDENT , WEATHER_CONDITION, ROAD_CONDITION, SPECIAL_EVENT]
-        - in: query
-          name: geometry
-          style: deepObject
-          required: false
-          schema:
-            type: array
-            items:
-              type: object
-              anyOf:
-                - $ref: "#/components/schemas/Point"
-                - $ref: "#/components/schemas/MultiPoint"
-                - $ref: "#/components/schemas/LineString"
-                - $ref: "#/components/schemas/MultiLineString"
-                - $ref: "#/components/schemas/Polygon"
-                - $ref: "#/components/schemas/MultiPolygon"
-        - in: query
-          name: radius
-          required: false
-          schema:
-            type: number
         - in: query
           name: id_list
           description:  Pipe separated business id list.

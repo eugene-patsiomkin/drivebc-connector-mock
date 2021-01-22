@@ -42,7 +42,7 @@ switch ($CMD) {
         $command += " up --build"
     }
     'kill' {
-        $command += " up kill"
+        $command += " kill"
     }
     'down' {
         $command += " down"

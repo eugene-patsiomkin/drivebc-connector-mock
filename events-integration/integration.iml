@@ -58,8 +58,6 @@
     <orderEntry type="library" name="Maven: org.apache.camel.springboot:camel-spring-boot:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-cluster:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-core-catalog:3.5.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.camel:camel-tooling-model:3.5.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.camel:camel-util-json:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-health:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-main:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel.springboot:camel-core-starter:3.5.0" level="project" />
@@ -111,10 +109,8 @@
     <orderEntry type="library" name="Maven: org.apache.camel:camel-log:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-mock:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-ref:3.5.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.camel:camel-rest:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-saga:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-scheduler:3.5.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.camel:camel-seda:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-stub:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-timer:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-validator:3.5.0" level="project" />
@@ -164,6 +160,22 @@
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-reporter-brave:2.14.0" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.brave:brave-context-slf4j:5.12.0" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.30" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.camel:camel-rest:3.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.camel:camel-tooling-model:3.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.camel:camel-util-json:3.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.camel:camel-seda:3.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.camel:camel-jetty:3.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.camel:camel-jetty-common:3.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-server:9.4.30.v20200611" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-http:9.4.30.v20200611" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-io:9.4.30.v20200611" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-servlet:9.4.30.v20200611" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-security:9.4.30.v20200611" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-servlets:9.4.30.v20200611" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-continuation:9.4.30.v20200611" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-client:9.4.30.v20200611" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-jmx:9.4.30.v20200611" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-util:9.4.30.v20200611" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel.springboot:camel-zipkin-starter:3.5.0" level="project" />
   </component>
 </module>

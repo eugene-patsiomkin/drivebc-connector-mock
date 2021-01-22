@@ -23,7 +23,6 @@ app.use(morgan(':method :url :status [:res[content-type]] :res[content-length] b
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //images proxy
-
 app.get(/\/images.*/i, proxy(IMAGE_SERVER, {
     proxyReqPathResolver: pathResolve
 }));
