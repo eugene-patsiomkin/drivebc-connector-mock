@@ -4,6 +4,7 @@ param (
     [bool] $content = $false,
     [bool] $integration = $false,
     [bool] $metrics = $false,
+    [bool] $ui = $false,
     [bool] $all = $false
 )
 
@@ -20,6 +21,11 @@ if (($metrics -eq $true) -or ($all -eq $true)) {
 if (($metrics -eq $true) -or ($all -eq $true)) {
     $dockerFiles += '.\docker-compose\integration\docker-compose.yml';
 }
+
+if (($ui -eq $true) -or ($all -eq $true)) {
+    $dockerFiles += '.\client\docker-compose.yml';
+}
+
 
 function BuildCommand {
     param (
