@@ -5,6 +5,7 @@ function call_API_byID($url,$headers)
 {
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_PROXY, '');
     if(count($headers) > 0)
     {
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
