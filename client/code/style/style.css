@@ -86,3 +86,31 @@ ul.navbar-hor > li > a:visited {
 
     z-index: 99;
 }
+
+
+.news-block {
+
+    height: 330px;
+    width: 260px;
+    position: absolute;
+    z-index: 98;
+    background-color: white;
+    font-size: 70%;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+.news-block.commuter{
+    right: 25px;
+    bottom: 15px;
+}
+
+.news-block.commercial{
+    right: 300px;
+    bottom: 15px;
+}
+
+.news-block img {
+    text-align: center;
+    width: 100%;
+}
