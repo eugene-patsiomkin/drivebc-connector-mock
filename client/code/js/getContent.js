@@ -1,5 +1,5 @@
 var request = new XMLHttpRequest();
-var url = "http://localhost:8000/api/cms/v1/ghost/api/v3/content/posts/slug/daily-commuter/?apikey=cms-api-key&key=7c06d112f7453ec8871b62179a"
+var url = "http://localhost:8877/integration/content/commuter/main"
 request.open('GET', url, true);
 
 request.onload = function () {
@@ -21,7 +21,7 @@ request.onerror = function () {
 request.send();
 
 var request1 = new XMLHttpRequest();
-var url1 = "http://localhost:8000/api/cms/v1/ghost/api/v3/content/posts/slug/commercial-drive/?apikey=cms-api-key&key=7c06d112f7453ec8871b62179a"
+var url1 = "http://localhost:8877/integration/content/commercial/main"
 request1.open('GET', url1, true);
 
 request1.onload = function () {
