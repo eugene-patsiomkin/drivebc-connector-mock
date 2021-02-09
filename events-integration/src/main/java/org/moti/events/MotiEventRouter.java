@@ -63,7 +63,7 @@ public class MotiEventRouter extends RouteBuilder {
             .setHeader("Content-Type", constant("application/json"))
             .setHeader("Accept", constant("application/json"))
             .marshal().json()
-            .to("http://moti-events:8080/events?bridgeEndpoint=true")
+            .to("http://integrations-proxy:8877/integration/events?bridgeEndpoint=true")
             .log(LoggingLevel.INFO, "Event is posted to event API");
     }
 }

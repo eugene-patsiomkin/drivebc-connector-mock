@@ -4,7 +4,7 @@ services:
   dbc_client:
     image: nginx:latest
     ports: 
-      - "8080:80"
+      - "8011:80"
     volumes: 
       - ./client/code:/code
       - ./client/config/site.conf:/etc/nginx/conf.d/default.conf

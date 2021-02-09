@@ -16,7 +16,6 @@ services:
     build: ./api
     networks: 
       - kong-net
-
   moti-events:
     container_name: event_api_app
     image: moti/events-api-nodejs:v1
@@ -31,6 +30,30 @@ services:
       - MOTI_API_EVENTS_PORT=8080
       - MOTI_API_GEOSTORE_HOST=moti-geostore:8080
       - MOTI_ZIPKIN_HOST=zipkin
+  moti-events-push:
+    container_name: event_push_app
+    image: moti/events-push-app:v1
+    build: ./push_events
+    networks: 
+      - kong-net
+    depends_on:
+      - mongodb
+    ports:
+      - 9876:8080
+    environment:
+      - MOTI_EVENTS_PUSH_HTTP_PORT=8080
+      - MOTI_ZIPKIN_HOST=zipkin
+  integrations-proxy:
+    container_name: integration-moti-proxy-camel
+    image: moti/integration-proxy-camel:v1
+    build: ./integrations-proxy
+    networks: 
+      - kong-net
+    ports:
+      - 8877:8877
+    depends_on:
+      - moti-events
+      - moti-events-push      
   moti-images:
     container_name: images_api_app
     image: moti/images-api-nodejs:v1
@@ -159,8 +182,6 @@ services:
       - mongodbdata:/var/lib/mongodb/data
       - ./mongodb-users.js:/docker-entrypoint-initdb.d/01-users.js:ro
       - ./mongodb-seed-data.js:/docker-entrypoint-initdb.d/02-seed-data.js:ro
-    ports:
-      - '27017-27019:27017-27019'
     restart: on-failure
     deploy:
       restart_policy:
@@ -219,7 +240,6 @@ services:
     depends_on:
       - storage
     ports:
-      # Port used for the Zipkin UI and HTTP Api
       - 9411:9411
     networks: 
       - kong-net
@@ -235,8 +255,6 @@ services:
       - storage
     networks: 
       - kong-net
-
-
 
 secrets:
   kong_postgres_password:

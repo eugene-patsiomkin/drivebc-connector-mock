@@ -28,6 +28,26 @@
 											"key": "url",
 											"value": "http://api:8300",
 											"type": "text"
+										},
+										{
+											"key": "tags",
+											"value": "demo",
+											"type": "text"
+										},
+										{
+											"key": "tags",
+											"value": "events",
+											"type": "text"
+										},
+										{
+											"key": "tags",
+											"value": "open511",
+											"type": "text"
+										},
+										{
+											"key": "tags",
+											"value": "api",
+											"type": "text"
 										}
 									]
 								},
@@ -46,7 +66,7 @@
 							"response": []
 						},
 						{
-							"name": "step 2 - create-route",
+							"name": "step 2 - create-route header",
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -56,6 +76,48 @@
 										{
 											"key": "hosts",
 											"value": "dbc-api.local",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services/dbc-api/routes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"dbc-api",
+										"routes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 2.5 - create-route paths",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "hosts",
+											"value": "dbc-api.local",
+											"type": "text"
+										},
+										{
+											"key": "paths[]",
+											"value": "/dbc-api.local/",
 											"type": "text"
 										}
 									]
@@ -1024,6 +1086,48 @@
 							"response": []
 						},
 						{
+							"name": "step 3.5 - add-service-plugin CORS",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "cors",
+											"type": "text"
+										},
+										{
+											"key": "config.methods",
+											"value": "GET",
+											"type": "text"
+										},
+										{
+											"key": "config.origins",
+											"value": "*",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services/moti.cms.api/plugins/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"moti.cms.api",
+										"plugins",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "step 4 - add-consumer",
 							"request": {
 								"method": "POST",
@@ -1077,6 +1181,216 @@
 									"path": [
 										"consumers",
 										"cms-consumer",
+										"key-auth",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "proxy_integrations",
+					"item": [
+						{
+							"name": "step 1 - create-service",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "moti.proxy.api",
+											"type": "text"
+										},
+										{
+											"key": "url",
+											"value": "http://integrations-proxy:8877",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 2 - create-route",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "paths[]",
+											"value": "/api/proxy/v1",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "moti.proxy.api.v1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services/moti.proxy.api/routes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"moti.proxy.api",
+										"routes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 3 - add-service-plugin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "key-auth",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services/moti.proxy.api/plugins/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"moti.proxy.api",
+										"plugins",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 3.5 - add-service-plugin CORS",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "cors",
+											"type": "text"
+										},
+										{
+											"key": "config.methods",
+											"value": "GET",
+											"type": "text"
+										},
+										{
+											"key": "config.origins",
+											"value": "*",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/services/moti.proxy.api/plugins/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"moti.proxy.api",
+										"plugins",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 4 - add-consumer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "proxy-consumer",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/consumers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"consumers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "step 5 - add-key",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "key",
+											"value": "proxy-api-key",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/consumers/proxy-consumer/key-auth/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"consumers",
+										"proxy-consumer",
 										"key-auth",
 										""
 									]
@@ -1393,7 +1707,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8000/api/events/v1/events",
+									"raw": "http://localhost:8000/api/events/v1/events/evt-4",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1403,7 +1717,8 @@
 										"api",
 										"events",
 										"v1",
-										"events"
+										"events",
+										"evt-4"
 									]
 								}
 							},
@@ -1514,7 +1829,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"bid\": \"open511-evt111-geo\",\r\n    \"schedule\": [\r\n        {\"start\": \"2000-11-11 01:01:01\", \"end\":  \"2018-12-11 01:01:01\"}\r\n    ],\r\n    \"type\": {\r\n        \"tags\": [\"ROAD_CLOSURE\", \"SOMETHING_SOMETHING\"]\r\n        , \"severity\":\"MINOR\"\r\n        , \"planned\": true\r\n        , \"active\": true\r\n    }\r\n    , \"geometry\" : {\r\n        \"type\": \"Point\"\r\n        , \"coordinates\" : [5.5, 5.5]\r\n    }, \"info\": {}\r\n}",
+									"raw": "{\r\n    \"bid\": \"evt-2\",\r\n    \"schedule\": [\r\n        {\"start\": \"2000-11-11 01:01:01\", \"end\":  \"2018-12-11 01:01:01\"}\r\n    ],\r\n    \"type\": {\r\n        \"tags\": [\"ROAD_CLOSURE\", \"SOMETHING_SOMETHING\"]\r\n        , \"severity\":\"MINOR\"\r\n        , \"planned\": true\r\n        , \"active\": true\r\n    }\r\n    , \"geometry\" : {\r\n        \"type\": \"Point\"\r\n        , \"coordinates\" : [5.5, 5.5]\r\n    },         \"info\": {\r\n            \"headline\": \"INCIDENT\",\r\n            \"description\": \"Highway 99, in both directions. There is a Provincial State of Emergency at Hwy 99 Border Crossing. Avoid non-essential traffic. Expect delays. Additional screening and checkpoints are in place. Travellers bound for Alaska must go through screening at one of 3 border crossings: Abbotsford-Huntington, Kingsgate, or Osoyoos. For more information visit GOV.BC.CA/COVID-19. Last updated Fri Nov 27 at 3:08 PM PST. (DBC-16728)\",\r\n            \"related_events\": null,\r\n            \"related_urls\": null\r\n        }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2624,6 +2939,79 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Get CMS content (kong/integration)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/proxy/v1/integration/content/commuter/main?apikey=proxy-api-key",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"proxy",
+						"v1",
+						"integration",
+						"content",
+						"commuter",
+						"main"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "proxy-api-key"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create event through integration",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "drivebc-api-key",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"bid\": \"evt-4\",\r\n    \"schedule\": [\r\n        {\"start\": \"2000-11-11 01:01:01\", \"end\":  \"2018-12-11 01:01:01\"}\r\n    ],\r\n    \"type\": {\r\n        \"tags\": [\"ROAD_CLOSURE\", \"SOMETHING_SOMETHING\"]\r\n        , \"severity\":\"MINOR\"\r\n        , \"planned\": true\r\n        , \"active\": true\r\n    }\r\n    , \"geometry\" : {\r\n        \"type\": \"Point\"\r\n        , \"coordinates\" : [5.5, 5.5]\r\n    },         \"info\": {\r\n            \"headline\": \"INCIDENT 4\",\r\n            \"description\": \"Highway 4, in both directions. There is a Provincial State of Emergency at Hwy 99 Border Crossing. Avoid non-essential traffic. Expect delays. Additional screening and checkpoints are in place. Travellers bound for Alaska must go through screening at one of 3 border crossings: Abbotsford-Huntington, Kingsgate, or Osoyoos. For more information visit GOV.BC.CA/COVID-19. Last updated Fri Nov 27 at 3:08 PM PST. (DBC-16728)\",\r\n            \"related_events\": null,\r\n            \"related_urls\": null\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8877/integration/events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8877",
+					"path": [
+						"integration",
+						"events"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "drivebc-api-key",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
