@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import Service from './services/service'
+import Service from './components/services/service'
 
 const searchStyle = "border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none";
 
@@ -20,7 +20,8 @@ class Home extends Component {
     }
 
     render() {
-        let services = this.state.services.map(((val, key) => {
+        let services = [];
+        services = this.state.services.map(((val, key) => {
             let renderIt = true;
             let filter = this.state.filter
             if (filter != "") {

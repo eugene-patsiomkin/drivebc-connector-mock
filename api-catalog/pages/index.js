@@ -1,4 +1,5 @@
 import App from "./App/app";
+import GetServiceObject from "./App/helpers/service";
 
 const Index = (props) => (
     <App {... props}/>
@@ -8,7 +9,7 @@ export default Index
 
 export async function getServerSideProps() {
 
-    const res = await fetch(`http://localhost:8001/services`)
+    const res = await fetch(`http://localhost:8001/services?tags=type~docs`)
     const data = await res.json()
   
     if (!data) {
@@ -20,13 +21,7 @@ export async function getServerSideProps() {
     let services = [];
 
     data.data.forEach(service => {
-        services.push({
-            "name" : `${service.name}`,
-            "meta" : `${service.tags}`,
-            "description" : `service endpoint: ${service.host}, service port:${service.port}, protocol: ${service.protocol}`,
-            "document_link" : "http://google.com",
-            "get_api_key_link" : "http://google.com"
-        });
+        services.push(GetServiceObject(service));
     });
 
     return {
