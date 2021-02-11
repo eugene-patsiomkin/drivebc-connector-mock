@@ -51,20 +51,19 @@ class RouteInfo extends Component {
                     <span key={i} className="rounded-full bg-green-700 px-2 mr-2 font-bold text-xs text-white">{m}</span>
                 ));
 
-
                 return (
-                    <div key={idx} className="mb-4 p-2">
-                        <header className="text-xl font-bold mb-1">
+                    <div key={idx} className="p-3 space-y-2  rounded-md from-blue-50 to-green-50 bg-gradient-to-b bg-opacity-10 ">
+                        <header className="text-xl font-bold">
                             {route.name}
-                            <small className="ml-2">{route.type}</small>
+                            <small className="ml-2 font-light">{route.type}</small>
                         </header>
                         <section>
-                            <span className="font-bold mr-4">Methods</span>
-                            {methods}
+                            <header className="font-bold mr-4">Path:</header>
+                            {route.path}
                         </section>
                         <section>
-                        <span className="font-bold mr-4">Path:</span>
-                            {route.path}
+                            <header className="font-bold mr-4">Methods</header>
+                            {methods}
                         </section>
                         <section>
                             {

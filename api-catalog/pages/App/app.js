@@ -41,11 +41,11 @@ class Home extends Component {
 
         return (
             <div className="container mx-auto">
-                <div>
+                <header className="border-b-2 pb-4 border-blue-100 px-3">
                     <h1 className="text-4xl font-bold my-3">API catalog</h1>
                     <input type="search" name="search" placeholder="Search" className={searchStyle} onChange={e => this.filterServiceList(e.target.value)}></input>
-                    {services}
-                </div>
+                </header>
+                {services}
                 <Modal />
             </div>
         );

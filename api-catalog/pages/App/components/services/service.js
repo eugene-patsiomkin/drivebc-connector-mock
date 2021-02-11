@@ -51,16 +51,16 @@ class ServiceInfo extends Component {
         }
 
         return (
-            <article className="rounded-md px-4 pt-3 mt-4 from-blue-50 to-green-50 bg-gradient-to-r text-sm">
-                <header className="font-bold text-xl mb-3">{name}</header>
+            <article className="mt-4">
+                <header className="font text-3xl mb-3">{name}</header>
                 <main>
                     <section>
                         {description}
-                        <p className="space-x-4 text-sm">
+                        <p className="text-sm">
                             <a className={linkStyle} href={this.state.document_link} target="_blank">Documentation</a>
                         </p>
                     </section>
-                    <div className="pl-2 pt-3 divide-y divide-opacity-40 divide-green-200 grid grid-cols-1">
+                    <div className="pt-3 md:space-x-0 lg:space-x-4 md:space-y-4 lg:space-y-0 grid lg:grid-cols-2 md:grid-cols-1">
                         <Endpoints endpoint_root={this.state.service_name} />
                     </div>
                 </main>
