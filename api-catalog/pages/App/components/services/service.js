@@ -61,13 +61,6 @@ class ServiceInfo extends Component {
                         </footer>
                     </section>
                     <Endpoints endpoint_root={this.state.service_name} />
-                    {/* <section>
-                        <header className="font-bold text-lg mb-3">Endpoints</header>
-                        {routes}
-                        <footer className="space-x-4 text-sm text-right">
-                            <a className={linkStyle} href={this.state.get_api_key_link} target="get_api_key">Get API key</a>
-                        </footer>
-                    </section> */}
                 </main>
             </article>
         );
