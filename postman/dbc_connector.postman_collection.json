@@ -1588,7 +1588,7 @@
 											"urlencoded": [
 												{
 													"key": "paths[]",
-													"value": "/api/events/v2/",
+													"value": "/api/events.v2/",
 													"type": "text"
 												},
 												{
@@ -1891,7 +1891,7 @@
 											"urlencoded": [
 												{
 													"key": "paths[]",
-													"value": "/api/images/v2/",
+													"value": "/api/images.v2/",
 													"type": "text"
 												},
 												{
@@ -1942,7 +1942,7 @@
 											"urlencoded": [
 												{
 													"key": "paths[]",
-													"value": "/api/events.v2/",
+													"value": "/api/events.v2.full/",
 													"type": "text"
 												},
 												{
