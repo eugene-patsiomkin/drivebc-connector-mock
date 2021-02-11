@@ -1,5 +1,6 @@
 import React, {Component} from "react"
 import {AccessKey, RequestAccess} from "./accessKey"
+import {serverHost} from "../helpers/service";
 
 const getType = tags => {
     return tags.filter(t => t.includes('group~'))[0].replace('group~', '');
@@ -31,8 +32,8 @@ class RouteInfo extends Component {
             return {
                 name: val.name,
                 type: getType(val.tags),
-                methods: val.methods
-
+                methods: val.methods,
+                path: `${serverHost}${val.paths[0]}`
             };
         });
 
@@ -49,9 +50,11 @@ class RouteInfo extends Component {
                 let methods = route.methods.map((m, i) => (
                     <span key={i} className="rounded-full bg-green-700 px-2 mr-2 font-bold text-xs text-white">{m}</span>
                 ));
+
+
                 return (
-                    <section key={idx} className="mt-3">
-                        <header className="text-xl">
+                    <div key={idx} className="mb-4 p-2">
+                        <header className="text-xl font-bold mb-1">
                             {route.name}
                             <small className="ml-2">{route.type}</small>
                         </header>
@@ -60,20 +63,24 @@ class RouteInfo extends Component {
                             {methods}
                         </section>
                         <section>
+                        <span className="font-bold mr-4">Path:</span>
+                            {route.path}
+                        </section>
+                        <section>
                             {
                                 route.type.toLowerCase() == "cert" ?
                                     <RequestAccess /> : <AccessKey />
                             }
                         </section>
-                    </section>
+                    </div>
                 )
             });
         }
 
         return (
-            <article className="p-1 mt-2">
+            <>
                 {routes}
-            </article>
+            </>
         );
     }
 }

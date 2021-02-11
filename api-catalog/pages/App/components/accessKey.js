@@ -22,7 +22,7 @@ class AccessKey extends Component {
     render () {
         return (
             <section>
-                <header>Get your API key</header>
+                <header className="font-bold mt-2">Get your API key</header>
                 <input className={getKeyStyle} type="text" name="customer_id" placeholder="Customer ID" onChange={e=>this.setCustomerId(e.target.value)}/>
                 <button className={getKeyBtnStyle} onClick={e=>this.getAPIKey(e.target)}>Get key</button>
             </section>
@@ -38,7 +38,7 @@ class RequestAccess extends Component {
 
     render () {
         return (
-            <a href="mailto:santa@northpole.com" target="_blank" className="link">Request Access</a>
+            <a href="mailto:santa@northpole.com" target="_blank" className="link underline text-blue-500">Request Access</a>
         );
     };
 }

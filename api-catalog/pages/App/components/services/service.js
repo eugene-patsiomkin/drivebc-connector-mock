@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {serverHost} from "../../helpers/service";
 import Endpoints from "../endpoints"
 
-const linkStyle = "inline-block hover:text-blue-900 hover:bg-blue-50 rounded-xs";
+const linkStyle = "inline-block hover:text-blue-900 hover:bg-blue-50 rounded-xs underline text-blue-500";
 
 const highlightText = (text, highlight) => {
     const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
@@ -51,16 +51,18 @@ class ServiceInfo extends Component {
         }
 
         return (
-            <article className="rounded-md p-2 mt-4 from-blue-50 to-green-50 bg-gradient-to-r text-sm">
+            <article className="rounded-md px-4 pt-3 mt-4 from-blue-50 to-green-50 bg-gradient-to-r text-sm">
                 <header className="font-bold text-xl mb-3">{name}</header>
                 <main>
                     <section>
                         {description}
-                        <footer className="space-x-4 text-sm text-right">
+                        <p className="space-x-4 text-sm">
                             <a className={linkStyle} href={this.state.document_link} target="_blank">Documentation</a>
-                        </footer>
+                        </p>
                     </section>
-                    <Endpoints endpoint_root={this.state.service_name} />
+                    <div className="pl-2 pt-3 divide-y divide-opacity-40 divide-green-200 grid grid-cols-1">
+                        <Endpoints endpoint_root={this.state.service_name} />
+                    </div>
                 </main>
             </article>
         );

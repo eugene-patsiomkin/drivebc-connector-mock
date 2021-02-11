@@ -41,10 +41,9 @@ class EndpointInfo extends Component {
         }
 
         return (
-            <section>
-                <header className="font-bold text-2xl mb-3">{this.state.endpoints ? "Endpoints" : "Loading endpoints..."}</header>
-                {endpoints.length == 0 ? <span className="font-bold text-xs ml-3">Not found</span> : endpoints}
-            </section>
+            <>
+                {endpoints.length == 0 ? <div className="font-bold text-xs ml-3">Not found</div> : endpoints}
+            </>
         );
     }
 }

@@ -40,8 +40,8 @@ class Home extends Component {
         services.filter(svc => svc != "");
 
         return (
-            <div className="container mx-auto px-4">
-                <div className="col-span-3">
+            <div className="container mx-auto">
+                <div>
                     <h1 className="text-4xl font-bold my-3">API catalog</h1>
                     <input type="search" name="search" placeholder="Search" className={searchStyle} onChange={e => this.filterServiceList(e.target.value)}></input>
                     {services}
