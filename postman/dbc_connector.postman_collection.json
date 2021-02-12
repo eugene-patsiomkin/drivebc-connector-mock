@@ -1639,7 +1639,7 @@
 											"urlencoded": [
 												{
 													"key": "paths[]",
-													"value": "/api/events.v2/",
+													"value": "/api/events.v2.full/",
 													"type": "text"
 												},
 												{
@@ -1695,6 +1695,88 @@
 												"services",
 												"moti.events.api.discover",
 												"routes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "step 6 - add-service-plugin key-auth",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "name",
+													"value": "key-auth",
+													"type": "text"
+												},
+												{
+													"key": "tags",
+													"value": "events",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:8001/routes/event.v2.read.endpoint/plugins",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8001",
+											"path": [
+												"routes",
+												"event.v2.read.endpoint",
+												"plugins"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "step 7 - add-service-plugin ACL",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "name",
+													"value": "acl",
+													"type": "text"
+												},
+												{
+													"key": "config.allow",
+													"value": "read-event",
+													"type": "text"
+												},
+												{
+													"key": "config.hide_groups_header",
+													"value": "true",
+													"type": "text"
+												},
+												{
+													"key": "tags",
+													"value": "events",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:8001/routes/event.v2.read.endpoint/plugins",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8001",
+											"path": [
+												"routes",
+												"event.v2.read.endpoint",
+												"plugins"
 											]
 										}
 									},
@@ -2002,178 +2084,90 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "step 6 - add-service-plugin key-auth",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "name",
+													"value": "key-auth",
+													"type": "text"
+												},
+												{
+													"key": "tags",
+													"value": "images",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:8001/routes/images.v2.read.endpoint/plugins",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8001",
+											"path": [
+												"routes",
+												"images.v2.read.endpoint",
+												"plugins"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "step 7 - add-service-plugin ACL",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "name",
+													"value": "acl",
+													"type": "text"
+												},
+												{
+													"key": "config.allow",
+													"value": "read-images",
+													"type": "text"
+												},
+												{
+													"key": "config.hide_groups_header",
+													"value": "true",
+													"type": "text"
+												},
+												{
+													"key": "tags",
+													"value": "images",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:8001/routes/images.v2.read.endpoint/plugins",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8001",
+											"path": [
+												"routes",
+												"images.v2.read.endpoint",
+												"plugins"
+											]
+										}
+									},
+									"response": []
 								}
 							]
-						},
-						{
-							"name": "step 2 - create-route-docs",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "paths[]",
-											"value": "/api/events/v2/docs",
-											"type": "text"
-										},
-										{
-											"key": "name",
-											"value": "event.v2.docs",
-											"type": "text"
-										},
-										{
-											"key": "tags",
-											"value": "type~documentation",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://localhost:8001/services/moti.events.api.discover/routes",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8001",
-									"path": [
-										"services",
-										"moti.events.api.discover",
-										"routes"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "step 2.5 - create-doc-route",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "paths[]",
-											"value": "/api/events/v1/docs",
-											"type": "text"
-										},
-										{
-											"key": "name",
-											"value": "events-v1-docs",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://localhost:8001/services/moti.events.docs/routes",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8001",
-									"path": [
-										"services",
-										"moti.events.docs",
-										"routes"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "step 3 - add-service-plugin",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "name",
-											"value": "key-auth",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://localhost:8001/services/moti.events.api/plugins/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8001",
-									"path": [
-										"services",
-										"moti.events.api",
-										"plugins",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "step 4 - add-consumer",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "username",
-											"value": "drivebc",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://localhost:8001/consumers",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8001",
-									"path": [
-										"consumers"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "step 5 - add-key",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "key",
-											"value": "drivebc-api-key",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://localhost:8001/consumers/drivebc/key-auth/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8001",
-									"path": [
-										"consumers",
-										"drivebc",
-										"key-auth",
-										""
-									]
-								}
-							},
-							"response": []
 						}
 					]
 				}
