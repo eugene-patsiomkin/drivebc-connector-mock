@@ -30,7 +30,6 @@ class Home extends Component {
             }
 
             if (!renderIt) return "";
-
             return (
                 <Service key={key} {... val} filter={filter}/>
             )
@@ -38,7 +37,6 @@ class Home extends Component {
 
 
         services.filter(svc => svc != "");
-
         return (
             <div className="container mx-auto">
                 <header className="border-b-2 pb-4 border-blue-100 px-3">

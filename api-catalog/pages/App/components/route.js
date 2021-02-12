@@ -52,7 +52,7 @@ class RouteInfo extends Component {
                 ));
 
                 return (
-                    <div key={idx} className="p-3 space-y-2  rounded-md from-blue-50 to-green-50 bg-gradient-to-b bg-opacity-10 ">
+                    <div key={idx} className="p-3 space-y-2 rounded-md from-blue-50 to-green-50 bg-gradient-to-b bg-opacity-10 ">
                         <header className="text-xl font-bold">
                             {route.name}
                             <small className="ml-2 font-light">{route.type}</small>
@@ -68,7 +68,7 @@ class RouteInfo extends Component {
                         <section>
                             {
                                 route.type.toLowerCase() == "cert" ?
-                                    <RequestAccess /> : <AccessKey />
+                                    <RequestAccess route_id={route.name} /> : <AccessKey route_id={route.name} />
                             }
                         </section>
                     </div>

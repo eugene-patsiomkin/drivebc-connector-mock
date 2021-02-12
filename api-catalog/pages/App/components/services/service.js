@@ -51,7 +51,7 @@ class ServiceInfo extends Component {
         }
 
         return (
-            <article className="mt-4">
+            <section className="mt-4">
                 <header className="font text-3xl mb-3">{name}</header>
                 <main>
                     <section>
@@ -64,7 +64,7 @@ class ServiceInfo extends Component {
                         <Endpoints endpoint_root={this.state.service_name} />
                     </div>
                 </main>
-            </article>
+            </section>
         );
     }
 }
