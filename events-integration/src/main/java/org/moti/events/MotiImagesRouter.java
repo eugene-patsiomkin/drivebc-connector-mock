@@ -20,26 +20,26 @@ public class MotiImagesRouter extends RouteBuilder {
         onException(HttpOperationFailedException.class)
                 .log(LoggingLevel.INFO, "Error sending camera info to images app");
 
-        from("timer:getImages?period={{timer.period}}").routeId("Get Images")
-            .to("https://images.drivebc.ca/webcam/api/v1/webcams?pp")
-            .log(LoggingLevel.INFO, "Getting camera list from images.drivebc.ca")
-            .convertBodyTo(String.class).unmarshal(dbcWebcam)
-            .bean("DriveBCWebcamsToCameras", "toMotiCamerasJson")
-                .end()
-            .split(body())
-                .to("direct:PostImages")
-                .end()
-            .log(LoggingLevel.INFO, "All cameras submitted.");
-
-        from("direct:PostImages").routeId("Post images")
-            .setHeader("CamelHttpMethod", constant("POST"))
-            .setHeader("Content-Type", constant("application/json"))
-            .setHeader("Accept", constant("application/json"))
-            .setHeader("Connection", constant("keep-alive"))
-            .setHeader("Accept-Encoding", constant("gzip, deflate, br"))
-            .marshal().json()
-//            .to("http://localhost:7763/cameras/");
-           . to("http://moti-images:8080/cameras")
-            .log(LoggingLevel.INFO, "Camera info submitted");
+//        from("timer:getImages?period={{timer.period}}").routeId("Get Images")
+//            .to("https://images.drivebc.ca/webcam/api/v1/webcams?pp")
+//            .log(LoggingLevel.INFO, "Getting camera list from images.drivebc.ca")
+//            .convertBodyTo(String.class).unmarshal(dbcWebcam)
+//            .bean("DriveBCWebcamsToCameras", "toMotiCamerasJson")
+//                .end()
+//            .split(body())
+//                .to("direct:PostImages")
+//                .end()
+//            .log(LoggingLevel.INFO, "All cameras submitted.");
+//
+//        from("direct:PostImages").routeId("Post images")
+//            .setHeader("CamelHttpMethod", constant("POST"))
+//            .setHeader("Content-Type", constant("application/json"))
+//            .setHeader("Accept", constant("application/json"))
+//            .setHeader("Connection", constant("keep-alive"))
+//            .setHeader("Accept-Encoding", constant("gzip, deflate, br"))
+//            .marshal().json()
+////            .to("http://localhost:7763/cameras/");
+//           . to("http://moti-images:8080/cameras")
+//            .log(LoggingLevel.INFO, "Camera info submitted");
     }
 }
