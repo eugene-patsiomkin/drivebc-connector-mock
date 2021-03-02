@@ -2168,6 +2168,35 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "add-consumer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "drivebc",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8001/consumers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"consumers"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
@@ -3704,6 +3733,343 @@
 								"camera",
 								"455",
 								"current"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CMS content setup",
+			"item": [
+				{
+					"name": "Start admin session",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "bitnami123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@example.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user@example.com\",\r\n    \"password\": \"bitnami123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ghost/api/v3/admin/session",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ghost",
+								"api",
+								"v3",
+								"admin",
+								"session"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create commercial image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"cImageUrl\", jsonData.images[0].url);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"contentType": "image/png",
+									"type": "file",
+									"src": "winter_tire_chain_cvse_demo.png"
+								},
+								{
+									"key": "ref",
+									"value": "comm.png",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ghost/api/v3/admin/images/upload/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ghost",
+								"api",
+								"v3",
+								"admin",
+								"images",
+								"upload",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create commercial post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"cImageUrl\", jsonData.images[0].url);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"posts\": [{\r\n            \"title\": \"Commercial Vehicle Tire and Chain Requirements\",\r\n            \"slug\": \"commercial-drive\",\r\n            \"mobiledoc\": \"{\\\"version\\\":\\\"0.3.1\\\",\\\"atoms\\\":[],\\\"cards\\\":[[\\\"image\\\",{\\\"src\\\":\\\"{{cImageUrl}}\\\",\\\"width\\\":449,\\\"height\\\":265}]],\\\"markups\\\":[],\\\"sections\\\":[[10,0],[1,\\\"p\\\",[[0,[],0,\\\"Commercial drivers who travel outside the Greater Vancouver and Greater Victoria areas in the winter are required to carry chains, or other acceptable traction devices, and comply with all signage and regulations. Good practice is to keep chains on board at all times, and know how to install them.\\\"]]],[1,\\\"p\\\",[]]]}\",\r\n            \"status\":\"published\"\r\n    }]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ghost/api/v3/admin/posts/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ghost",
+								"api",
+								"v3",
+								"admin",
+								"posts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create driver image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"dImageUrl\", jsonData.images[0].url);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"contentType": "image/jpeg",
+									"type": "file",
+									"src": "shift-into-winter.jpg"
+								},
+								{
+									"key": "ref",
+									"value": "driver.jpg\n",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ghost/api/v3/admin/images/upload/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ghost",
+								"api",
+								"v3",
+								"admin",
+								"images",
+								"upload",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create driver post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"cImageUrl\", jsonData.images[0].url);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"posts\": [{\r\n            \"title\": \"Shift Into Winter\",\r\n            \"slug\": \"daily-commuter\",\r\n            \"mobiledoc\": \"{\\\"version\\\":\\\"0.3.1\\\",\\\"atoms\\\":[],\\\"cards\\\":[[\\\"image\\\",{\\\"src\\\":\\\"{{dImageUrl}}\\\",\\\"width\\\":222,\\\"height\\\":62,\\\"cardWidth\\\":\\\"\\\"}]],\\\"markups\\\":[],\\\"sections\\\":[[10,0],[1,\\\"p\\\",[[0,[],0,\\\"Every autumn, British Columbia highway conditions start to experience a chilling transition, which usually lasts until at least February. To combat the higher risks of driving through snow, ice, and sub-zero temperatures, we encourage travellers to make the Shift into Winter.\\\"]]]]}\",\r\n            \"status\":\"published\"\r\n    }]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ghost/api/v3/admin/posts/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ghost",
+								"api",
+								"v3",
+								"admin",
+								"posts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create custom integration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"cImageUrl\", jsonData.images[0].url);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"integrations\": [{\r\n            \"type\": \"custom\",\r\n            \"name\": \"auto_integration\",\r\n            \"slug\": \"auto_integration\"\r\n    }]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ghost/api/v3/admin/integrations?include=api_keys",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ghost",
+								"api",
+								"v3",
+								"admin",
+								"integrations"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "api_keys"
+								}
 							]
 						}
 					},

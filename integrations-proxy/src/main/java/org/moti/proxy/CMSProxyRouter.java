@@ -32,7 +32,7 @@ public class CMSProxyRouter extends RouteBuilder {
                 .endRest();
 
         from("seda:GetCommuterMainMessage")
-            .setHeader(Exchange.HTTP_QUERY, constant("key=7c06d112f7453ec8871b62179a"))
+            .setHeader(Exchange.HTTP_QUERY, simple("key=${headers.user_content_key}"))
             .to("http://ghost:2368/ghost/api/v3/content/posts/slug/daily-commuter/?bridgeEndpoint=true&connectionClose=true&copyHeaders=true")
             .convertBodyTo(String.class)
         .end();
@@ -46,7 +46,7 @@ public class CMSProxyRouter extends RouteBuilder {
                 .endRest();
 
         from("seda:GetCommercialMainMessage")
-            .setHeader(Exchange.HTTP_QUERY, constant("key=7c06d112f7453ec8871b62179a"))
+            .setHeader(Exchange.HTTP_QUERY, simple("key=${headers.user_content_key}"))
             .to("http://ghost:2368/ghost/api/v3/content/posts/slug/commercial-drive/?bridgeEndpoint=true&connectionClose=true&copyHeaders=true")
             .convertBodyTo(String.class)
         .end();
