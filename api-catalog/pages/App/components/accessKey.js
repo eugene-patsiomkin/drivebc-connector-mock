@@ -15,7 +15,8 @@ class AccessKey extends Component {
             method: "POST",
             body: JSON.stringify({
                 customer_id: this.state.customer_id,
-                route_id: this.state.route_id
+                route_id: this.state.route_id,
+                key_duration: this.state.key_duration
             }),
             headers: {
                 "content-type": "application/json"
@@ -40,10 +41,24 @@ class AccessKey extends Component {
         })
     }
 
+    setKeyDuration(txt) {
+        this.setState( state => {
+            return {... state, key_duration: txt}
+        })
+    }
+
     render () {
         return (
             <section>
                 <header className="font-bold mb-1">Get your API key</header>
+                <select className={getKeyStyle} name="key_duration" onChange={e=>this.setKeyDuration(e.target.value)}>
+                    <option value="86400">One Day</option>
+                    <option value="259200">Tree Days</option>
+                    <option value="432000">Five Days</option>
+                    <option value="432000">Five Days</option>
+                    <option value="604800">One Week</option>
+                    <option value="2678400">One Month</option>
+                </select>
                 <input className={getKeyStyle} type="text" name="customer_id" placeholder="Customer ID" onChange={e=>this.setCustomerId(e.target.value)}/>
                 <button className={getKeyBtnStyle} onClick={e=>this.getAPIKey()}>Get key</button>
                 <span className="ml-4">{this.state.status || ""}</span>

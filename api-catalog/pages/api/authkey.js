@@ -4,8 +4,13 @@ const getAclGroup = (tags) => {
         throw new Error('No acl info attached to a route.');
     }
 
+    let groupTags = tags.filter(t => t.includes("group~authkey")); 
+    if (groupTags.length < 1) {
+        throw new Error('Rote is unaccessible through authkey.');
+    }
+    
     let aclTags = tags.filter(t => t.includes("acl~"));
-    if (aclTags.length < 0) {
+    if (aclTags.length < 1) {
         throw new Error('No acl info attached to a route.');
     }
 
@@ -28,8 +33,16 @@ const routeExists = async routeId => {
 
 const authKey = {
     post: async (req, res) => {
+        const SECONDS_IN_DAY = 86400;
+        const DAYS_IN_MONTH = 31;
         const customerId = req.body.customer_id;
         const routeId = req.body.route_id;
+        let duration  = parseInt(req.body.key_duration || SECONDS_IN_DAY, 10);
+        if (duration > DAYS_IN_MONTH * SECONDS_IN_DAY) {
+            duration = SECONDS_IN_DAY;
+        } 
+
+        console.log(`Duration:${duration}`)
 
         await Promise.all([
             userExists(customerId),
@@ -48,16 +61,24 @@ const authKey = {
             }
         });
 
-        const rk = await fetch(`${kongAdminHost}/consumers/${customerId}/key-auth`);
-        let dk = await rk.json();
-
-        if (!dk || !dk.data || dk.data.length < 1) {
+        // const rk = await fetch(`${kongAdminHost}/consumers/${customerId}/key-auth`);
+        // let dk = await rk.json();
+        let dk = {};
+        // if (!dk || !dk.data || dk.data.length < 1) {
             const authKeyCreate = await fetch(`${kongAdminHost}/consumers/${customerId}/key-auth`, {
                 method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ttl: duration
+                    , tags:["one_week_key", "auto_generated_key"]
+                })
             });
 
-            dk = {data:[await authKeyCreate.json()]}
-        }
+            let newKey = await authKeyCreate.text();
+            dk = {data:[JSON.parse(newKey)]}
+        // }
 
         return dk.data[0].key;
     }

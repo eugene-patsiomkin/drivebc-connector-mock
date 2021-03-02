@@ -1,6 +1,5 @@
 import React, {Component} from "react"
 import Service from './components/services/service'
-import Modal from './components/modal'
 
 const searchStyle = "border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none";
 
@@ -44,7 +43,6 @@ class Home extends Component {
                     <input type="search" name="search" placeholder="Search" className={searchStyle} onChange={e => this.filterServiceList(e.target.value)}></input>
                 </header>
                 {services}
-                <Modal />
             </div>
         );
     }
