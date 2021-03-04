@@ -4149,6 +4149,35 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Create webhook for events wrapper",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\"localhost:1234\"",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8877/integration/webhooks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8877",
+					"path": [
+						"integration",
+						"webhooks"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
