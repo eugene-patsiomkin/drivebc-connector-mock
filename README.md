@@ -2,11 +2,26 @@
 
 ## Usage
 
-### Start docker
+### Getting source
+
 
 ```shell
 git checkout https://github.com/eugene-patsiomkin/drivebc-connector-mock.git
 cd drivebc-connector-mock
+```
+
+### Building Camel integrations
+
+Have your Java environment setup (JAVA_HOME)
+Run:
+
+```shell
+builds_integrations.ps1
+```
+
+### Start docker
+
+```shell
 .\run-containers.ps1 -CMD up
 ```
 
@@ -27,6 +42,7 @@ Other flags available
  -content - to start cms
  -integration - to start camel integrations
  -metrics - to start beats (metrics beat, file beat, heart beat)
+ -ui - to start php ui
 
 ### Kong configuration
 
