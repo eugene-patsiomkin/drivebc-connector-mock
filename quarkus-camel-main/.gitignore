@@ -37,5 +37,4 @@ nb-configuration.xml
 
 # Local environment
 .env
-
-.mvn
+.data

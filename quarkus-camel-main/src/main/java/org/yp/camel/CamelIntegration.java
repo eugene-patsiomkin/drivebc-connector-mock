@@ -27,7 +27,7 @@ public class CamelIntegration extends RouteBuilder {
             .setHeader("ProvinceToGet", constant("BC"))
             .process(new XmlParser())
             .split(body()).stopOnException().parallelProcessing()
-                .to("seda:processCity?concurrentConsumers=2")
+                .to("seda:processCity?concurrentConsumers=5")
                 // .choice()
                 //     .when(simple("${header.CamelSplitIndex} > 10"))
                 //         .throwException(new Exception("Enough"))
@@ -53,8 +53,8 @@ public class CamelIntegration extends RouteBuilder {
 
         from("direct:getCityList").routeId("Get city list")
             .setHeader(CaffeineConstants.ACTION, constant(CaffeineConstants.ACTION_GET))
-            .setHeader(CaffeineConstants.KEY, simple("${header.CITY_LIST_CACHE_KEY}"))        
-            .toD("caffeine-cache://${header.CITY_LIST_CACHE}")
+            .setHeader(CaffeineConstants.KEY, simple("${header.CITY_LIST_CACHE_KEY}"))
+            .toD("caffeine-cache://${header.CITY_LIST_CACHE}?expireAfterAccessTime=86400")
             .choice()
                 .when(not(GotResult))
                     .log(LoggingLevel.INFO, "Retrieving city list from Weather Canada")
@@ -76,7 +76,7 @@ public class CamelIntegration extends RouteBuilder {
     .end();
 
     from("direct:getBcCityInfo").routeId("Getting weather info for bc city")
-        .throttle(1).timePeriodMillis(1000)
+        .throttle(10).timePeriodMillis(1000)
         .setHeader(Exchange.HTTP_METHOD, constant("GET"))
         .toD("https://dd.weather.gc.ca/citypage_weather/xml/${header.CityProvinceCode}/${header.CityCode}_e.xml")
         .convertBodyTo(String.class)
@@ -102,7 +102,7 @@ public class CamelIntegration extends RouteBuilder {
     from("seda:checkCache").routeId("Check city weather cache").setBody(simple(""))
         .setHeader(CaffeineConstants.ACTION, constant(CaffeineConstants.ACTION_GET))
         .setHeader(CaffeineConstants.KEY, simple("${header.CITY_CACHE_KEY_PREFIX}${header.CheckSum}"))
-        .toD("caffeine-cache://${header.CITY_CACHE}")
+        .toD("caffeine-cache://${header.CITY_CACHE}?expireAfterAccessTime=86400")
         .setHeader("FileExists", simple("${header.CamelCaffeineActionHasResult} == true && ${header.CheckSum} == ${body}", boolean.class))
         .setHeader(CaffeineConstants.ACTION, constant(CaffeineConstants.ACTION_PUT))
         .setHeader(CaffeineConstants.VALUE, simple("${header[CheckSum]}"))
