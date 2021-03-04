@@ -45,13 +45,13 @@ services:
       - MOTI_ZIPKIN_HOST=zipkin
   integrations-proxy:
     container_name: integration-moti-proxy-camel
-    image: moti/integration-proxy-camel:v1
-    build: ./integrations-proxy
+    image: 'moti.bc.ca/events-wrapper-with-push'
     networks: 
       - kong-net
     ports:
       - 8877:8877
     depends_on:
+      - kong
       - moti-events
       - moti-events-push      
   moti-images:

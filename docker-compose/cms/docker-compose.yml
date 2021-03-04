@@ -29,7 +29,16 @@ services:
     depends_on:
       - mariadb
     networks:
-      - kong-net      
+      - kong-net
+  integration-proxy:
+    image: 'moti.bc.ca/internal-cms-proxy'
+    container_name: moti.bc.ca-cms.integration.proxy
+    ports:
+      - 9877:8877
+    depends_on:
+      - ghost      
+    environment:
+      - GHOST_SERVER_HOST=ghost:2368
 volumes:
   mariadb_data:
     driver: local
