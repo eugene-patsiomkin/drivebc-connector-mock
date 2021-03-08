@@ -36,9 +36,11 @@ services:
     ports:
       - 9877:8877
     depends_on:
-      - ghost      
+      - ghost
     environment:
       - GHOST_SERVER_HOST=ghost:2368
+    networks:
+      - kong-net
 volumes:
   mariadb_data:
     driver: local
