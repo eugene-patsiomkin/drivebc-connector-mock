@@ -4,7 +4,7 @@ images_db = db.getSiblingDB('images-db');
 images_db.cameras.insertMany([{
     "_id": "demo-camera-455",
     "name": "Hagensborg",
-    "caption": "Hwy 20, between Bella Coola and Hagensborg, looking west.",
+    "caption": "Hwy 3, between Bella Coola and Hagensborg, looking west.",
     "orientation": "W",
     "altitude": 42,
     "isOn": true,
@@ -39,7 +39,28 @@ images_db.cameras.insertMany([{
     "created_on": "2020-12-18T19:15:51.680Z",
     "updated_on": "2020-12-18T19:15:51.680Z",
     "__v": 0
-}]);
+}, {
+    "_id": "demo-camera-7",
+    "name": "Some camera",
+    "caption": "Hwy 3, Cool camera.",
+    "orientation": "E",
+    "altitude": 171,
+    "isOn": true,
+    "camera_id": 7,
+    "geometry": {
+        "type": "Point",
+        "coordinates": [
+            -121.1113827,
+            49.230523,
+            171
+        ]
+    },
+    "created_on": "2020-12-18T19:15:51.680Z",
+    "updated_on": "2020-12-18T19:15:51.680Z",
+    "__v": 0
+}
+]);
+
 delete images_db;
 
 // Geofences

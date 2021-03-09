@@ -11,6 +11,7 @@ public class WebHooksList {
 
     public WebHooksList() {
         this.webHooks = new HashMap<String, String>();
+        this.addUrl("moti-events-push:8080/event");
     }
 
     public String getKey(String value) {

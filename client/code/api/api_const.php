@@ -6,3 +6,8 @@ define('GEOFENCE_URL', 'http://kong:8000/api/events/v1/geofence/');
 define('GEOFENCE_CAMERAS_URL', 'http://kong:8000/api/images/v1/cameras?geofence=');
 define('CAMERA_INFO_URL', 'http://kong:8000/api/images/v1/cameras/');
 define('EVENTS_URL', 'http://kong:8000/api/events/v1/events/');
+define('ADVISORY_URL', 'http://integration-proxy:8877/integration/content/');
+
+
+define('PROFILE_COMMUTER', 1);
+define('PROFILE_COMMERCIAL', 2);

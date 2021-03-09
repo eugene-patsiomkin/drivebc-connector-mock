@@ -1,0 +1,25 @@
+{
+  "bid": "evt-4",
+  "schedule": [
+    {
+      "start": "2000-11-11 01:01:01",
+      "end": "2018-12-11 01:01:01"
+    }
+  ],
+  "type": {
+    "tags": [ "ROAD_CLOSURE", "SOMETHING_SOMETHING" ],
+    "severity": "MINOR",
+    "planned": true,
+    "active": true
+  },
+  "geometry": {
+    "type": "Point",
+    "coordinates": [ 5.5, 5.5 ]
+  },
+  "info": {
+    "headline": "INCIDENT 4",
+    "description": "Highway 4, in both directions. There is a Provincial State of Emergency at Hwy 99 Border Crossing. Avoid non-essential traffic. Expect delays. Additional screening and checkpoints are in place. Travellers bound for Alaska must go through screening at one of 3 border crossings: Abbotsford-Huntington, Kingsgate, or Osoyoos. For more information visit GOV.BC.CA/COVID-19. Last updated Fri Nov 27 at 3:08 PM PST. (DBC-16728)",
+    "related_events": null,
+    "related_urls": null
+  }
+}

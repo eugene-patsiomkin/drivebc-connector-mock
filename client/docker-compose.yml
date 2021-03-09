@@ -2,20 +2,19 @@ version: '3.7'
 
 services:
   dbc_client:
+    hostname: dbc_client
     image: nginx:latest
-    ports: 
+    ports:
       - "8011:80"
-    volumes: 
+    volumes:
       - ./client/code:/code
       - ./client/config/site.conf:/etc/nginx/conf.d/default.conf
-    links: 
-      - php
-    networks: 
-      - kong-net  
+    networks:
+      - kong-net
 
   php:
     image: php:fpm-alpine
-    volumes: 
+    volumes:
       - ./client/code:/code
-    networks: 
+    networks:
       - kong-net

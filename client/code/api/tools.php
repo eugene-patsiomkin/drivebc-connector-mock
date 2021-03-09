@@ -3,6 +3,9 @@ require('api_const.php');
 
 function call_API_byID($url,$headers)
 {
+    $stdout = fopen('php://stdout', 'w');
+    fwrite($stdout, $url . PHP_EOL);
+    
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_PROXY, '');
@@ -26,10 +29,15 @@ function call_API_byID($url,$headers)
         $ret->error=true;
         $ret->error_msg =  curl_error($curl);
     }    
+
+    fwrite($stdout, ">>>>>>>>>>>>>>>>>>>>>>" . print_r(curl_getinfo($curl,CURLINFO_CONTENT_LENGTH_DOWNLOAD), true) . PHP_EOL);
+
+
     $ret->len_data = curl_getinfo($curl,CURLINFO_CONTENT_LENGTH_DOWNLOAD);
     $ret->type_data = curl_getinfo($curl,CURLINFO_CONTENT_TYPE);
 
     curl_close($curl);
+    fclose($stdout);
 
     return $ret;
 }
@@ -88,6 +96,24 @@ function get_geofenca_by_id($id) // $id - geofence id
     $headers = array("apikey: drivebc-api-key");
 
     return call_API_byID(GEOFENCE_URL.$id,$headers);
+}
+
+function get_advisory_by_type($type) // $id - geofence id
+{
+    $headers = array("apikey: drivebc-api-key");
+    switch($type)
+    {
+        case PROFILE_COMMUTER:
+            $id = 'commuter/main?key=6c993674680092a5fe1056182d';
+            break;
+        case PROFILE_COMMERCIAL:
+            $id = 'commercial/main?key=6c993674680092a5fe1056182d';
+            break;
+        default:
+            return [];
+    }
+
+    return call_API_byID(ADVISORY_URL.$id,$headers);
 }
 
 ?>

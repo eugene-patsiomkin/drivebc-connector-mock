@@ -5,8 +5,9 @@ var my_data = null;
 var progress_bar_indicator = 0;
 var max_progress_bar_indicator = 0;
 let map;
+var evtSource = null;
 const eventUrl = "https://api.open511.gov.bc.ca/events?format=json";
-const cameraUrl = "http://localhost:8080/api/get_camera_image.php?id=";
+const cameraUrl = "api/get_camera_image.php?id=";
 
 function ShowPanel()
 {
@@ -94,6 +95,37 @@ function GetDate(d)
     return date.toString();
 }
 
+function ShowPushEvent(d)
+{
+   if (d.geometry.type == "Point") {
+        var p = new google.maps.LatLng(d.geometry.coordinates[1], d.geometry.coordinates[0]);
+        const contentString ='<div style="width: 450px;">'+
+                                '<p>'+d.type.severity.charAt(0)+d.type.severity.slice(1).toLowerCase()+' Event</p>'+
+                                '<p>Active: '+((d.type.active) ? "Yes" : "No")+'</p>'+
+                                '<p>Planned: '+((d.type.planned) ? "Yes" : "No")+'</p>'+
+                                '<p>Event ID: ' + d.bid + '</p>'+
+                                '<p>Headline: ' + d.info.headline + '</p>'+
+                                '<p>Start Time: ' + GetDate(d.schedule[0].start) + '</p>'+
+                                '<p>End Time: ' + GetDate(d.schedule[0].end) + '</p>'+
+                                '<p>Description: ' + d.info.description + '</p>'+
+                            '</div>';
+                            //name.charAt(0).toUpperCase() + name.slice(1)
+        const infowindow = new google.maps.InfoWindow({
+            content: contentString,
+          });
+        var marker = new google.maps.Marker({
+            position: p,
+            title: d.info.description,
+            icon: ((d.type.severity == 'MAJOR') ? "../images/Incident_major.png" : "../images/incident.png")
+        });
+        marker.setMap(map);        
+        marker.addListener("mouseover", () => {
+            infowindow.open(map, marker);
+        });
+        infowindow.open(map, marker);
+    }
+}
+
 function ShowEvents(d,n)
 {
     if (d.geometry.type == "Point") {
@@ -177,12 +209,22 @@ function ShowGeofence(d)
     }
 }
 
+function ShowAdvisory()
+{
+    if(typeof my_data.advisory != "undefined")
+    {
+        var adv = $('#advisories');
+        adv.html(my_data.advisory.html);
+        adv.append('<a target="_blank" href="' + my_data.advisory.url + '">Continue reading</a>');
+    }
+}
+
 function ShowProfile()
 {
     var r_index = 0;
     if(typeof my_data.favorites.routes != "undefined")
     {
-        max_progress_bar_indicator=0;
+        max_progress_bar_indicator=1;
         if(my_data.favorites.routes.length > 0)
         {
             max_progress_bar_indicator+=3
@@ -224,9 +266,11 @@ function ShowProfile()
 
 function LoadProfile()
 {
-    $.getJSON("http://localhost:8080/api/get_profile.php", function (data, status) {
+    $.getJSON("api/get_profile.php", function (data, status) {
         my_data = data;
+        ShowAdvisory();
         ShowProfile();
+        InitPushNotification();
     });
 }
 
@@ -305,6 +349,37 @@ function GetEventsOptions()
     //incident
 }
 
+function InitPushNotification()
+{
+    evtSource = new EventSource('/api/getNotification.php');
+    evtSource.onopen = function() {
+        console.log("Connection to server opened.");
+    };
+
+    evtSource.addEventListener("open", function(e) {
+        console.log("Connection to server opened.");
+    })
+    evtSource.addEventListener("error", function(e) {
+        console.log("Server error");
+    })
+
+    evtSource.onmessage = function(e) {
+        ShowPushEvent(JSON.parse(e.data));
+    };
+
+    evtSource.onerror = function() {
+        console.log("EventSource failed.");
+    };
+
+    $(window).bind('beforeunload',function(){
+        if(evtSource !== null)
+        {
+            evtSource.close();
+        }
+    });
+
+}
+
 $(document).ready(function () {
     $('#incident').change(function () {
         GetEventsOptions();
@@ -314,6 +389,22 @@ $(document).ready(function () {
     })
     $('#construction').change(function () {
         GetEventsOptions();
+    })
+    $('#sw_profile').click(function () {
+        var type = 1;
+        if(this.innerHTML=='Switch to commercial profile')
+        {
+            this.innerHTML='Switch to commuter profile';
+            type = 2;
+        }
+        else
+        {
+            this.innerHTML='Switch to commercial profile';
+        }
+        $.getJSON("api/get_profile.php?type="+type, function (data, status) {
+            my_data = data;
+            ShowAdvisory();
+        });
     })
     //getEvents();
 });

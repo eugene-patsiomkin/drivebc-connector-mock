@@ -1,7 +1,7 @@
 <?php
     require('tools.php');
 
-    $d = get_event_by_id("demo-event-2");
+    $d = get_advisory_by_type(PROFILE_COMMUTER);
 
     var_dump($d);
 ?>

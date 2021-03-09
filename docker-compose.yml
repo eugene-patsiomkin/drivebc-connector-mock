@@ -10,12 +10,12 @@ networks:
 
 services:
   # API image
-  api:
-    container_name: sample_api_app
-    image: moti/sample-api-nodejs:v1
-    build: ./api
-    networks: 
-      - kong-net
+  # api:
+  #   container_name: sample_api_app
+  #   image: moti/sample-api-nodejs:v1
+  #   build: ./api
+  #   networks: 
+  #     - kong-net
   moti-events:
     container_name: event_api_app
     image: moti/events-api-nodejs:v1
@@ -211,50 +211,50 @@ services:
     volumes:
       - kong_data:/var/lib/postgresql/data
 
-  storage:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
-    container_name: elasticsearch
-    environment:
-      - discovery.type=single-node
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1    
-    networks: 
-      - kong-net    
+  # storage:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+  #   container_name: elasticsearch
+  #   environment:
+  #     - discovery.type=single-node
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1    
+  #   networks: 
+  #     - kong-net    
 
-    # Uncomment to expose the storage port for testing
-    ports:
-      - 9200:9200
+  #   # Uncomment to expose the storage port for testing
+  #   ports:
+  #     - 9200:9200
 
-  # Use Elasticsearch instead of in-memory storage
-  zipkin:
-    image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
-    container_name: zipkin
-    environment:
-      - STORAGE_TYPE=elasticsearch
-      # Point the zipkin at the storage backend
-      - ES_HOSTS=storage:9200
-      # Uncomment to see requests to and from elasticsearch
-      # - ES_HTTP_LOGGING=BODY
-    depends_on:
-      - storage
-    ports:
-      - 9411:9411
-    networks: 
-      - kong-net
+  # # Use Elasticsearch instead of in-memory storage
+  # zipkin:
+  #   image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
+  #   container_name: zipkin
+  #   environment:
+  #     - STORAGE_TYPE=elasticsearch
+  #     # Point the zipkin at the storage backend
+  #     - ES_HOSTS=storage:9200
+  #     # Uncomment to see requests to and from elasticsearch
+  #     # - ES_HTTP_LOGGING=BODY
+  #   depends_on:
+  #     - storage
+  #   ports:
+  #     - 9411:9411
+  #   networks: 
+  #     - kong-net
 
-  dependencies:
-    image: ghcr.io/openzipkin/zipkin-dependencies
-    container_name: dependencies
-    entrypoint: crond -f
-    environment:
-      - STORAGE_TYPE=elasticsearch
-      - ES_HOSTS=storage:9200
-    depends_on:
-      - storage
-    networks: 
-      - kong-net
+  # dependencies:
+  #   image: ghcr.io/openzipkin/zipkin-dependencies
+  #   container_name: dependencies
+  #   entrypoint: crond -f
+  #   environment:
+  #     - STORAGE_TYPE=elasticsearch
+  #     - ES_HOSTS=storage:9200
+  #   depends_on:
+  #     - storage
+  #   networks: 
+  #     - kong-net
 
 secrets:
   kong_postgres_password:

@@ -42,7 +42,6 @@ public class EventPushProxyRouter extends RouteBuilder {
                             , "seda:NotifyWebHooks"
                         )
                     .end()
-                    .unmarshal().json(JsonLibrary.Jackson)
             .endRest();
 
         from("seda:NotifyWebHooks")
@@ -50,19 +49,34 @@ public class EventPushProxyRouter extends RouteBuilder {
                 @Override
                 public void process(Exchange exchange) {
                     exchange.getIn().setHeader("webHookList", webHooks.getWebHooks().values());
+                    if (!exchange.getIn().getHeaders().containsKey("payloadBody")) {
+                        exchange.getIn().setHeader("payloadBody", exchange.getIn().getBody());
+                    }
                 }
             })
             .split(simple("${header.webHookList}")).parallelProcessing()
-                .toD("netty:tcp://${body}?disconnectOnNoReply =true")
+                .process(new Processor(){
+                    @Override
+                    public void process(Exchange exchange) {
+                        exchange.getIn().setHeader("url", exchange.getIn().getBody());
+                        exchange.getIn().setBody(exchange.getIn().getHeader("payloadBody"));
+                    }
+                })
+                .log(">>>>>>>>http://${headers.url}?bridgeEndpoint=true")
+                .setHeader("CamelHttpMethod", constant("POST"))
+                .setHeader("Content-Type", constant("application/json"))
+                .setHeader("Accept", constant("application/json"))
+                .marshal().json()
+                .toD("http://${headers.url}?bridgeEndpoint=true")
             .end()
         .end();
 
-        from("seda:PushEventNotification")
-            .setHeader("CamelHttpMethod", constant("POST"))
-            .setHeader("Content-Type", constant("application/json"))
-            .setHeader("Accept", constant("application/json"))
-            .marshal().json()
-            .to("http://moti-events-push:8080/event?bridgeEndpoint=true")
+        from("seda:PushEventNotification").log("not used anymore")
+            // .setHeader("CamelHttpMethod", constant("POST"))
+            // .setHeader("Content-Type", constant("application/json"))
+            // .setHeader("Accept", constant("application/json"))
+            // .marshal().json()
+            // // .to("http://moti-events-push:8080/event?bridgeEndpoint=true")
         .end();
 
         from("seda:CreateEvent")
