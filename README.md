@@ -4,11 +4,30 @@
 
 ### Getting source
 
-
 ```shell
 git checkout https://github.com/eugene-patsiomkin/drivebc-connector-mock.git
 cd drivebc-connector-mock
 ```
+
+### Folder structure
+
+For more information on folder content check its Readme file.
+
+* ```./api``` Nodejs express simple API endpont. Part of first API gateway prototype. Can be ignored.
+* ```./api-catalog``` Nextjs application that works with Kong admin api to discover API endpoints and generate keys.
+* ```./camel-integrations/quarkus/*``` Camel integrations that used quarkus as a framework.
+* ```./client``` PHP frontend drive bc mock. To demonstrate Connector Platform integration possibilities.
+* ```./docker-compose``` Docker compose files to run example components individually. Also contains configuration files for Elastic beats (Filebeat, Heartbeat, Metricbeat)
+* ```./elastic``` Example configurations for elastic Kibana dashboards and index changes required for access to tag attributes of Zipkin.
+* ```./events-endpoint-api``` Event Consumer API prototype. For openapi spec is available in **openapi** folder. Used by the **client** application.
+* ```./events-integration``` Open511, Dit and Camera integrations. Camel + Springboot. Use only for camel route examples.
+* ```./geostore-endpoint-api``` - An endpoint to store geofences. Used by image and event endpoints.
+* ```./images-endpoint-api``` Images Consumer API prototype. For openapi spec is available in **openapi** folder. Used by the **client** application.
+* ```./metricbeat``` Configuration for a metric beat container.
+* ```./openapi``` Schema exmple for geojson. No API definition.
+* ```./postman``` Postman collection.
+* ```./profile-endpoint-api``` Profile Consumer API prototype. Simple application to validate json object with stored json schemas. For openapi spec is available in **openapi** folder. Used by the **client** application.
+* ```push_events``` Front end node js applications to deliver user events information through web sockets
 
 ### Building Camel integrations
 
